@@ -9,8 +9,30 @@
 <section class="content">
   <div class="row">
     <div class="col-xs-12 clearfix">
-      <div class="co-btn text-right" style="margin-bottom: 15px;">
-        <a href="{{ route('users.create') }}" class="btn btn-info">Create New</a>
+      <div class=" row form-group">
+        {{ Form::open(['route' => 'users-index', 'method' => 'post', 'class' => '', 'id' => 'form-search']) }}
+            <div class="col-md-3 mrgb">
+            {{ Form::text('search_key', request()->input('search_key'), ['id' => 'search_key', 'class' => 'form-control', 'placeholder' => 'Enter search key']) }}
+            </div>
+            <div class="col-md-2 mrgb">
+            {{ Form::select('status', ['1' => 'Active', '2' => 'Inactive'], request()->input('status'), ['placeholder' => 'Select status', 'id' => 'status', 'class' => 'form-control select2']) }}
+            </div>
+            <div class="col-md-1 col-xs-6 mrgb">
+            {{ Form::button('Search', ['type' => 'submit', 'class' => 'form-control btn btn-primary btn-block-xs', 'id' => 'submit-btn'] )  }}
+            </div>
+            <div class="col-md-1 col-xs-6 mrgb">
+            <a href="{{ route('users.index') }}" id="cancel-btn" class="form-control btn btn-warning btn-block-xs">Reset</a>
+            </div>
+        {{ Form::close() }}
+        <div class="col-md-2 col-xs-6 mrgb" >
+          {{ Form::open(['route' => ['users-delete'], 'method' => 'post', 'id' => 'multi_delete_form', 'class' => '']) }}
+          {{ Form::hidden('deletable_ids','', array('id'=>'deletable_ids')) }}
+          {{ Form::close() }} 
+          <a href="#" data-toggle="modal" data-target="#multi_delete" id="multi_delete_btn" class="form-control btn btn-danger">Multiple Delete</a> 
+        </div>
+        <div class="col-md-2 col-xs-6 mrgb" style="float:right;">
+          <a href="{{ route('users.create') }}" class="form-control btn btn-info">Create New</a>
+        </div>
       </div>
       @if (count($errors) > 0)
       <div class = "alert alert-danger" style="text-transform: uppercase;">
@@ -96,6 +118,11 @@
       </div>
     </div>
   </div>
+  <style type="text/css">
+    .mrgb{
+       margin-bottom: 5px;
+    }
+  </style>
   <script type="text/javascript">
     var allVals = [];
     jQuery(document).ready(function(){
