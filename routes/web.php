@@ -105,77 +105,24 @@ Route::prefix('admin')->group(function () {
                 'uses'     => 'SitesettingController@index',
             ));
 
-        Route::post('questions-delete',
-            array('as' => 'questions-delete',
-                'uses'     => 'QuestionController@multi_destroy',
-            ));
-
-        Route::get('questions-activate/{id}',
-            array('as' => 'questions-activate',
-                'uses'     => 'QuestionController@question_activate',
-            ));
-
-        Route::get('questions-deactivate/{id}',
-            array('as' => 'questions-deactivate',
-                'uses'     => 'QuestionController@question_deactivate',
-            ));
-
-        Route::get('approved-question',
-            array('as' => 'approved-question',
-                'uses'     => 'QuestionController@approved_question',
-            ));
-
-        Route::get('rejected-question',
-            array('as' => 'rejected-question',
-                'uses'     => 'QuestionController@rejected_question',
-            ));
-        Route::resource('questions', 'QuestionController');
-
         Route::post('company-list',
             array('as' => 'company-index',
                 'uses'     => 'CompanyController@index',
             ));
 
+        Route::resource('items', 'ItemController');
+        Route::post('items',
+            array('as' => 'items.index',
+                'uses'     => 'ItemController@index',
+            ));
+        Route::post('items',
+            array('as' => 'items.store',
+                'uses'     => 'ItemController@store',
+            ));
+        Route::post('items-delete',
+            array('as' => 'items-delete',
+                'uses'     => 'ItemController@multi_destroy',
+            ));
     });
 });
-Route::group(['middleware' => 'user_guest'], function () {
-    Route::get('/user/register',
-        array('as' => 'user-register',
-            'uses'     => 'UserAuth\RegisterController@showRegistrationForm',
-        ));
-    Route::post('/user/register',
-        array('as' => 'user-register',
-            'uses'     => 'UserAuth\RegisterController@register',
-        ));
-    Route::get('/user/login',
-        array('as' => 'user-login',
-            'uses'     => 'UserAuth\LoginController@showLoginForm',
-        ));
 
-    Route::post('/user/login',
-        array('as' => 'user-login',
-            'uses'     => 'UserAuth\LoginController@login',
-        ));
-});
-Route::prefix('user')->group(function () {
-    Route::group(array('namespace' => 'UserAuth', 'middleware' => 'user_auth'), function () {
-        Route::get('/logout',
-            array('as' => 'user-logout',
-                'uses'     => 'LoginController@logout',
-            ));
-        Route::post('/logout',
-            array('as' => 'user-logout',
-                'uses'     => 'LoginController@logout',
-            ));
-    });
-    Route::group(array('namespace' => 'User', 'middleware' => 'user_auth'), function () {
-        Route::get('/dashboard',
-            array('as' => 'user-dashboard',
-                'uses'     => 'DashboardController@index',
-            ));
-        Route::post('/dashboard',
-            array('as' => 'user-dashboard',
-                'uses'     => 'DashboardController@index',
-            ));
-    });
-});

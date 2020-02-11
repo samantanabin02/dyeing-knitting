@@ -23,23 +23,23 @@
           <a href="{{ url('admin/dashboard') }}">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>           
           </a>        
-        </li>     
-        <li class="">
-          <a href="{{ route('users.index') }}">
-            <i class="fa fa-users"></i>
-            <span>Users List</span>
-          </a>         
-        </li>
-<!--         <li class="">
-          <a href="{{ route('users.index') }}">
-            <i class="fa fa-users"></i>
-            <span>Users List</span>
-          </a>         
-        </li> -->
+        </li>    
         <li class="">
           <a href="{{ url('admin/site-settings') }}">
             <i class="fa fa-cogs" aria-hidden="true"></i>
             <span>Site Settings</span>
+          </a>         
+        </li> 
+        <li class="">
+          <a href="{{ route('items.index') }}">
+            <i class="fa fa-bars"></i>
+            <span>Item List</span>
+          </a>         
+        </li>
+        <li class="">
+          <a href="{{ route('users.index') }}">
+            <i class="fa fa-users"></i>
+            <span>Users List</span>
           </a>         
         </li>
       </ul>
