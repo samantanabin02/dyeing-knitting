@@ -30,6 +30,12 @@
             <span>Users List</span>
           </a>         
         </li>
+<!--         <li class="">
+          <a href="{{ route('users.index') }}">
+            <i class="fa fa-users"></i>
+            <span>Users List</span>
+          </a>         
+        </li> -->
         <li class="">
           <a href="{{ url('admin/site-settings') }}">
             <i class="fa fa-cogs" aria-hidden="true"></i>

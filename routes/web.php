@@ -131,6 +131,11 @@ Route::prefix('admin')->group(function () {
             ));
         Route::resource('questions', 'QuestionController');
 
+        Route::post('company-list',
+            array('as' => 'company-index',
+                'uses'     => 'CompanyController@index',
+            ));
+
     });
 });
 Route::group(['middleware' => 'user_guest'], function () {

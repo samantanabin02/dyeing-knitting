@@ -7,7 +7,7 @@
 @section('content')
    {{ Html::style('resources/views/admin/assets/bower_components/select2/dist/css/select2.min.css') }}
    {{ Html::style('resources/views/admin/assets/bower_components/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }} 
-<!--     <section class="content-header">
+    <!--<section class="content-header">
         <h1>
             User
             <small>Create</small>
