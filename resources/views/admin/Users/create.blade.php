@@ -79,20 +79,12 @@
                 </div>
             {{ Form::close() }}
           </div>
-          
         </div>
-       
-       
       </div>      
-   
-
     </section>
-    
     {{ Html::script('assets/admin/plugins/validate/jquery.validate.min.js') }} 
-    
 	<script type="text/javascript">
         jQuery(document).ready(function(){
-			
 			jQuery("#form-addedit").validate({
 				rules: {
 					name: {
@@ -115,8 +107,6 @@
 					user_image: {
 						required: true
 					}
-					
-					
 				},
 				messages: {
 					name: {
@@ -139,16 +129,11 @@
 					
 				}
 			});
-			
-		
-			
         });
     </script>
-    
     <style type="text/css">
     .error{
      color: red;   
     }
     </style>
-    
 @endsection
