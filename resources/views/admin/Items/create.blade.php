@@ -62,7 +62,7 @@
                             <option value="">Select Unit Type</option>
                             @if($unit_types!='' && count($unit_types))
                              @foreach($unit_types as $unit_type)
-                              <option value="{{ $unit_type->unit_type_id }}">{{ $unit_type->unit_type_name }}</option>
+                              <option value="{{ $unit_type->unit_type_id }}">{{ $unit_type->unit_type_name.' (   '.$unit_type->unit_type_price.'/- per '.$unit_type->unit_type_name.' )' }}</option>
                              @endforeach
                             @endif
                         </select>
