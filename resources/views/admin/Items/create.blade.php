@@ -44,33 +44,63 @@
                     </div>
                     <div class="col-md-6">
                     <div class="form-group">
-                        {{ Form::label('email', 'Email *', ['class' => '']) }}
-                        {{ Form::text('email', null, array('class' => 'form-control', 'placeholder' => 'Enter email')) }}
+                        {{ Form::label('item_type_id', 'Item Type *', ['class' => '']) }}
+                        <select name="item_type_id" id="item_type_id" class="form-control">
+                            <option value="">Select Item Type</option>
+                            @if($item_types!='' && count($item_types))
+                             @foreach($item_types as $item_type)
+                              <option value="{{ $item_type->item_type_id }}">{{ $item_type->item_type_name }}</option>
+                             @endforeach
+                            @endif
+                        </select>
                     </div>
                     </div>
                     <div class="col-md-6">
                     <div class="form-group">
-                        {{ Form::label('password', 'Password *', ['class' => '']) }}
-                        {{ Form::text('password', null, array('class' => 'form-control', 'placeholder' => 'Enter password')) }}
-                    </div>  
+                        {{ Form::label('unit_type_id', 'Unit Type *', ['class' => '']) }}
+                        <select name="unit_type_id" id="unit_type_id" class="form-control">
+                            <option value="">Select Unit Type</option>
+                            @if($unit_types!='' && count($unit_types))
+                             @foreach($unit_types as $unit_type)
+                              <option value="{{ $unit_type->unit_type_id }}">{{ $unit_type->unit_type_name }}</option>
+                             @endforeach
+                            @endif
+                        </select>
+                    </div>
                     </div>
                     <div class="col-md-6">
                     <div class="form-group">
-                        {{ Form::label('password_confirmation', 'Confirm Password *', ['class' => '']) }}
-                        {{ Form::text('password_confirmation', null, array('class' => 'form-control', 'placeholder' => 'Enter confirm password')) }}
-                    </div>                     
+                        {{ Form::label('company_id', 'Company *', ['class' => '']) }}
+                        <select name="company_id" id="company_id" class="form-control">
+                            <option value="">Select Company</option>
+                            @if($companies!='' && count($companies))
+                             @foreach($companies as $company)
+                              <option value="{{ $company->company_id }}">{{ $company->company_name }}</option>
+                             @endforeach
+                            @endif
+                        </select>
                     </div>
-                    <div class="col-md-6">
-                     <div class="form-group">
-                        {{ Form::label('user_image', 'Image *', ['class' => '']) }}                     
-                        <input type="file" name="user_image" id="user_image"  class="form-control">
-                    </div>     
                     </div>
                     <div class="col-md-6">
                     <div class="form-group">
-                        {{ Form::label('status', 'Status', ['class' => '']) }}
-                        {{ Form::select('status', ['1' => 'Active', '2' => 'Inactive'], 1, array('placeholder' => 'Select Status', 'class' => 'form-control select2')) }}
+                        {{ Form::label('item_quantity', 'Item Quantity *', ['class' => '']) }}
+                        {{ Form::text('item_quantity', null, array('class' => 'form-control', 'placeholder' => 'Enter item quantity')) }}
+                    </div>                 
                     </div>
+                    <div class="col-md-6">
+                    <div class="form-group">
+                        {{ Form::label('item_price', 'Item Price *', ['class' => '']) }}
+                        {{ Form::text('item_price', null, array('class' => 'form-control', 'placeholder' => 'Enter item price')) }}
+                    </div>                 
+                    </div>
+                    <div class="col-md-6">
+                    <div class="form-group">
+                        {{ Form::label('purchase_date', 'Purchase Date *', ['class' => '']) }}
+                        {{ Form::text('purchase_date', null, array('class' => 'form-control', 'placeholder' => 'Enter Purchase Date')) }}
+                    </div>                 
+                    </div>
+                    <div class="col-md-12">
+                       
                     </div>
                     <div class="col-md-6">
                     {{ Form::submit('Submit', array('class' => 'btn btn-primary', 'id' => 'submit-btn')) }}
@@ -89,12 +119,48 @@
 				rules: {
 					item_name: {
 						required: true
-					}
+					},
+                    item_type_id: {
+                        required: true
+                    },
+                    unit_type_id: {
+                        required: true
+                    },
+                    company_id: {
+                        required: true
+                    },
+                    item_quantity: {
+                        required: true
+                    },
+                    item_price: {
+                        required: true
+                    },
+                    purchase_date: {
+                        required: true
+                    }
 				},
 				messages: {
 					item_name: {
 						required: "Please enter item name."
-					}
+					},
+                    item_type_id: {
+                        required: "Please select item type."
+                    },
+                    unit_type_id: {
+                        required: "Please select unit type."
+                    },
+                    company_id: {
+                        required: "Please select company."
+                    },
+                    item_quantity: {
+                        required: "Please enter item quantity."
+                    },
+                    item_price: {
+                        required: "Please enter item price."
+                    },
+                    purchase_date: {
+                        required: "Please enter purchase date."
+                    }
 				}
 			});
         });

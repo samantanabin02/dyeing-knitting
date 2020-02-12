@@ -10,7 +10,7 @@
   <div class="row">
     <div class="col-xs-12 clearfix">
       <div class=" row form-group">
-        {{ Form::open(['route' => 'items.index', 'method' => 'post', 'class' => '', 'id' => 'form-search']) }}
+        {{ Form::open(['route' => 'items-index', 'method' => 'post', 'class' => '', 'id' => 'form-search']) }}
             <div class="col-md-3 mrgb">
             {{ Form::text('search_key', request()->input('search_key'), ['id' => 'search_key', 'class' => 'form-control', 'placeholder' => 'Enter search key']) }}
             </div>

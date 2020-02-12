@@ -111,8 +111,12 @@ Route::prefix('admin')->group(function () {
             ));
 
         Route::resource('items', 'ItemController');
-        Route::post('items',
-            array('as' => 'items.index',
+        Route::get('items-index',
+            array('as' => 'items-index',
+                'uses'     => 'ItemController@index',
+            ));
+        Route::post('items-index',
+            array('as' => 'items-index',
                 'uses'     => 'ItemController@index',
             ));
         Route::post('items',
