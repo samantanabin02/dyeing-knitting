@@ -7,7 +7,6 @@
 .env
 .env.backup
 error_log
-dataPush.bat
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
