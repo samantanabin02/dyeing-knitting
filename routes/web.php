@@ -135,7 +135,7 @@ Route::prefix('admin')->group(function () {
             ));
         Route::post('company-delete',
             array('as' => 'company-delete',
-                'uses'     => 'UserController@multi_destroy',
+                'uses'     => 'CompanyController@multi_destroy',
             ));
     });
 });

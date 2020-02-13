@@ -12,7 +12,7 @@ class CompanyController extends Controller
     public function index(Request $request)
     {
         $req   = $request->all();
-        $query = DB::table("companys");
+        $query = DB::table("company");
         if ($request->has('search_key')) {
             $query->where(function ($query) use ($req) {
                 $query->where('company_name', 'like', '%' . $req['search_key'] . '%');
@@ -134,6 +134,10 @@ class CompanyController extends Controller
                 'company_gst_no'   => 'required',
                 'status'           => 'required',
             ],
+            [
+                'company_name.required'   => 'Enter company name.',
+                'company_address.required' => 'Enter company address.',
+            ]
         );
     }
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
