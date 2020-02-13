@@ -127,6 +127,15 @@ Route::prefix('admin')->group(function () {
             array('as' => 'items-delete',
                 'uses'     => 'ItemController@multi_destroy',
             ));
+        
+        Route::resource('company', 'CompanyController');
+        Route::post('company-index',
+            array('as' => 'company-index',
+                'uses'     => 'CompanyController@index',
+            ));
+        Route::post('company-delete',
+            array('as' => 'company-delete',
+                'uses'     => 'UserController@multi_destroy',
+            ));
     });
 });
-
