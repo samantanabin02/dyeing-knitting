@@ -112,9 +112,9 @@ class CompanyController extends Controller
             foreach ($deletable_ids as $deletable_id) {
                 $this->destroy($deletable_id);
             }
-            return redirect()->route('users.index')->with('success', 'Successfully deleted.');
+            return redirect()->route('company.index')->with('success', 'Successfully deleted.');
         } else {
-            return redirect()->route('users.index')->with('error', 'Select record(s) form list for delete.');
+            return redirect()->route('company.index')->with('error', 'Select record(s) form list for delete.');
         }
     }
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
