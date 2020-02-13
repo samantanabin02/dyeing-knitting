@@ -60,7 +60,7 @@
                             <option value="">Select Unit Type</option>
                             @if($unit_types!='' && count($unit_types))
                              @foreach($unit_types as $unit_type)
-                              <option value="{{ $unit_type->unit_type_id }}" {{ ($unit_type->unit_type_id==$data->unit_type_id)?'selected':'' }} >{{ $unit_type->unit_type_name }}</option>
+                              <option value="{{ $unit_type->unit_type_id }}"  pricetag="{{ $unit_type->unit_type_price }}" {{ ($unit_type->unit_type_id==$data->unit_type_id)?'selected':'' }} >{{ $unit_type->unit_type_name.' (   '.$unit_type->unit_type_price.'/- per '.$unit_type->unit_type_name.' )' }}</option>
                              @endforeach
                             @endif
                         </select>
@@ -94,11 +94,10 @@
                     <div class="col-md-6">
                     <div class="form-group">
                         {{ Form::label('purchase_date', 'Purchase Date *', ['class' => '']) }}
-                        {{ Form::text('purchase_date', null, array('class' => 'form-control', 'placeholder' => 'Enter Purchase Date')) }}
+                        {{ Form::text('purchase_date', null, array('class' => 'form-control', 'placeholder' => 'Enter Purchase Date', 'id'=>'datepicker')) }}
                     </div>                 
                     </div>
-                    <div class="col-md-12">
-                       
+                    <div class="col-md-12" style="height:10px;">
                     </div>                 
                     <div class="col-md-6">
                     {{ Form::submit('Submit', array('class' => 'btn btn-primary', 'id' => 'submit-btn')) }}
@@ -113,6 +112,31 @@
    {{ Html::script('assets/admin/plugins/validate/jquery.validate.min.js') }} 
     <script type="text/javascript">
         jQuery(document).ready(function(){
+
+            $('#datepicker').datepicker({
+              format: 'yyyy-mm-dd',
+              autoclose: true
+            });
+
+             $('body').on('change','#unit_type_id', function() {
+                calculate_price();
+             });
+
+             $('body').on('keyup','#item_quantity', function() {
+                calculate_price();
+             });
+
+             function calculate_price(){
+                var unit_price = $('#unit_type_id option:selected').attr('pricetag');
+                var item_quantity = $('#item_quantity').val();
+                if(unit_price && item_quantity){
+                var item_price=parseInt(unit_price)*parseInt(item_quantity);
+                $('#item_price').val(item_price);
+                }else{
+                $('#item_price').val('');    
+                }
+             }
+
             jQuery("#form-addedit").validate({
                 rules: {
                     item_name: {
