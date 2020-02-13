@@ -113,10 +113,10 @@
       <div class="modal-content">
         <div class="modal-body">
           <p id="mltdltchkp">
-          Please select any user to delete.<button type="button" style="float:right;"class="btn btn-default" data-dismiss="modal">Ok</button>
+          Please select any item to delete.<button type="button" style="float:right;"class="btn btn-default" data-dismiss="modal">Ok</button>
           </p>
           <p id="mltdltp">
-          Are you sure to delete these user?
+          Are you sure to delete these item?
           <button type="button" style="float:right; margin-left:10px;"class="btn btn-default" data-dismiss="modal">No</button>
           <button type="button"  style="float:right;" onclick="event.preventDefault();document.getElementById('multi_delete_form').submit();" class="btn btn-default" data-dismiss="modal">Yes</button>
           </p>
