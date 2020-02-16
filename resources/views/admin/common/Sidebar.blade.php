@@ -26,13 +26,25 @@
         </li>     
         <li class="">
           <a href="{{ route('company.index') }}">
-            <i class="fa fa-users"></i>
+            <i class="fa fa-institution"></i>
             <span>Company List</span>
           </a>         
         </li>
         <li class="">
+          <a href="{{ route('itemtype.index') }}">
+            <i class="fa fa-diamond"></i>
+            <span>Item Type</span>
+          </a>         
+        </li>
+        <li class="">
+          <a href="{{ route('unittype.index') }}">
+            <i class="fa fa-diamond"></i>
+            <span>Unit Type</span>
+          </a>         
+        </li>
+        <li class="">
           <a href="{{ route('items.index') }}">
-            <i class="fa fa-bars"></i>
+            <i class="fa fa-diamond"></i>
             <span>Item List</span>
           </a>         
         </li>
@@ -44,7 +56,7 @@
         </li> -->
         <li class="">
           <a href="{{ url('admin/site-settings') }}">
-            <i class="fa fa-cogs" aria-hidden="true"></i>
+            <i class="fa fa-gear" aria-hidden="true"></i>
             <span>Site Settings</span>
           </a>         
         </li>

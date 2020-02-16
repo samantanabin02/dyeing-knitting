@@ -54,7 +54,7 @@ class CompanyController extends Controller
         $data->company_gst_no   = $request->company_gst_no;
         $data->status           = $request->status;
         if ($data->save()) {
-            return redirect()->back()->with('success', 'User created successfully.');
+            return redirect()->back()->with('success', 'Company created successfully.');
         } else {
             return redirect()->back()->with('error', 'Some problem occurred.Please try again!');
         }
@@ -87,7 +87,7 @@ class CompanyController extends Controller
         $data->company_gst_no   = $request->company_gst_no;
         $data->status           = $request->status;
         if ($data->save()) {
-            return redirect()->back()->with('success', 'User updated successfully.');
+            return redirect()->back()->with('success', 'Company updated successfully.');
         } else {
             return redirect()->back()->with('error', 'Some problem occurred.Please try again!.');
         }

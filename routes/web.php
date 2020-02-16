@@ -127,7 +127,7 @@ Route::prefix('admin')->group(function () {
             array('as' => 'items-delete',
                 'uses'     => 'ItemController@multi_destroy',
             ));
-        
+        //+++++++++++++++++++++++++++++++++++++++++++++++++
         Route::resource('company', 'CompanyController');
         Route::post('company-index',
             array('as' => 'company-index',
@@ -136,6 +136,26 @@ Route::prefix('admin')->group(function () {
         Route::post('company-delete',
             array('as' => 'company-delete',
                 'uses'     => 'CompanyController@multi_destroy',
+            ));
+        //+++++++++++++++++++++++++++++++++++++++++++++++++
+        Route::resource('unittype', 'UnitTypeController');
+        Route::post('unittype-index',
+            array('as' => 'unittype-index',
+                'uses'     => 'UnitTypeController@index',
+            ));
+        Route::post('unittype-delete',
+            array('as' => 'unittype-delete',
+                'uses'     => 'UnitTypeController@multi_destroy',
+            ));
+        //+++++++++++++++++++++++++++++++++++++++++++++++++
+        Route::resource('itemtype', 'ItemTypeController');
+        Route::post('itemtype-index',
+            array('as' => 'itemtype-index',
+                'uses'     => 'ItemTypeController@index',
+            ));
+        Route::post('itemtype-delete',
+            array('as' => 'itemtype-delete',
+                'uses'     => 'ItemTypeController@multi_destroy',
             ));
     });
 });
