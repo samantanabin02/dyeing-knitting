@@ -54,12 +54,12 @@
             <span>Users List</span>
           </a>         
         </li> -->
-        <li class="">
+        <!-- <li class="">
           <a href="{{ url('admin/site-settings') }}">
             <i class="fa fa-gear" aria-hidden="true"></i>
             <span>Site Settings</span>
           </a>         
-        </li>
+        </li> -->
       </ul>
     </section>
   </aside>
