@@ -94,10 +94,16 @@
                     </div>                 
                     </div>
                     <div class="col-md-6">
-                    <div class="form-group">
-                        {{ Form::label('purchase_date', 'Purchase Date *', ['class' => '']) }}
-                        {{ Form::text('purchase_date', null, array('class' => 'form-control', 'placeholder' => 'Enter Purchase Date', 'id'=>'datepicker')) }}
-                    </div>                 
+                        <div class="form-group">
+                            {{ Form::label('purchase_date', 'Purchase Date *', ['class' => '']) }}
+                            {{ Form::text('purchase_date', null, array('class' => 'form-control', 'placeholder' => 'Enter Purchase Date', 'id'=>'datepicker')) }}
+                        </div>                 
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ Form::label('opening_balance', 'Opening Balance *', ['class' => '']) }}
+                            {{ Form::text('opening_balance', null, array('class' => 'form-control', 'placeholder' => 'Enter opening balance')) }}
+                        </div>                 
                     </div>
                     <div class="col-md-12" style="height:10px;">
                     </div>
@@ -138,7 +144,6 @@
                 $('#item_price').val('');    
                 }
              }
-
 			 jQuery("#form-addedit").validate({
 				rules: {
 					item_name: {
@@ -160,6 +165,9 @@
                         required: true
                     },
                     purchase_date: {
+                        required: true
+                    },
+                    opening_balance: {
                         required: true
                     }
 				},
@@ -184,6 +192,9 @@
                     },
                     purchase_date: {
                         required: "Please enter purchase date."
+                    },
+                    opening_balance: {
+                        required: "Please enter opening balance."
                     }
 				}
 			});

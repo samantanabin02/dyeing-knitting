@@ -57,8 +57,9 @@
                 <th>Name</th>
                 <th>Quantity</th>
                 <th>Price</th>
-                <th>Purchase Date</th>
                 <th>Company Name</th>
+                <th>Purchase Date</th>
+                <th>Opening Balance</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -73,8 +74,9 @@
                       <td>{{ $data->item_name }}</td>
                       <td>{{ $data->item_quantity.' '.$data->unit_type_name }}</td>
                       <td>{{ $data->item_price }}</td>
-                      <td>{{ date('jS F Y',strtotime($data->purchase_date)) }}</td>
                       <td>{{ $data->company_name }}</td>
+                      <td>{{ date('jS F Y',strtotime($data->purchase_date)) }}</td>
+                      <td>{{ $data->opening_balance }}</td>
                       <td>
                         <a style="margin-right: 10px; font-size: 16px;" href="{{ route('items.edit',  $data->id) }}" title="Edit">
                            <i class="fa fa-edit"></i>
