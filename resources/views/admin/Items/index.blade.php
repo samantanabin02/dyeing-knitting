@@ -72,7 +72,7 @@
                     <tr>
                       <td>{{ Form::checkbox('single_check',$data->id,null, array('id'=>'single_check','class'=>'single_check')) }}</td>
                       <td>{{ $data->item_name }}</td>
-                      <td>{{ $data->unit }}</td>
+                      <td>{{ $data->units }}</td>
                       <td>{{ $data->alt_unit }}</td>
                       <td>{{ $data->gst_no }}</td>
                       <td>{{ $data->gst_percentage }}</td>
