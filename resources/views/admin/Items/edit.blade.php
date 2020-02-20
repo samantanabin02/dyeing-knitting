@@ -44,8 +44,8 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            {{ Form::label('unit', 'Unit *', ['class' => '']) }}
-                            {{ Form::text('unit', null, array('class' => 'form-control', 'placeholder' => 'Enter unit')) }}
+                            {{ Form::label('units', 'Unit *', ['class' => '']) }}
+                            {{ Form::text('units', null, array('class' => 'form-control', 'placeholder' => 'Enter unit')) }}
                         </div>                 
                     </div>
 
@@ -58,21 +58,21 @@
                   
                     <div class="col-md-6">
                     <div class="form-group">
-                        {{ Form::label('gst_applicable', 'GST Applicable', ['class' => '']) }}
+                        {{ Form::label('gst_applicable', 'GST Applicable *', ['class' => '']) }}
                         {{ Form::select('gst_applicable', ['1' => 'Yes', '2' => 'No'], $data->gst_applicable, array( 'class' => 'form-control select2')) }}
                     </div>
                     </div>
 
                     <div class="col-md-6" id="gst_no_dv">
                         <div class="form-group">
-                            {{ Form::label('gst_no', 'GST No', ['class' => '']) }}
+                            {{ Form::label('gst_no', 'GST No *', ['class' => '']) }}
                             {{ Form::text('gst_no', null, array('class' => 'form-control', 'placeholder' => 'Enter GST No')) }}
                         </div>                 
                     </div>
 
                     <div class="col-md-6" id="gst_percentage_dv">
                         <div class="form-group">
-                            {{ Form::label('gst_percentage', 'GST Percentage', ['class' => '']) }}
+                            {{ Form::label('gst_percentage', 'GST Percentage *', ['class' => '']) }}
                             {{ Form::text('gst_percentage', null, array('class' => 'form-control', 'placeholder' => 'Enter GST percentage')) }}
                         </div>                 
                     </div>
@@ -82,6 +82,57 @@
                             {{ Form::label('supply_type', 'Supply Type', ['class' => '']) }}
                             {{ Form::text('supply_type', null, array('class' => 'form-control', 'placeholder' => 'Enter Supply Type')) }}
                         </div>                 
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                              <input type="button" class="btn btn-info" id="quantuty_add" value="Add Quantity">
+                        </div>               
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div id="append_div">
+                                    <?php 
+                                    $last_quantity_id=0;
+                                    foreach($quantity_details as $quantity_details_row){
+                                    ?>
+
+                                     <div class="row" id="deletedv_<?php echo $quantity_details_row->id; ?>">
+
+                                        <div class="col-md-2">
+                                            <label>Quantity:</label>
+                                                <input type="text" name="quantity[<?php echo $quantity_details_row->id; ?>]" id="quantity_<?php echo $quantity_details_row->id; ?>" class="from-control" value="<?php echo $quantity_details_row->quantity; ?>" placeholder="Enter Quantity">
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <label>Unit:</label>
+                                            <input type="text" name="unit[<?php echo $quantity_details_row->id; ?>]" id="unit_<?php echo $quantity_details_row->id; ?>" class="from-control" value="<?php echo $quantity_details_row->unit; ?>" placeholder="Enter Unit">
+                                        </div>
+                                     
+                                        <div class="col-md-2">
+                                        <label>Rate:</label>
+                                            <input type="text" name="rate[<?php echo $quantity_details_row->id; ?>]" id="rate_<?php echo $quantity_details_row->id; ?>" class="from-control" value="<?php echo $quantity_details_row->rate; ?>" placeholder="Enter Rate">
+                                        </div>
+                                        
+                                        <div class="col-md-2">
+                                        <label>Amount:</label>
+                                            <input type="text" name="amount[<?php echo $quantity_details_row->id; ?>]" id="amount_<?php echo $quantity_details_row->id; ?>" class="from-control" value="<?php echo $quantity_details_row->amount; ?>" placeholder="Enter Amount">
+                                        </div>
+
+                                        <div class="col-md-2">
+                                        <label style="display:block;">&nbsp;</label>
+                                            <input type="button" id="deletebtn_<?php echo $quantity_details_row->id; ?>" class="delete_quantity_button" value="Delete">
+                                        </div>
+
+                                     </div>
+                                     </br>
+                                    <?php
+                                    $last_quantity_id=$quantity_details_row->id;
+                                    }
+                                    ?>
+                             </div>
+                        </div>               
                     </div>
                     
                     <div class="col-md-12" style="height:10px;">
@@ -126,6 +177,24 @@
                 }
             });
 
+            $(function() {  
+                var i='{{ $last_quantity_id }}';
+                $("#quantuty_add").click(function(){
+                  i++;
+                  var append_html='<div class="row" id="deletedv_'+i+'"><div class="col-md-2"><label>Quantity:</label><input type="text" name="quantity['+i+']" id="quantity_'+i+'" class="from-control" value="" placeholder="Enter Quantity"></div><div class="col-md-2"><label>Unit:</label><input type="text" name="unit['+i+']" id="unit_'+i+'" class="from-control" value="" placeholder="Enter Unit"></div><div class="col-md-2"><label>Rate:</label><input type="text" name="rate['+i+']" id="rate_'+i+'" class="from-control" value="" placeholder="Enter Rate"></div><div class="col-md-2"><label>Amount:</label><input type="text" name="amount['+i+']" id="amount_'+i+'" class="from-control" value="" placeholder="Enter Amount"></div><div class="col-md-2"><label style="display:block;">&nbsp;</label><input type="button" id="deletebtn_'+i+'" class="delete_quantity_button" value="Delete"></div></div></br>';
+                    $('#append_div').append(append_html);
+                });
+
+                $(document).on('click', '.delete_quantity_button', function(){
+                   var quantity_id_data = $(this).attr("id");  
+                   var quantity_id_array = quantity_id_data.split("_");
+                   var quantity_id = quantity_id_array[1];
+                   //alert(quantity_id);
+                   $("#deletedv_"+quantity_id).remove();
+                });
+
+             });
+
             $('#datepicker').datepicker({
               format: 'yyyy-mm-dd',
               autoclose: true
@@ -157,7 +226,7 @@
                     item_type_id: {
                         required: true
                     },
-                    unit: {
+                    units: {
                         required: true
                     },
                     gst_applicable: {
@@ -180,7 +249,7 @@
                     item_type_id: {
                         required: "Please select item type."
                     },
-                    unit: {
+                    units: {
                         required: "Please enter unit."
                     },
                     gst_applicable: {
