@@ -102,27 +102,27 @@
 
                                         <div class="col-md-2">
                                             <label>Quantity:</label>
-                                                <input type="text" name="quantity[<?php echo $quantity_details_row->id; ?>]" id="quantity_<?php echo $quantity_details_row->id; ?>" class="from-control" value="<?php echo $quantity_details_row->quantity; ?>" placeholder="Enter Quantity">
+                                                <input type="text" name="quantity[<?php echo $quantity_details_row->id; ?>]" id="quantity_<?php echo $quantity_details_row->id; ?>" class="form-control" value="<?php echo $quantity_details_row->quantity; ?>" placeholder="Enter Quantity">
                                         </div>
 
                                         <div class="col-md-2">
                                             <label>Unit:</label>
-                                            <input type="text" name="unit[<?php echo $quantity_details_row->id; ?>]" id="unit_<?php echo $quantity_details_row->id; ?>" class="from-control" value="<?php echo $quantity_details_row->unit; ?>" placeholder="Enter Unit">
+                                            <input type="text" name="unit[<?php echo $quantity_details_row->id; ?>]" id="unit_<?php echo $quantity_details_row->id; ?>" class="form-control" value="<?php echo $quantity_details_row->unit; ?>" placeholder="Enter Unit">
                                         </div>
                                      
                                         <div class="col-md-2">
                                         <label>Rate:</label>
-                                            <input type="text" name="rate[<?php echo $quantity_details_row->id; ?>]" id="rate_<?php echo $quantity_details_row->id; ?>" class="from-control" value="<?php echo $quantity_details_row->rate; ?>" placeholder="Enter Rate">
+                                            <input type="text" name="rate[<?php echo $quantity_details_row->id; ?>]" id="rate_<?php echo $quantity_details_row->id; ?>" class="form-control" value="<?php echo $quantity_details_row->rate; ?>" placeholder="Enter Rate">
                                         </div>
                                         
                                         <div class="col-md-2">
                                         <label>Amount:</label>
-                                            <input type="text" name="amount[<?php echo $quantity_details_row->id; ?>]" id="amount_<?php echo $quantity_details_row->id; ?>" class="from-control" value="<?php echo $quantity_details_row->amount; ?>" placeholder="Enter Amount">
+                                            <input type="text" name="amount[<?php echo $quantity_details_row->id; ?>]" id="amount_<?php echo $quantity_details_row->id; ?>" class="form-control" value="<?php echo $quantity_details_row->amount; ?>" placeholder="Enter Amount">
                                         </div>
 
                                         <div class="col-md-2">
                                         <label style="display:block;">&nbsp;</label>
-                                            <input type="button" id="deletebtn_<?php echo $quantity_details_row->id; ?>" class="delete_quantity_button" value="Delete">
+                                            <input type="button" id="deletebtn_<?php echo $quantity_details_row->id; ?>" class="form-control btn btn-danger delete_quantity_button" value="Delete">
                                         </div>
 
                                      </div>
@@ -181,7 +181,7 @@
                 var i='{{ $last_quantity_id }}';
                 $("#quantuty_add").click(function(){
                   i++;
-                  var append_html='<div class="row" id="deletedv_'+i+'"><div class="col-md-2"><label>Quantity:</label><input type="text" name="quantity['+i+']" id="quantity_'+i+'" class="from-control" value="" placeholder="Enter Quantity"></div><div class="col-md-2"><label>Unit:</label><input type="text" name="unit['+i+']" id="unit_'+i+'" class="from-control" value="" placeholder="Enter Unit"></div><div class="col-md-2"><label>Rate:</label><input type="text" name="rate['+i+']" id="rate_'+i+'" class="from-control" value="" placeholder="Enter Rate"></div><div class="col-md-2"><label>Amount:</label><input type="text" name="amount['+i+']" id="amount_'+i+'" class="from-control" value="" placeholder="Enter Amount"></div><div class="col-md-2"><label style="display:block;">&nbsp;</label><input type="button" id="deletebtn_'+i+'" class="delete_quantity_button" value="Delete"></div></div></br>';
+                  var append_html='<div class="row" id="deletedv_'+i+'"><div class="col-md-2"><label>Quantity:</label><input type="text" name="quantity['+i+']" id="quantity_'+i+'" class="form-control" value="" placeholder="Enter Quantity"></div><div class="col-md-2"><label>Unit:</label><input type="text" name="unit['+i+']" id="unit_'+i+'" class="form-control" value="" placeholder="Enter Unit"></div><div class="col-md-2"><label>Rate:</label><input type="text" name="rate['+i+']" id="rate_'+i+'" class="form-control" value="" placeholder="Enter Rate"></div><div class="col-md-2"><label>Amount:</label><input type="text" name="amount['+i+']" id="amount_'+i+'" class="form-control" value="" placeholder="Enter Amount"></div><div class="col-md-2"><label style="display:block;">&nbsp;</label><input type="button" id="deletebtn_'+i+'" class="form-control btn btn-danger delete_quantity_button" value="Delete"></div></div></br>';
                     $('#append_div').append(append_html);
                 });
 
