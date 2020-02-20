@@ -86,12 +86,6 @@
 
                     <div class="col-md-12">
                         <div class="form-group">
-                              <input type="button" class="btn btn-info" id="quantuty_add" value="Add Quantity">
-                        </div>               
-                    </div>
-
-                    <div class="col-md-12">
-                        <div class="form-group">
                             <div id="append_div">
                                     <?php 
                                     $last_quantity_id=0;
@@ -132,6 +126,12 @@
                                     }
                                     ?>
                              </div>
+                        </div>               
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                              <input type="button" class="btn btn-info" id="quantuty_add" value="Add Quantity">
                         </div>               
                     </div>
                     
