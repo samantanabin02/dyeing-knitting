@@ -54,12 +54,12 @@
             <thead>
               <tr>
                 <th width="3%">{{ Form::checkbox('multi_check',null,null, array('id'=>'multi_check')) }}</th>
-                <th>Name</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Company Name</th>
-                <th>Purchase Date</th>
-                <th>Opening Balance</th>
+                <th>Item Name</th>
+                <th>Unit</th>
+                <th>Alt Unit</th>
+                <th>Gst No</th>
+                <th>Gst Percentage</th>
+                <th>Supply Type</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -72,11 +72,11 @@
                     <tr>
                       <td>{{ Form::checkbox('single_check',$data->id,null, array('id'=>'single_check','class'=>'single_check')) }}</td>
                       <td>{{ $data->item_name }}</td>
-                      <td>{{ $data->item_quantity.' '.$data->unit_type_name }}</td>
-                      <td>{{ $data->item_price }}</td>
-                      <td>{{ $data->company_name }}</td>
-                      <td>{{ date('jS F Y',strtotime($data->purchase_date)) }}</td>
-                      <td>{{ $data->opening_balance }}</td>
+                      <td>{{ $data->unit }}</td>
+                      <td>{{ $data->alt_unit }}</td>
+                      <td>{{ $data->gst_no }}</td>
+                      <td>{{ $data->gst_percentage }}</td>
+                      <td>{{ $data->supply_type }}</td>
                       <td>
                         <a style="margin-right: 10px; font-size: 16px;" href="{{ route('items.edit',  $data->id) }}" title="Edit">
                            <i class="fa fa-edit"></i>
@@ -102,7 +102,7 @@
       <div class="modal-content">
         <div class="modal-body">
           <p>
-          Are you sure to delete this user?
+          Are you sure to delete this item?
           <button type="button" style="float:right; margin-left:10px;"class="btn btn-default" data-dismiss="modal">No</button>
           <button type="button"  style="float:right;" onclick="event.preventDefault();document.getElementById('delete-form').submit();" class="btn btn-default" data-dismiss="modal">Yes</button>
           </p>

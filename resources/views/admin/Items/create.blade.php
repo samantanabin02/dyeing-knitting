@@ -7,17 +7,6 @@
 @section('content')
    {{ Html::style('resources/views/admin/assets/bower_components/select2/dist/css/select2.min.css') }}
    {{ Html::style('resources/views/admin/assets/bower_components/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }} 
-    <!--<section class="content-header">
-        <h1>
-            Item
-            <small>Create</small>
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="{{ url('admin/home') }}"><i class="fa fa-dashboard"></i>Home</a></li>
-            <li><a href="{{ route('items.index') }}">Item</a></li>
-            <li class="active">Add</li>
-        </ol>
-    </section> -->
     <section class="content">
       <div class="box box-default">
         <div class="box-header with-border">
@@ -55,56 +44,49 @@
                         </select>
                     </div>
                     </div>
-                    <div class="col-md-6">
-                    <div class="form-group">
-                        {{ Form::label('unit_type_id', 'Unit Type *', ['class' => '']) }}
-                        <select name="unit_type_id" id="unit_type_id" class="form-control">
-                            <option value="">Select Unit Type</option>
-                            @if($unit_types!='' && count($unit_types))
-                             @foreach($unit_types as $unit_type)
-                              <option value="{{ $unit_type->unit_type_id }}" pricetag="{{ $unit_type->unit_type_price }}">{{ $unit_type->unit_type_name.' (   '.$unit_type->unit_type_price.'/- per '.$unit_type->unit_type_name.' )' }}</option>
-                             @endforeach
-                            @endif
-                        </select>
-                    </div>
-                    </div>
-                    <div class="col-md-6">
-                    <div class="form-group">
-                        {{ Form::label('company_id', 'Company *', ['class' => '']) }}
-                        <select name="company_id" id="company_id" class="form-control">
-                            <option value="">Select Company</option>
-                            @if($companies!='' && count($companies))
-                             @foreach($companies as $company)
-                              <option value="{{ $company->company_id }}">{{ $company->company_name }}</option>
-                             @endforeach
-                            @endif
-                        </select>
-                    </div>
-                    </div>
-                    <div class="col-md-6">
-                    <div class="form-group">
-                        {{ Form::label('item_quantity', 'Item Quantity *', ['class' => '']) }}
-                        {{ Form::text('item_quantity', null, array('class' => 'form-control', 'placeholder' => 'Enter item quantity')) }}
-                    </div>                 
-                    </div>
-                    <div class="col-md-6">
-                    <div class="form-group">
-                        {{ Form::label('item_price', 'Item Price *', ['class' => '']) }}
-                        {{ Form::text('item_price', null, array('class' => 'form-control', 'placeholder' => 'Enter item price')) }}
-                    </div>                 
-                    </div>
+
                     <div class="col-md-6">
                         <div class="form-group">
-                            {{ Form::label('purchase_date', 'Purchase Date *', ['class' => '']) }}
-                            {{ Form::text('purchase_date', null, array('class' => 'form-control', 'placeholder' => 'Enter Purchase Date', 'id'=>'datepicker')) }}
+                            {{ Form::label('unit', 'Unit *', ['class' => '']) }}
+                            {{ Form::text('unit', null, array('class' => 'form-control', 'placeholder' => 'Enter unit')) }}
                         </div>                 
                     </div>
+
                     <div class="col-md-6">
                         <div class="form-group">
-                            {{ Form::label('opening_balance', 'Opening Balance *', ['class' => '']) }}
-                            {{ Form::text('opening_balance', null, array('class' => 'form-control', 'placeholder' => 'Enter opening balance')) }}
+                            {{ Form::label('alt_unit', 'Alternative Unit', ['class' => '']) }}
+                            {{ Form::text('alt_unit', null, array('class' => 'form-control', 'placeholder' => 'Enter alternative unit')) }}
                         </div>                 
                     </div>
+                  
+                    <div class="col-md-6">
+                    <div class="form-group">
+                        {{ Form::label('gst_applicable', 'GST Applicable', ['class' => '']) }}
+                        {{ Form::select('gst_applicable', ['1' => 'Yes', '2' => 'No'], 2, array( 'class' => 'form-control select2')) }}
+                    </div>
+                    </div>
+
+                    <div class="col-md-6" id="gst_no_dv">
+                        <div class="form-group">
+                            {{ Form::label('gst_no', 'GST No', ['class' => '']) }}
+                            {{ Form::text('gst_no', null, array('class' => 'form-control', 'placeholder' => 'Enter GST No')) }}
+                        </div>                 
+                    </div>
+
+                    <div class="col-md-6" id="gst_percentage_dv">
+                        <div class="form-group">
+                            {{ Form::label('gst_percentage', 'GST Percentage', ['class' => '']) }}
+                            {{ Form::text('gst_percentage', null, array('class' => 'form-control', 'placeholder' => 'Enter GST percentage')) }}
+                        </div>                 
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ Form::label('supply_type', 'Supply Type', ['class' => '']) }}
+                            {{ Form::text('supply_type', null, array('class' => 'form-control', 'placeholder' => 'Enter Supply Type')) }}
+                        </div>                 
+                    </div>
+                    
                     <div class="col-md-12" style="height:10px;">
                     </div>
                     <div class="col-md-6">
@@ -120,7 +102,24 @@
     {{ Html::script('assets/admin/plugins/validate/jquery.validate.min.js') }} 
 	<script type="text/javascript">
         jQuery(document).ready(function(){
-
+             $('#gst_no').hide();
+             $('#gst_no_dv').hide();
+             $('#gst_percentage').hide();
+             $('#gst_percentage_dv').hide();
+             $('body').on('change','#gst_applicable', function() {
+                var gst_applicable=$(this).val();
+                if(gst_applicable==2){
+                    $('#gst_no').hide();
+                    $('#gst_no_dv').hide();
+                    $('#gst_percentage').hide();
+                    $('#gst_percentage_dv').hide();
+                }else{
+                    $('#gst_no').show();
+                    $('#gst_no_dv').show();
+                    $('#gst_percentage').show();
+                    $('#gst_percentage_dv').show();
+                }
+             });
              $('#datepicker').datepicker({
               format: 'yyyy-mm-dd',
               autoclose: true
@@ -152,22 +151,19 @@
                     item_type_id: {
                         required: true
                     },
-                    unit_type_id: {
+                    unit: {
                         required: true
                     },
-                    company_id: {
+                    gst_applicable: {
                         required: true
                     },
-                    item_quantity: {
+                    gst_no: {
                         required: true
                     },
-                    item_price: {
+                    gst_percentage: {
                         required: true
                     },
-                    purchase_date: {
-                        required: true
-                    },
-                    opening_balance: {
+                    supply_type: {
                         required: true
                     }
 				},
@@ -178,23 +174,20 @@
                     item_type_id: {
                         required: "Please select item type."
                     },
-                    unit_type_id: {
-                        required: "Please select unit type."
+                    unit: {
+                        required: "Please enter unit."
                     },
-                    company_id: {
-                        required: "Please select company."
+                    gst_applicable: {
+                        required: "Please select gst applicable or not."
                     },
-                    item_quantity: {
-                        required: "Please enter item quantity."
+                    gst_no: {
+                        required: "Please enter gst no."
                     },
-                    item_price: {
-                        required: "Please enter item price."
+                    gst_percentage: {
+                        required: "Please enter gst percentage."
                     },
-                    purchase_date: {
-                        required: "Please enter purchase date."
-                    },
-                    opening_balance: {
-                        required: "Please enter opening balance."
+                    supply_type: {
+                        required: "Please enter supply type."
                     }
 				}
 			});

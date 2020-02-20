@@ -16,15 +16,13 @@ class ItemController extends Controller
     {
         $req   = $request->all();
         //echo '<pre>';print_r($req);die;
-        $query = Item::select('items.*','unit_type.unit_type_id','unit_type.unit_type_name','company.company_name')
+        $query = Item::select('items.*')
         ->join('item_type','item_type.item_type_id','=','items.item_type_id')
-        ->leftjoin('unit_type','unit_type.unit_type_id','=','items.unit_type_id')
-        ->leftjoin('company','company.company_id','=','items.company_id')
         ->where('deleted_at', null);
         if ($request->has('search_key') && $req['search_key']!='') {
             $query->where(function ($query) use ($req) {
                 $query->where('item_name', 'like', '%' . $req['search_key'] . '%');
-                $query->orWhere('item_price', 'like', '%' . $req['search_key'] . '%');
+                $query->orWhere('item_no', 'like', '%' . $req['search_key'] . '%');
             });
         }
         if ($request->has('item_type') && $req['item_type'] != null) {
