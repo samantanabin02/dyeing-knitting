@@ -156,6 +156,27 @@ Route::prefix('admin')->group(function () {
         Route::post('itemtype-delete',
             array('as' => 'itemtype-delete',
                 'uses'     => 'ItemTypeController@multi_destroy',
+        ));
+
+
+        Route::resource('gsts', 'GstController');
+        Route::get('gsts-index',
+            array('as' => 'gsts-index',
+                'uses'     => 'GstController@index',
             ));
+        Route::post('gsts-index',
+            array('as' => 'gsts-index',
+                'uses'     => 'GstController@index',
+            ));
+        Route::post('gsts',
+            array('as' => 'gsts.store',
+                'uses'     => 'GstController@store',
+            ));
+        Route::post('gsts-delete',
+            array('as' => 'gsts-delete',
+                'uses'     => 'GstController@multi_destroy',
+        ));
+
+
     });
 });

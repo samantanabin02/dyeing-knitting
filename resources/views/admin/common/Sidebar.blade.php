@@ -48,6 +48,12 @@
             <span>Item List</span>
           </a>         
         </li>
+        <li class="">
+          <a href="{{ route('gsts.index') }}">
+            <i class="fa fa-diamond"></i>
+            <span>Gst List</span>
+          </a>         
+        </li>
         <!-- <li class="">
           <a href="{{ route('users.index') }}">
             <i class="fa fa-users"></i>
