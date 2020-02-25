@@ -178,5 +178,24 @@ Route::prefix('admin')->group(function () {
         ));
 
 
+        Route::resource('manufacturings', 'ManufacturingController');
+        Route::get('manufacturings-index',
+            array('as' => 'manufacturings-index',
+                'uses'     => 'ManufacturingController@index',
+            ));
+        Route::post('manufacturings-index',
+            array('as' => 'manufacturings-index',
+                'uses'     => 'ManufacturingController@index',
+            ));
+        Route::post('manufacturings',
+            array('as' => 'manufacturings.store',
+                'uses'     => 'ManufacturingController@store',
+            ));
+        Route::post('manufacturings-delete',
+            array('as' => 'manufacturings-delete',
+                'uses'     => 'ManufacturingController@multi_destroy',
+        ));
+
+
     });
 });
