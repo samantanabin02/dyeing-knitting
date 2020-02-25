@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Manufacturing;
 use App\Models\ManufacturingQuantity;
+use App\Models\ManufacturingDQuantity;
 use App\Models\Item;
 use App\Models\UnitType;
 use App\Models\Company;
@@ -78,6 +79,31 @@ class ManufacturingController extends Controller
                    $quantity_data->create($quantity_details_row);
                 }
             }
+
+             if(isset($req['dquantity']) && $req['dquantity']!=''){
+                $dinsert_id = $insert_data->id;   
+                $ditem=$req['ditem'];                
+                $dquantity=$req['dquantity'];
+                $dunit=$req['dunit'];
+                $drate=$req['drate'];
+                $damount=$req['damount'];
+                $dquantity_details_array=array();
+                foreach($dquantity as $dkey=> $dquantity_row){
+                    $dquantity_details_array[$dkey]['manufacturing_id']=$dinsert_id;
+                    $dquantity_details_array[$dkey]['item_id']=$ditem[$dkey];
+                    $dquantity_details_array[$dkey]['quantity']=$dquantity[$dkey];
+                    $dquantity_details_array[$dkey]['unit']=$dunit[$dkey];
+                    $dquantity_details_array[$dkey]['rate']=$drate[$dkey];
+                    $dquantity_details_array[$dkey]['amount']=$damount[$dkey];
+                }
+                foreach($dquantity_details_array as $dquantity_details_row){
+                   $dquantity_data  = new ManufacturingDQuantity;
+                   $dquantity_data->create($dquantity_details_row);
+                }
+            }
+
+
+
             return redirect()->back()->with('success', 'Manufacturing created successfully.');
         } else {
             return redirect()->back()->with('error', 'Some problem occurred.Please try again!');
@@ -93,8 +119,9 @@ class ManufacturingController extends Controller
         $data = Manufacturing::find($id);
         $items=Item::select('id','item_name')->pluck('item_name','id');
         $companies=Company::select('company_id','company_name')->pluck('company_name','company_id');
-        $quantity_details=ManufacturingQuantity::where('item_id',$id)->get();
-        return view('admin.Manufacturings.edit', compact('data','items','companies','quantity_details'));
+        $quantity_details=ManufacturingQuantity::where('manufacturing_id',$id)->get();
+        $dquantity_details=ManufacturingDQuantity::where('manufacturing_id',$id)->get();
+        return view('admin.Manufacturings.edit', compact('data','items','companies','quantity_details','dquantity_details'));
     }
     public function update(Request $request, $id)
     {
@@ -126,13 +153,41 @@ class ManufacturingController extends Controller
                     $quantity_details_array[$key]['amount']=$amount[$key];
                 }
                 if(count($quantity_details_array)){
-                    ManufacturingQuantity::where('item_id',$id)->delete();
+                    ManufacturingQuantity::where('manufacturing_id',$id)->delete();
                     foreach($quantity_details_array as $quantity_details_row){
                        $quantity_data  = new ManufacturingQuantity;
                        $quantity_data->create($quantity_details_row);
                     }
                 }
             }
+
+
+            if(isset($req['dquantity']) && $req['dquantity']!=''){
+                $dinsert_id = $id;   
+                $ditem=$req['ditem'];                
+                $dquantity=$req['dquantity'];
+                $dunit=$req['dunit'];
+                $drate=$req['drate'];
+                $damount=$req['damount'];
+                $dquantity_details_array=array();
+                foreach($dquantity as $dkey=> $dquantity_row){
+                    $dquantity_details_array[$dkey]['manufacturing_id']=$dinsert_id;
+                    $dquantity_details_array[$dkey]['item_id']=$ditem[$dkey];
+                    $dquantity_details_array[$dkey]['quantity']=$dquantity[$dkey];
+                    $dquantity_details_array[$dkey]['unit']=$dunit[$dkey];
+                    $dquantity_details_array[$dkey]['rate']=$drate[$dkey];
+                    $dquantity_details_array[$dkey]['amount']=$damount[$dkey];
+                }
+                ManufacturingDQuantity::where('manufacturing_id',$id)->delete();
+                if(count($dquantity_details_array)){
+                    foreach($dquantity_details_array as $dquantity_details_row){
+                       $dquantity_data  = new ManufacturingDQuantity;
+                       $dquantity_data->create($dquantity_details_row);
+                    }
+                }
+            }
+
+
             return redirect()->back()->with('success', 'Manufacturing updated successfully.');
         } else {
             return redirect()->back()->with('error', 'Some problem occurred.Please try again!');

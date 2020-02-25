@@ -43,13 +43,6 @@
                       </div>
                     </div>
 
-                    <div class="col-md-6">
-                      <div class="form-group">
-                          {{ Form::label('dyeing_company', 'Dyeing Company *', ['class' => '']) }}
-                          {{ Form::select('dyeing_company', $companies, null , array( 'class' => 'form-control select2' , 'placeholder' => 'Select Dyeing Company')) }}
-                      </div>
-                    </div>
-
                     <?php 
                       $item_options='<option value="">Select Item</option>';
                         if($items!='' && count($items)){
@@ -68,7 +61,28 @@
 
                     <div class="col-md-12">
                         <div class="form-group">
-                              <input type="button" class="btn btn-info" id="item_add" value="Add Item">
+                              <input type="button" class="btn btn-info" id="item_add" value="Add Knitting Item">
+                        </div>               
+                    </div>
+
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                          {{ Form::label('dyeing_company', 'Dyeing Company *', ['class' => '']) }}
+                          {{ Form::select('dyeing_company', $companies, null , array( 'class' => 'form-control select2' , 'placeholder' => 'Select Dyeing Company')) }}
+                      </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div id="dyeing_append_div">
+                             </div>
+                        </div>               
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                              <input type="button" class="btn btn-info" id="dyeing_item_add" value="Add Dyeing Item">
                         </div>               
                     </div>
 
@@ -107,6 +121,7 @@
              });  
              $(function() {  
                 var i=0;
+                var j=0;
                 var item_option='<?php echo $item_options; ?>';
                 //alert(item_option);
                 $('body').on('click','#item_add', function() {
@@ -121,6 +136,20 @@
                    var quantity_id = quantity_id_array[1];
                    //alert(quantity_id);
                    $("#deletedv_"+quantity_id).remove();
+                });
+
+                 $('body').on('click','#dyeing_item_add', function() {
+                  j++;
+                  var dyeing_append_html='<div class="row" id="ddeletedv_'+j+'"><div class="col-md-2"><label>Item:</label><select name="ditem['+j+']" id="ditem_'+j+'" class="form-control">'+item_option+'</select></div><div class="col-md-2"><label>Quantity:</label><input type="text" name="dquantity['+j+']" id="dquantity_'+j+'" class="form-control" value="" placeholder="Enter Quantity"></div><div class="col-md-2"><label>Unit:</label><input type="text" name="dunit['+j+']" id="dunit_'+j+'" class="form-control" value="" placeholder="Enter Unit"></div><div class="col-md-2"><label>Rate:</label><input type="text" name="drate['+j+']" id="drate_'+j+'" class="form-control" value="" placeholder="Enter Rate"></div><div class="col-md-2"><label>Amount:</label><input type="text" name="damount['+j+']" id="damount_'+j+'" class="form-control" value="" placeholder="Enter Amount"></div><div class="col-md-2"><label style="display:block;">&nbsp;</label><input type="button" id="ddeletebtn_'+j+'" class="form-control btn btn-danger ddelete_quantity_button" value="Delete"></div></div></br>';
+                    $('#dyeing_append_div').append(dyeing_append_html);
+                });
+
+                $(document).on('click', '.ddelete_quantity_button', function(){
+                   var dquantity_id_data = $(this).attr("id");  
+                   var dquantity_id_array = dquantity_id_data.split("_");
+                   var dquantity_id = dquantity_id_array[1];
+                   //alert(quantity_id);
+                   $("#ddeletedv_"+dquantity_id).remove();
                 });
 
              });
