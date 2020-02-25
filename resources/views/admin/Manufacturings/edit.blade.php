@@ -30,48 +30,30 @@
                             {{ Form::text('entry_date', null, array('class' => 'form-control', 'placeholder' => 'Choose entry date')) }}
                         </div>                 
                     </div>
+                    
+                  
+                    <div class="col-md-6">
+                      <div class="form-group">
+                          {{ Form::label('knitting_company', 'Knitting Company *', ['class' => '']) }}
+                          {{ Form::select('knitting_company', $companies, null , array( 'class' => 'form-control select2' , 'placeholder' => 'Select Knitting Company')) }}
+                      </div>
+                    </div>
 
                     <div class="col-md-6">
                       <div class="form-group">
-                          {{ Form::label('item_id', 'Item *', ['class' => '']) }}
-                          <select name="item_id" id="item_id" class="form-control">
-                              <option value="">Select Item</option>
-                              @if($items!='' && count($items))
-                               @foreach($items as $key=>$value)
-                                <option value="{{ $key }}">{{ $value }}</option>
-                               @endforeach
-                              @endif
-                          </select>
+                          {{ Form::label('dyeing_company', 'Dyeing Company *', ['class' => '']) }}
+                          {{ Form::select('dyeing_company', $companies, null , array( 'class' => 'form-control select2' , 'placeholder' => 'Select Dyeing Company')) }}
                       </div>
                     </div>
-                  
-                    <div class="col-md-6">
-                    <div class="form-group">
-                        {{ Form::label('gst_applicable', 'GST Applicable *', ['class' => '']) }}
-                        {{ Form::select('gst_applicable', ['1' => 'Yes', '2' => 'No'], $data->gst_applicable, array( 'class' => 'form-control select2')) }}
-                    </div>
-                    </div>
 
-                    <div class="col-md-6" id="gst_no_dv">
-                        <div class="form-group">
-                            {{ Form::label('gst_no', 'GST No *', ['class' => '']) }}
-                            {{ Form::text('gst_no', null, array('class' => 'form-control', 'placeholder' => 'Enter GST No')) }}
-                        </div>                 
-                    </div>
-
-                    <div class="col-md-6" id="gst_percentage_dv">
-                        <div class="form-group">
-                            {{ Form::label('gst_percentage', 'GST Percentage *', ['class' => '']) }}
-                            {{ Form::text('gst_percentage', null, array('class' => 'form-control', 'placeholder' => 'Enter GST percentage')) }}
-                        </div>                 
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            {{ Form::label('supply_type', 'Supply Type', ['class' => '']) }}
-                            {{ Form::text('supply_type', null, array('class' => 'form-control', 'placeholder' => 'Enter Supply Type')) }}
-                        </div>                 
-                    </div>
+                    <?php 
+                      $item_options='<option value="">Select Item</option>';
+                        if($items!='' && count($items)){
+                         foreach($items as $key=>$value){
+                          $item_options.='<option value="'.$key.'">'.$value.'</option>';
+                         }
+                        }
+                    ?>
 
                     <div class="col-md-12">
                         <div class="form-group">
@@ -82,6 +64,21 @@
                                     ?>
 
                                      <div class="row" id="deletedv_<?php echo $quantity_details_row->id; ?>">
+
+                                        <div class="col-md-2"><label>Item:</label>
+                                            <select name="item[<?php echo $quantity_details_row->id; ?>]" id="item_<?php echo $quantity_details_row->id; ?>" class="form-control">
+                                                <option value="">Select Item</option>
+                                                <?php   
+                                                    if($items!='' && count($items)){
+                                                     foreach($items as $key=>$value){
+                                                     ?>
+                                                      <option value="{{ $key }}" <?php if($key==$quantity_details_row->item_id){ echo 'selected';} ?> >{{ $value }}</option>
+                                                     <?php
+                                                     }
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
 
                                         <div class="col-md-2">
                                             <label>Quantity:</label>
@@ -120,9 +117,24 @@
 
                     <div class="col-md-12">
                         <div class="form-group">
-                              <input type="button" class="btn btn-info" id="quantuty_add" value="Add Quantity">
+                              <input type="button" class="btn btn-info" id="item_add" value="Add Item">
                         </div>               
                     </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ Form::label('wastage_quantity', 'Wastage Quantity', ['class' => '']) }}
+                            {{ Form::text('wastage_quantity', null, array('class' => 'form-control', 'placeholder' => 'Enter wastage quantity')) }}
+                        </div>                 
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ Form::label('wastage_amount', 'Wastage Amount', ['class' => '']) }}
+                            {{ Form::text('wastage_amount', null, array('class' => 'form-control', 'placeholder' => 'Enter wastage amount')) }}
+                        </div>                 
+                    </div>
+                   
                     
                     <div class="col-md-12" style="height:10px;">
                     </div>                 
@@ -147,9 +159,10 @@
 
             $(function() {  
                 var i='{{ $last_quantity_id }}';
-                $("#quantuty_add").click(function(){
+                var item_option='<?php echo $item_options; ?>';
+                $('body').on('click','#item_add', function() {
                   i++;
-                  var append_html='<div class="row" id="deletedv_'+i+'"><div class="col-md-2"><label>Quantity:</label><input type="text" name="quantity['+i+']" id="quantity_'+i+'" class="form-control" value="" placeholder="Enter Quantity"></div><div class="col-md-2"><label>Unit:</label><input type="text" name="unit['+i+']" id="unit_'+i+'" class="form-control" value="" placeholder="Enter Unit"></div><div class="col-md-2"><label>Rate:</label><input type="text" name="rate['+i+']" id="rate_'+i+'" class="form-control" value="" placeholder="Enter Rate"></div><div class="col-md-2"><label>Amount:</label><input type="text" name="amount['+i+']" id="amount_'+i+'" class="form-control" value="" placeholder="Enter Amount"></div><div class="col-md-2"><label style="display:block;">&nbsp;</label><input type="button" id="deletebtn_'+i+'" class="form-control btn btn-danger delete_quantity_button" value="Delete"></div></div></br>';
+                  var append_html='<div class="row" id="deletedv_'+i+'"><div class="col-md-2"><label>Item:</label><select name="item['+i+']" id="item_'+i+'" class="form-control">'+item_option+'</select></div><div class="col-md-2"><label>Quantity:</label><input type="text" name="quantity['+i+']" id="quantity_'+i+'" class="form-control" value="" placeholder="Enter Quantity"></div><div class="col-md-2"><label>Unit:</label><input type="text" name="unit['+i+']" id="unit_'+i+'" class="form-control" value="" placeholder="Enter Unit"></div><div class="col-md-2"><label>Rate:</label><input type="text" name="rate['+i+']" id="rate_'+i+'" class="form-control" value="" placeholder="Enter Rate"></div><div class="col-md-2"><label>Amount:</label><input type="text" name="amount['+i+']" id="amount_'+i+'" class="form-control" value="" placeholder="Enter Amount"></div><div class="col-md-2"><label style="display:block;">&nbsp;</label><input type="button" id="deletebtn_'+i+'" class="form-control btn btn-danger delete_quantity_button" value="Delete"></div></div></br>';
                     $('#append_div').append(append_html);
                 });
 

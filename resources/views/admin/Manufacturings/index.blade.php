@@ -11,11 +11,14 @@
     <div class="col-xs-12 clearfix">
       <div class=" row form-group">
         {{ Form::open(['route' => 'manufacturings-index', 'method' => 'post', 'class' => '', 'id' => 'form-search']) }}
-            <div class="col-md-3 mrgb">
+            <div class="col-md-2 mrgb">
             {{ Form::text('search_key', request()->input('search_key'), ['id' => 'search_key', 'class' => 'form-control', 'placeholder' => 'Enter search key']) }}
             </div>
             <div class="col-md-2 mrgb">
-            {{ Form::select('item_id', $items , request()->input('item_id'), ['placeholder' => 'Select Item', 'id' => 'item_id', 'class' => 'form-control select2']) }}
+            {{ Form::select('knitting_company', $companies , request()->input('knitting_company'), ['placeholder' => 'Select Knitting Company', 'id' => 'knitting_company', 'class' => 'form-control select2']) }}
+            </div>
+            <div class="col-md-2 mrgb">
+            {{ Form::select('dyeing_company', $companies , request()->input('dyeing_company'), ['placeholder' => 'Select Dyeing Company', 'id' => 'dyeing_company', 'class' => 'form-control select2']) }}
             </div>
             <div class="col-md-1 col-xs-6 mrgb">
             {{ Form::button('Search', ['type' => 'submit', 'class' => 'form-control btn btn-primary btn-block-xs', 'id' => 'submit-btn'] )  }}
@@ -56,10 +59,10 @@
                 <th width="3%">{{ Form::checkbox('multi_check',null,null, array('id'=>'multi_check')) }}</th>
                 <th>Serial No</th>
                 <th>Entry Date</th>
-                <th>Alt Unit</th>
-                <th>Gst No</th>
-                <th>Gst Percentage</th>
-                <th>Supply Type</th>
+                <th>Knitting Company</th>
+                <th>Dyeing Company</th>
+                <th>Wastage Quantity</th>
+                <th>Wastage Amount</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -73,10 +76,22 @@
                       <td>{{ Form::checkbox('single_check',$data->id,null, array('id'=>'single_check','class'=>'single_check')) }}</td>
                       <td>{{ $data->serial_no }}</td>
                       <td>{{ $data->entry_date }}</td>
-                      <td>{{ $data->alt_unit }}</td>
-                      <td>{{ $data->gst_no }}</td>
-                      <td>{{ $data->gst_percentage }}</td>
-                      <td>{{ $data->supply_type }}</td>
+                      <td>
+                      <?php 
+                      if(isset($companies[$data->knitting_company])){
+                        echo $companies[$data->knitting_company]; 
+                      }
+                      ?>
+                      </td>
+                      <td>
+                      <?php 
+                      if(isset($companies[$data->dyeing_company])){
+                        echo $companies[$data->dyeing_company]; 
+                      }
+                      ?>
+                      </td>
+                      <td>{{ $data->wastage_quantity }}</td>
+                      <td>{{ $data->wastage_amount }}</td>
                       <td>
                         <a style="margin-right: 10px; font-size: 16px;" href="{{ route('manufacturings.edit',  $data->id) }}" title="Edit">
                            <i class="fa fa-edit"></i>
