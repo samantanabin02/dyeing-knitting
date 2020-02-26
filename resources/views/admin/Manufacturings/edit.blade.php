@@ -115,6 +115,20 @@
                     </div>
 
                     <div class="col-md-6">
+                        <div class="form-group">
+                            {{ Form::label('tot_knit_quan', 'Total Knitting Quantity', ['class' => '']) }}
+                            {{ Form::text('tot_knit_quan', 0, array('class' => 'form-control')) }}
+                        </div>                 
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ Form::label('tot_knit_amount', 'Total Knitting Amount', ['class' => '']) }}
+                            {{ Form::text('tot_knit_amount', 0, array('class' => 'form-control')) }}
+                        </div>                 
+                    </div>
+
+                    <div class="col-md-6">
                       <div class="form-group">
                           {{ Form::label('dyeing_company', 'Dyeing Company *', ['class' => '']) }}
                           {{ Form::select('dyeing_company', $companies, null , array( 'class' => 'form-control select2' , 'placeholder' => 'Select Dyeing Company')) }}
@@ -184,6 +198,21 @@
                         <div class="form-group">
                               <input type="button" class="btn btn-info" id="dyeing_item_add" value="Add Dyeing Item">
                         </div>               
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ Form::label('tot_dyeing_quan', 'Total Dyeing Quantity', ['class' => '']) }}
+                            {{ Form::text('tot_dyeing_quan', 0, array('class' => 'form-control')) }}
+                        </div>                 
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ Form::label('tot_dyeing_amount', 'Total Dyeing Amount', ['class' => '']) }}
+                            {{ Form::text('tot_dyeing_amount', 0, array('class' => 'form-control')) }}
+                        </div>                 
                     </div>
 
 
