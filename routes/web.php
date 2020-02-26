@@ -197,5 +197,23 @@ Route::prefix('admin')->group(function () {
         ));
 
 
+        Route::resource('purchase', 'PurchaseController');
+        Route::get('purchase-index',
+            array('as' => 'purchase-index',
+                'uses'     => 'PurchaseController@index',
+            ));
+        Route::post('purchase-index',
+            array('as' => 'purchase-index',
+                'uses'     => 'PurchaseController@index',
+            ));
+        Route::post('purchase',
+            array('as' => 'purchase.store',
+                'uses'     => 'PurchaseController@store',
+            ));
+        Route::post('purchase-delete',
+            array('as' => 'purchase-delete',
+                'uses'     => 'PurchaseController@multi_destroy',
+            ));
+
     });
 });

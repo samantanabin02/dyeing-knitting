@@ -55,6 +55,12 @@
           </a>         
         </li>
         <li class="">
+          <a href="{{ route('purchase.index') }}">
+            <i class="fa fa-diamond"></i>
+            <span>Purchase List</span>
+          </a>         
+        </li>
+        <li class="">
           <a href="{{ route('manufacturings.index') }}">
             <i class="fa fa-diamond"></i>
             <span>Manufacturing List</span>
