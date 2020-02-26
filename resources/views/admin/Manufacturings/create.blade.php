@@ -115,10 +115,63 @@
     {{ Html::script('assets/admin/plugins/validate/jquery.validate.min.js') }} 
 	<script type="text/javascript">
         jQuery(document).ready(function(){
+
              $('#entry_date').datepicker({
               format: 'yyyy-mm-dd',
               autoclose: true
              });  
+
+             $('body').on('keyup','.quantity', function() {
+                var quantity_data = $(this).attr("id");  
+                var quantity_array = quantity_data.split("_");
+                var quantity_id = quantity_array[1];
+                calculate_amount(quantity_id);
+             });
+
+             $('body').on('keyup','.rate', function() {
+                var quantity_data = $(this).attr("id");  
+                var quantity_array = quantity_data.split("_");
+                var quantity_id = quantity_array[1];
+                calculate_amount(quantity_id);
+             });
+
+             function calculate_amount(quantity_id){
+                var quantity = $('#quantity_'+quantity_id).val();
+                var rate = $('#rate_'+quantity_id).val();
+                if(quantity && rate){
+                var amount=parseInt(quantity)*parseInt(rate);
+                $('#amount_'+quantity_id).val(amount);
+                }else{
+                $('#amount_'+quantity_id).val('');
+                }
+             }
+
+             $('body').on('keyup','.dquantity', function() {
+                var quantity_data = $(this).attr("id");  
+                var quantity_array = quantity_data.split("_");
+                var quantity_id = quantity_array[1];
+                calculate_damount(quantity_id);
+             });
+
+             $('body').on('keyup','.drate', function() {
+                var quantity_data = $(this).attr("id");  
+                var quantity_array = quantity_data.split("_");
+                var quantity_id = quantity_array[1];
+                calculate_damount(quantity_id);
+             });
+
+             function calculate_damount(quantity_id){
+                var quantity = $('#dquantity_'+quantity_id).val();
+                var rate = $('#drate_'+quantity_id).val();
+                if(quantity && rate){
+                var amount=parseInt(quantity)*parseInt(rate);
+                $('#damount_'+quantity_id).val(amount);
+                }else{
+                $('#damount_'+quantity_id).val('');
+                }
+             }
+
+
              $(function() {  
                 var i=0;
                 var j=0;
@@ -126,7 +179,7 @@
                 //alert(item_option);
                 $('body').on('click','#item_add', function() {
                   i++;
-                  var append_html='<div class="row" id="deletedv_'+i+'"><div class="col-md-2"><label>Item:</label><select name="item['+i+']" id="item_'+i+'" class="form-control">'+item_option+'</select></div><div class="col-md-2"><label>Quantity:</label><input type="text" name="quantity['+i+']" id="quantity_'+i+'" class="form-control" value="" placeholder="Enter Quantity"></div><div class="col-md-2"><label>Unit:</label><input type="text" name="unit['+i+']" id="unit_'+i+'" class="form-control" value="" placeholder="Enter Unit"></div><div class="col-md-2"><label>Rate:</label><input type="text" name="rate['+i+']" id="rate_'+i+'" class="form-control" value="" placeholder="Enter Rate"></div><div class="col-md-2"><label>Amount:</label><input type="text" name="amount['+i+']" id="amount_'+i+'" class="form-control" value="" placeholder="Enter Amount"></div><div class="col-md-2"><label style="display:block;">&nbsp;</label><input type="button" id="deletebtn_'+i+'" class="form-control btn btn-danger delete_quantity_button" value="Delete"></div></div></br>';
+                  var append_html='<div class="row" id="deletedv_'+i+'"><div class="col-md-2"><label>Item:</label><select name="item['+i+']" id="item_'+i+'" class="form-control item">'+item_option+'</select></div><div class="col-md-2"><label>Quantity:</label><input type="text" name="quantity['+i+']" id="quantity_'+i+'" class="form-control quantity" value="" placeholder="Enter Quantity"></div><div class="col-md-2"><label>Unit:</label><input type="text" name="unit['+i+']" id="unit_'+i+'" class="form-control unit" value="" placeholder="Enter Unit"></div><div class="col-md-2"><label>Rate:</label><input type="text" name="rate['+i+']" id="rate_'+i+'" class="form-control rate" value="" placeholder="Enter Rate"></div><div class="col-md-2"><label>Amount:</label><input type="text" name="amount['+i+']" id="amount_'+i+'" class="form-control amount" value="" placeholder="Enter Amount"></div><div class="col-md-2"><label style="display:block;">&nbsp;</label><input type="button" id="deletebtn_'+i+'" class="form-control btn btn-danger delete_quantity_button" value="Delete"></div></div></br>';
                     $('#append_div').append(append_html);
                 });
 
@@ -140,7 +193,7 @@
 
                  $('body').on('click','#dyeing_item_add', function() {
                   j++;
-                  var dyeing_append_html='<div class="row" id="ddeletedv_'+j+'"><div class="col-md-2"><label>Item:</label><select name="ditem['+j+']" id="ditem_'+j+'" class="form-control">'+item_option+'</select></div><div class="col-md-2"><label>Quantity:</label><input type="text" name="dquantity['+j+']" id="dquantity_'+j+'" class="form-control" value="" placeholder="Enter Quantity"></div><div class="col-md-2"><label>Unit:</label><input type="text" name="dunit['+j+']" id="dunit_'+j+'" class="form-control" value="" placeholder="Enter Unit"></div><div class="col-md-2"><label>Rate:</label><input type="text" name="drate['+j+']" id="drate_'+j+'" class="form-control" value="" placeholder="Enter Rate"></div><div class="col-md-2"><label>Amount:</label><input type="text" name="damount['+j+']" id="damount_'+j+'" class="form-control" value="" placeholder="Enter Amount"></div><div class="col-md-2"><label style="display:block;">&nbsp;</label><input type="button" id="ddeletebtn_'+j+'" class="form-control btn btn-danger ddelete_quantity_button" value="Delete"></div></div></br>';
+                  var dyeing_append_html='<div class="row" id="ddeletedv_'+j+'"><div class="col-md-2"><label>Item:</label><select name="ditem['+j+']" id="ditem_'+j+'" class="form-control ditem">'+item_option+'</select></div><div class="col-md-2"><label>Quantity:</label><input type="text" name="dquantity['+j+']" id="dquantity_'+j+'" class="form-control dquantity" value="" placeholder="Enter Quantity"></div><div class="col-md-2"><label>Unit:</label><input type="text" name="dunit['+j+']" id="dunit_'+j+'" class="form-control dunit" value="" placeholder="Enter Unit"></div><div class="col-md-2"><label>Rate:</label><input type="text" name="drate['+j+']" id="drate_'+j+'" class="form-control drate" value="" placeholder="Enter Rate"></div><div class="col-md-2"><label>Amount:</label><input type="text" name="damount['+j+']" id="damount_'+j+'" class="form-control damount" value="" placeholder="Enter Amount"></div><div class="col-md-2"><label style="display:block;">&nbsp;</label><input type="button" id="ddeletebtn_'+j+'" class="form-control btn btn-danger ddelete_quantity_button" value="Delete"></div></div></br>';
                     $('#dyeing_append_div').append(dyeing_append_html);
                 });
 
