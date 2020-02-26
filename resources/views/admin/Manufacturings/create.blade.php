@@ -34,7 +34,6 @@
                             {{ Form::text('entry_date', null, array('class' => 'form-control', 'placeholder' => 'Choose entry date')) }}
                         </div>                 
                     </div>
-
                     
                     <div class="col-md-6">
                       <div class="form-group">
@@ -65,6 +64,20 @@
                         </div>               
                     </div>
 
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ Form::label('tot_knit_quan', 'Total Knitting Quantity', ['class' => '']) }}
+                            {{ Form::text('tot_knit_quan', 0, array('class' => 'form-control')) }}
+                        </div>                 
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ Form::label('tot_knit_amount', 'Total Knitting Amount', ['class' => '']) }}
+                            {{ Form::text('tot_knit_amount', 0, array('class' => 'form-control')) }}
+                        </div>                 
+                    </div>
+
 
                     <div class="col-md-6">
                       <div class="form-group">
@@ -84,6 +97,20 @@
                         <div class="form-group">
                               <input type="button" class="btn btn-info" id="dyeing_item_add" value="Add Dyeing Item">
                         </div>               
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ Form::label('tot_dyeing_quan', 'Total Dyeing Quantity', ['class' => '']) }}
+                            {{ Form::text('tot_dyeing_quan', 0, array('class' => 'form-control')) }}
+                        </div>                 
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ Form::label('tot_dyeing_amount', 'Total Dyeing Amount', ['class' => '']) }}
+                            {{ Form::text('tot_dyeing_amount', 0, array('class' => 'form-control')) }}
+                        </div>                 
                     </div>
 
                     <div class="col-md-6">
@@ -126,6 +153,7 @@
                 var quantity_array = quantity_data.split("_");
                 var quantity_id = quantity_array[1];
                 calculate_amount(quantity_id);
+                total_quantity();
              });
 
              $('body').on('keyup','.rate', function() {
@@ -144,6 +172,7 @@
                 }else{
                 $('#amount_'+quantity_id).val('');
                 }
+                total_amount();
              }
 
              $('body').on('keyup','.dquantity', function() {
@@ -151,6 +180,7 @@
                 var quantity_array = quantity_data.split("_");
                 var quantity_id = quantity_array[1];
                 calculate_damount(quantity_id);
+                total_dquantity();
              });
 
              $('body').on('keyup','.drate', function() {
@@ -169,8 +199,48 @@
                 }else{
                 $('#damount_'+quantity_id).val('');
                 }
+                total_damount();
              }
 
+             function total_quantity(){
+                var sum = 0;
+                $('.quantity').each(function(){
+                    if($(this).val()){
+                    sum += parseFloat($(this).val());
+                    }
+                });
+                $('#tot_knit_quan').val(sum);
+             }
+
+             function total_amount(){
+                var sum = 0;
+                $('.amount').each(function(){
+                    if($(this).val()){
+                      sum += parseFloat($(this).val());
+                    }
+                });
+                $('#tot_knit_amount').val(sum);
+             }
+
+             function total_dquantity(){
+                var sum = 0;
+                $('.dquantity').each(function(){
+                    if($(this).val()){
+                    sum += parseFloat($(this).val());
+                    }
+                });
+                $('#tot_dyeing_quan').val(sum);
+             }
+
+             function total_damount(){
+                var sum = 0;
+                $('.damount').each(function(){
+                    if($(this).val()){
+                    sum += parseFloat($(this).val());
+                    }
+                });
+                $('#tot_dyeing_amount').val(sum);
+             }
 
              $(function() {  
                 var i=0;
@@ -189,6 +259,8 @@
                    var quantity_id = quantity_id_array[1];
                    //alert(quantity_id);
                    $("#deletedv_"+quantity_id).remove();
+                   total_quantity();
+                   total_amount();
                 });
 
                  $('body').on('click','#dyeing_item_add', function() {
@@ -203,6 +275,8 @@
                    var dquantity_id = dquantity_id_array[1];
                    //alert(quantity_id);
                    $("#ddeletedv_"+dquantity_id).remove();
+                   total_dquantity();
+                   total_damount();
                 });
 
              });

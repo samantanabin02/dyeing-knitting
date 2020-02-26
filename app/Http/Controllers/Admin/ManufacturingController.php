@@ -53,7 +53,11 @@ class ManufacturingController extends Controller
         $insert_data->serial_no=$req['serial_no'];
         $insert_data->entry_date=$req['entry_date'];
         $insert_data->knitting_company=$req['knitting_company'];
+        $insert_data->tot_knit_quan=$req['tot_knit_quan'];
+        $insert_data->tot_knit_amount=$req['tot_knit_amount'];
         $insert_data->dyeing_company=$req['dyeing_company'];
+        $insert_data->tot_dyeing_quan=$req['tot_dyeing_quan'];
+        $insert_data->tot_dyeing_amount=$req['tot_dyeing_amount'];
         $insert_data->wastage_quantity=$req['wastage_quantity'];
         $insert_data->wastage_amount=$req['wastage_amount'];
         //echo '<pre>';print_r($insert_data);die;
@@ -131,7 +135,11 @@ class ManufacturingController extends Controller
         $data->serial_no=$req['serial_no'];
         $data->entry_date=$req['entry_date'];
         $data->knitting_company=$req['knitting_company'];
+        $data->tot_knit_quan=$req['tot_knit_quan'];
+        $data->tot_knit_amount=$req['tot_knit_amount'];
         $data->dyeing_company=$req['dyeing_company'];
+        $data->tot_dyeing_quan=$req['tot_dyeing_quan'];
+        $data->tot_dyeing_amount=$req['tot_dyeing_amount'];
         $data->wastage_quantity=$req['wastage_quantity'];
         $data->wastage_amount=$req['wastage_amount'];
         //echo '<pre>';print_r($req);die;

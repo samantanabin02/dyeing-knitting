@@ -228,6 +228,7 @@
                 var quantity_array = quantity_data.split("_");
                 var quantity_id = quantity_array[1];
                 calculate_amount(quantity_id);
+                total_quantity();
              });
 
              $('body').on('keyup','.rate', function() {
@@ -246,6 +247,7 @@
                 }else{
                 $('#amount_'+quantity_id).val('');
                 }
+                total_amount();
              }
 
              $('body').on('keyup','.dquantity', function() {
@@ -253,6 +255,7 @@
                 var quantity_array = quantity_data.split("_");
                 var quantity_id = quantity_array[1];
                 calculate_damount(quantity_id);
+                total_dquantity();
              });
 
              $('body').on('keyup','.drate', function() {
@@ -271,6 +274,47 @@
                 }else{
                 $('#damount_'+quantity_id).val('');
                 }
+                total_damount();
+             }
+
+             function total_quantity(){
+                var sum = 0;
+                $('.quantity').each(function(){
+                    if($(this).val()){
+                    sum += parseFloat($(this).val());
+                    }
+                });
+                $('#tot_knit_quan').val(sum);
+             }
+
+             function total_amount(){
+                var sum = 0;
+                $('.amount').each(function(){
+                    if($(this).val()){
+                      sum += parseFloat($(this).val());
+                    }
+                });
+                $('#tot_knit_amount').val(sum);
+             }
+
+             function total_dquantity(){
+                var sum = 0;
+                $('.dquantity').each(function(){
+                    if($(this).val()){
+                    sum += parseFloat($(this).val());
+                    }
+                });
+                $('#tot_dyeing_quan').val(sum);
+             }
+
+             function total_damount(){
+                var sum = 0;
+                $('.damount').each(function(){
+                    if($(this).val()){
+                    sum += parseFloat($(this).val());
+                    }
+                });
+                $('#tot_dyeing_amount').val(sum);
              }
 
             $(function() {  
