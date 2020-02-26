@@ -63,12 +63,12 @@
                     </div>
                     </div>
 
-                    <div class="col-md-6" id="gst_no_dv">
+                    <!-- <div class="col-md-6" id="gst_no_dv">
                         <div class="form-group">
                             {{ Form::label('gst_no', 'GST No *', ['class' => '']) }}
                             {{ Form::text('gst_no', null, array('class' => 'form-control', 'placeholder' => 'Enter GST No')) }}
                         </div>                 
-                    </div>
+                    </div> -->
 
                     <div class="col-md-6" id="gst_percentage_dv">
                         <div class="form-group">
@@ -152,26 +152,26 @@
         jQuery(document).ready(function(){
             var gst_applicable='{{ $data->gst_applicable }}';
             if(gst_applicable==2){
-                $('#gst_no').hide();
-                $('#gst_no_dv').hide();
+                //$('#gst_no').hide();
+                //$('#gst_no_dv').hide();
                 $('#gst_percentage').hide();
                 $('#gst_percentage_dv').hide();
             }else{
-                $('#gst_no').show();
-                $('#gst_no_dv').show();
+                //$('#gst_no').show();
+                //$('#gst_no_dv').show();
                 $('#gst_percentage').show();
                 $('#gst_percentage_dv').show();
             }
             $('body').on('change','#gst_applicable', function() {
                 var gst_applicable=$(this).val();
                 if(gst_applicable==2){
-                    $('#gst_no').hide();
-                    $('#gst_no_dv').hide();
+                    //$('#gst_no').hide();
+                    //$('#gst_no_dv').hide();
                     $('#gst_percentage').hide();
                     $('#gst_percentage_dv').hide();
                 }else{
-                    $('#gst_no').show();
-                    $('#gst_no_dv').show();
+                    //$('#gst_no').show();
+                    //$('#gst_no_dv').show();
                     $('#gst_percentage').show();
                     $('#gst_percentage_dv').show();
                 }
