@@ -105,9 +105,6 @@ class ManufacturingController extends Controller
                    $dquantity_data->create($dquantity_details_row);
                 }
             }
-
-
-
             return redirect()->back()->with('success', 'Manufacturing created successfully.');
         } else {
             return redirect()->back()->with('error', 'Some problem occurred.Please try again!');
