@@ -36,12 +36,12 @@
             <span>Item Type</span>
           </a>         
         </li>
-        <!-- <li class="">
+        <li class="">
           <a href="{{ route('unittype.index') }}">
             <i class="fa fa-diamond"></i>
             <span>Unit Type</span>
           </a>         
-        </li> -->
+        </li>
         <li class="">
           <a href="{{ route('items.index') }}">
             <i class="fa fa-diamond"></i>

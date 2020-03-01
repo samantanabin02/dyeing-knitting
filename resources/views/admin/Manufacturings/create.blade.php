@@ -42,6 +42,13 @@
                       </div>
                     </div>
 
+                    <div class="col-md-6">
+                      <div class="form-group">
+                          {{ Form::label('challan_no', 'Challan No *', ['class' => '']) }}
+                          {{ Form::select('challan_no', $purchases, null , array( 'class' => 'form-control select2' , 'placeholder' => 'Select Challan No')) }}
+                      </div>
+                    </div>
+
                     <?php 
                       $item_options='<option value="">Select Item</option>';
                         if($items!='' && count($items)){
@@ -292,6 +299,9 @@
                     knitting_company: {
                         required: true
                     },
+                    challan_no: {
+                         required: true
+                    },
                     dyeing_company: {
                         required: true
                     }
@@ -305,6 +315,9 @@
                     },
                     knitting_company: {
                         required: "Please select knitting company."
+                    },
+                    challan_no: {
+                         required: "Please select challan no."
                     },
                     dyeing_company: {
                         required: "Please select dyeing company."
