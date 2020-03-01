@@ -128,6 +128,7 @@ class ManufacturingController extends Controller
         $dquantity_details=ManufacturingDQuantity::where('manufacturing_id',$id)->get();
         return view('admin.Manufacturings.edit', compact('data','items','companies','purchases','quantity_details','dquantity_details'));
     }
+    
     public function update(Request $request, $id)
     {
         $validator  = $this->validate($request,['entry_date'=>'required']);

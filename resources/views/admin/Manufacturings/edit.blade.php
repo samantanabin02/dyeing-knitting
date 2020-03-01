@@ -445,6 +445,7 @@
                         required: "Please select dyeing company."
                     }
                 }
+                
             });
         });
     </script>
