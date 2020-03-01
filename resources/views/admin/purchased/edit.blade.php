@@ -16,35 +16,34 @@
 			<div class="row">
             {{ Form::model($data, ['url' => ['admin/purchase', $data->purchase_id], 'method' => 'PUT', 'files' => true, 'class' => '', 'id' => 'form-addedit','enctype' => 'multipart/form-data']) }}
                 <div class="col-md-12">
-                                        <div class="col-md-6">
-                    <div class="form-group">
-                        {{ Form::label('company', 'Company*', ['class' => '']) }}
-                        <select name="purchase_company_id" id="purchase_company_id" class="form-control">
-                            <option value="">Select Company</option>
-                            @if($companies!='' && count($companies))
-                             @foreach($companies as $companiesSingle)
-                              <option value="{{ $companiesSingle->company_id }}" {{ ($companiesSingle->company_id == $data->purchase_company_id)?'selected':'' }}>{{ $companiesSingle->company_name }}</option>
-                             @endforeach
-                            @endif
-                        </select>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ Form::label('Invoice Challan No', 'Invoice Challan No *', ['class' => '']) }}
+                            {{ Form::text('invoice_challan_no', null, array('required'=>'required', 'class' => 'form-control', 'placeholder' => 'Enter Invoice Challan No')) }}
+                        </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ Form::label('Invoice Date', 'Invoice Date *', ['class' => '']) }}
+                            {{ Form::text('invoice_date', null, array('required'=>'required','id' => 'datepicker', 'class' => 'form-control', 'placeholder' => 'Select Invoice Date')) }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ Form::label('Company', 'Company*', ['class' => '']) }}
+                            <select name="purchase_company_id" id="purchase_company_id" class="form-control">
+                                <option value="">Select Company</option>
+                                @if($companies!='' && count($companies))
+                                 @foreach($companies as $companiesSingle)
+                                  <option value="{{ $companiesSingle->company_id }}" {{ ($companiesSingle->company_id == $data->purchase_company_id)?'selected':'' }}>{{ $companiesSingle->company_name }}</option>
+                                 @endforeach
+                                @endif
+                            </select>
+                        </div>
                     </div>
                     <div class="col-md-6">
                     <div class="form-group">
-                        {{ Form::label('item', 'Item*', ['class' => '']) }}
-                        <select name="item_id" id="item_id" class="form-control">
-                            <option value="">Select Item</option>
-                            @if($item!='' && count($item))
-                             @foreach($item as $item_type)
-                              <option value="{{ $item_type->id }}" {{ ($item_type->id==$data->item_id)?'selected':'' }}>{{ $item_type->item_name }}</option>
-                             @endforeach
-                            @endif
-                        </select>
-                    </div>
-                    </div>
-                    <div class="col-md-6">
-                    <div class="form-group">
-                        {{ Form::label('transfer company', 'Transfer Company*', ['class' => '']) }}
+                        {{ Form::label('Transferred Company', 'Transferred Company*', ['class' => '']) }}
                         <select name="material_transfer_company_id" id="material_transfer_company_id" class="form-control">
                             <option value="">Select Transfer Company</option>
                             @if($companies!='' && count($companies))
@@ -55,55 +54,88 @@
                         </select>
                     </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            {{ Form::label('purchase date', 'Purchase Date *', ['class' => '']) }}
-                            {{ Form::text('purchased_date', null, array('id' => 'datepicker', 'class' => 'form-control', 'placeholder' => 'Enter unit')) }}
-                        </div>
+                    <div id="append_div">
+                    <?php 
+                    $last_quantity_id = 0;
+                    foreach($quantity_details as $quantity_details_row){
+                    ?>
+                    <div id="deletedv_<?php echo $quantity_details_row->id; ?>" style="width:100%; float:left;">
+                    <div class="col-md-3">
+                    <div class="form-group">
+                    <label>Item*</label>
+                    <select class="form-control" id="item_id_<?php echo $quantity_details_row->id; ?>" name="item_id[<?php echo $quantity_details_row->id; ?>]" required="required">
+                      <option value="">Select Item</option>`;
+                      <?php foreach($item as $item_type){ ?>
+                        <option value="<?php echo $item_type->id ?>" {{($item_type->id == $quantity_details_row->item_id)?'selected':'' }}><?php echo strtoupper($item_type->item_name) ?></option>';
+                      <?php }?>
+                    </select>
                     </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <div id="append_div">
-                                    <?php 
-                                    $last_quantity_id=0;
-                                    foreach($quantity_details as $quantity_details_row){
-                                    ?>
-                                     <div class="row" id="deletedv_<?php echo $quantity_details_row->id; ?>">
-                                        <div class="col-md-2">
-                                            <label>Quantity:</label>
-                                                <input type="text" name="quantity[<?php echo $quantity_details_row->id; ?>]" id="quantity_<?php echo $quantity_details_row->id; ?>" class="form-control" value="<?php echo $quantity_details_row->quantity; ?>" placeholder="Enter Quantity">
-                                        </div>
-                                        <div class="col-md-2">
-                                        <label>Rate:</label>
-                                            <input type="text" name="rate[<?php echo $quantity_details_row->id; ?>]" id="rate_<?php echo $quantity_details_row->id; ?>" class="form-control" value="<?php echo $quantity_details_row->rate; ?>" placeholder="Enter Rate">
-                                        </div>
-                                        <div class="col-md-2">
-                                        <label>Amount:</label>
-                                            <input type="text" name="amount[<?php echo $quantity_details_row->id; ?>]" id="amount_<?php echo $quantity_details_row->id; ?>" class="form-control" value="<?php echo $quantity_details_row->amount; ?>" placeholder="Enter Amount">
-                                        </div>
-                                        <div class="col-md-2">
-                                        <label style="display:block;">&nbsp;</label>
-                                            <input type="button" id="deletebtn_<?php echo $quantity_details_row->id; ?>" class="form-control btn btn-danger delete_quantity_button" value="Delete">
-                                        </div>
-
-                                     </div>
-                                     </br>
-                                    <?php
-                                    $last_quantity_id=$quantity_details_row->id;
-                                    }
-                                    ?>
-                             </div>
-                        </div>               
+                    </div>
+                    <div class="col-md-2">
+                    <div class="form-group">
+                    <label>Unit*</label>
+                    <select class="form-control" id="unit_id_<?php echo $quantity_details_row->id; ?>" name="unit_id[<?php echo $quantity_details_row->id; ?>]" required="required">
+                      <option value="">Select Unit</option>;
+                       <?php foreach($unit as $unit_type){ ?>
+                       <option value="<?php echo $unit_type->unit_type_id ?>" {{($unit_type->unit_type_id == $quantity_details_row->unit_id)?'selected':'' }}><?php echo strtoupper($unit_type->unit_type_name) ?></option>;
+                      <?php }?>
+                    </select>
+                    </div>
+                    </div>
+                    <div class="col-md-2">
+                    <label>Quantity*:</label>
+                        <input type="text" name="quantity[<?php echo $quantity_details_row->id; ?>]" id="quantity_<?php echo $quantity_details_row->id; ?>" class="form-control" value="<?php echo $quantity_details_row->quantity; ?>" placeholder="Enter Quantity">
+                    </div>
+                    <div class="col-md-2">
+                    <label>Rate*:</label>
+                    <input type="text" name="rate[<?php echo $quantity_details_row->id; ?>]" id="rate_<?php echo $quantity_details_row->id; ?>" class="form-control" value="<?php echo $quantity_details_row->rate; ?>" placeholder="Enter Rate">
+                    </div>
+                    <div class="col-md-2">
+                    <label>Amount*:</label>
+                    <input type="text" name="amount[<?php echo $quantity_details_row->id; ?>]" id="amount_<?php echo $quantity_details_row->id; ?>" class="form-control" value="<?php echo $quantity_details_row->amount; ?>" placeholder="Enter Amount">
+                    </div>
+                    <div class="col-md-1">
+                    <label style="display:block;">&nbsp;</label>
+                    <input type="button" id="deletebtn_<?php echo $quantity_details_row->id; ?>" class="form-control btn btn-danger delete_quantity_button" value="Delete">
                     </div>
 
+                    </div>
+                    </br>
+                    <?php
+                    $last_quantity_id = $quantity_details_row->id;
+                    }
+                    ?>             
+                    </div>
                     <div class="col-md-12">
                         <div class="form-group">
                               <input type="button" class="btn btn-info" id="quantuty_add" value="Add Quantity">
                         </div>               
                     </div>
-                    
-                    <div class="col-md-12" style="height:10px;">
-                    </div>                 
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ Form::label('Other Charges', 'Other Charges', ['class' => '']) }}
+                            {{ Form::text('other_charges', null, array('class' => 'form-control', 'placeholder' => 'Enter Other Charges')) }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ Form::label('GST Type', 'SGST Rate', ['class' => '']) }}
+                            {{ Form::text('sgst_persentage', null, array('class' => 'form-control', 'placeholder' => 'Enter SGST Rate')) }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ Form::label('CGST Type', 'CGST Rate', ['class' => '']) }}
+                            {{ Form::text('cgst_persentage', null, array('class' => 'form-control', 'placeholder' => 'Enter CGST Rate')) }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ Form::label('CGST Type', 'IGST Rate', ['class' => '']) }}
+                            {{ Form::text('igst_persentage', null, array('class' => 'form-control', 'placeholder' => 'Enter IGST Rate')) }}
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="height:10px;"></div>                 
                     <div class="col-md-6">
                     {{ Form::submit('Submit', array('class' => 'btn btn-primary', 'id' => 'submit-btn')) }}
                     {{ Form::reset('Cancel', array('class' => 'btn btn-warning', 'id' => 'cancel-btn')) }}
@@ -121,7 +153,51 @@ jQuery(document).ready(function(){
           var i=0;
           $("#quantuty_add").click(function(){
           i++;
-            var append_html='<div class="row" id="deletedv_'+i+'"><div class="col-md-2"><label>Quantity:</label><input type="text" name="quantity['+i+']" id="quantity_'+i+'" class="form-control" value="" placeholder="Enter Quantity"></div><div class="col-md-2"><label>Rate:</label><input type="text" name="rate['+i+']" id="rate_'+i+'" class="form-control" value="" placeholder="Enter Rate"></div><div class="col-md-2"><label>Amount:</label><input type="text" name="amount['+i+']" id="amount_'+i+'" class="form-control" value="" placeholder="Enter Amount"></div><div class="col-md-2"><label style="display:block;">&nbsp;</label><input type="button" id="deletebtn_'+i+'" class="form-control btn btn-danger delete_quantity_button" value="Delete"></div></div></br>';
+          var append_html=`<div id="deletedv_`+i+`" style="width:100%; float:left;">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Item:</label>
+            <select class="form-control" id="item_id_`+i+`" name="item_id[`+i+`]">
+              <option value="">Select Item</option>`;
+              <?php foreach($item as $item_type){ ?>
+               append_html += '<option value="<?php echo $item_type->id ?>"><?php echo strtoupper($item_type->item_name) ?></option>';
+              <?php }?>
+            append_html += `</select>
+          </div>
+        </div>
+        <div class="col-md-2">
+        <div class="form-group">
+          <label>Unit:</label>
+          <select class="form-control" id="unit_id`+i+`" name="unit_id[`+i+`]">
+              <option value="">Select Unit</option>`;
+               <?php foreach($unit as $unit_type){ ?>
+               append_html += '<option value="<?php echo $unit_type->unit_type_id ?>"><?php echo strtoupper($unit_type->unit_type_name) ?></option>';
+              <?php }?>
+            append_html += `</select>
+        </div>
+        </div>
+        <div class="col-md-2">
+        <div class="form-group">
+            <label>Quantity:</label>
+            <input onKeyPress="calculateAmount(`+i+`)" onKeyDown="calculateAmount(`+i+`)" onKeyUp="calculateAmount(`+i+`)" class="form-control" id="quantity_`+i+`" name="quantity[`+i+`]" placeholder="Enter Quantity" type="text" value=""/>
+        </div>
+        </div>
+        <div class="col-md-2">
+        <div class="form-group">
+            <label>Rate:</label>
+            <input onKeyPress="calculateAmount(`+i+`)" onKeyDown="calculateAmount(`+i+`)" onKeyUp="calculateAmount(`+i+`)" class="form-control" id="rate_`+i+`" name="rate[`+i+`]" placeholder="Enter Rate" type="text" value=""/>
+        </div>
+        </div>
+        <div class="col-md-2">
+        <div class="form-group">
+            <label>Amount:</label>
+            <input class="form-control" id="amount_`+i+`" name="amount[`+i+`]" placeholder="Enter Amount" type="text" value=""/>
+        </div>
+        </div>
+        <div class="col-md-1">
+          <input style="margin-top: 24px;" class="form-control btn btn-danger delete_quantity_button" id="deletebtn_`+i+`" type="button" value="Delete"/>
+        </div>
+        </div>`;  
             $('#append_div').append(append_html);
           });
           $(document).on('click', '.delete_quantity_button', function(){
@@ -137,34 +213,34 @@ jQuery(document).ready(function(){
       autoclose: true
     });
     jQuery("#form-addedit").validate({
-        rules: {
-        purchase_company_id: {
-        required: true
-        },
-        item_id: {
-        required: true
-        },
-        material_transfer_company_id: {
-        required: true
-        },
-        purchased_date: {
-        required: true
-        }
-        },
-        messages: {
-        purchase_company_id: {
-        required: "Select company."
-        },
-        item_id: {
-        required: "Select Item."
-        },
-        material_transfer_company_id: {
-        required: "Select transfer company."
-        },
-        purchased_date: {
-        required: "Select purchase date."
-        },
-        }
+       rules: {
+                invoice_challan_no: {
+                    required: true
+                },
+                invoice_date: {
+                    required: true
+                },
+                purchase_company_id: {
+                    required: true
+                },
+                material_transfer_company_id: {
+                    required: true
+                }
+            },
+            messages: {
+                invoice_challan_no: {
+                    required: "Please Give A Invoice Challan No."
+                },
+                invoice_date: {
+                    required: "Please Select Invoice Date"
+                },
+                purchase_company_id: {
+                    required: "Please Select Company Name."
+                },
+                material_transfer_company_id: {
+                    required: "Please Select Transferred Company."
+                },
+            }
     });
 });
 </script>

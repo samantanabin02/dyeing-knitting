@@ -51,10 +51,9 @@
             <thead>
               <tr>
                 <th width="3%">{{ Form::checkbox('multi_check',null,null, array('id'=>'multi_check')) }}</th>
+                <th>Invoice Challan No</th>
+                <th>Invoice Date</th>
                 <th>Company Name</th>
-                <th>Item Name</th>
-                <!-- <th>Transfer To Company Name</th> -->
-                <th>Purchased Date</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -66,20 +65,19 @@
                       ?>
                     <tr>
                       <td>{{ Form::checkbox('single_check',$data->purchase_id,null, array('id'=>'single_check','class'=>'single_check')) }}</td>
+                      <td>{{ $data->invoice_challan_no }}</td>
+                      <td>{{ $data->invoice_date }}</td>
                       <td>{{ $data->company_name }}</td>
-                      <td>{{ $data->item_name }}</td>
-                      <!-- <td>{{ $data->material_transfer_company_id }}</td> -->
-                      <td>{{ $data->purchased_date }}</td>
                       <td>
-                        <a style="margin-right: 10px; font-size: 16px;" href="{{ route('purchase.edit',  $data->purchase_id) }}" title="Edit">
+                      <a style="margin-right: 10px; font-size: 16px;" href="{{ route('purchase.edit',  $data->purchase_id) }}" title="Edit">
                            <i class="fa fa-edit"></i>
-                        </a>
-                        <a style="font-size: 16px;" href="#myModal" data-toggle="modal"  title="Delete">
-                          <i class="fa fa-trash"> </i>
-                        </a>
-                        {{ Form::open(['route' => ['purchase.destroy', $data->purchase_id], 'class' => 'form-horizontal', 'id' => "delete-form" ]) }}
-                        {{ Form::hidden('_method', 'DELETE') }}
-                        {{ Form::close() }}
+                      </a>
+                      <a style="font-size: 16px;" href="#myModal" data-toggle="modal"  title="Delete">
+                        <i class="fa fa-trash"> </i>
+                      </a>
+                      {{ Form::open(['route' => ['purchase.destroy', $data->purchase_id], 'class' => 'form-horizontal', 'id' => "delete-form" ]) }}
+                      {{ Form::hidden('_method', 'DELETE') }}
+                      {{ Form::close() }}
                       </td>
                     </tr>
                   <?php }}?>

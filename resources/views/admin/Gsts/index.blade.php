@@ -37,7 +37,7 @@
                 <th width="3%">{{ Form::checkbox('multi_check',null,null, array('id'=>'multi_check')) }}</th>
                 <th>Gst Name</th>
                 <th>Gst Desc</th>
-                <th>Gst Rate</th>
+                <!-- <th>Gst Rate</th> -->
                 <th>Action</th>
               </tr>
             </thead>
@@ -51,7 +51,7 @@
                       <td>{{ Form::checkbox('single_check',$data->id,null, array('id'=>'single_check','class'=>'single_check')) }}</td>
                       <td>{{ $data->name }}</td>
                       <td>{{ $data->desc }}</td>
-                      <td>{{ $data->rate }}</td>
+                      <!-- <td>{{ $data->rate }}</td> -->
                       <td>
                         <a style="margin-right: 10px; font-size: 16px;" href="{{ route('gsts.edit',  $data->id) }}" title="Edit">
                            <i class="fa fa-edit"></i>

@@ -18,7 +18,7 @@
             <div class="row">
              {{ Form::model($data, ['url' => ['admin/gsts', $data->id], 'method' => 'PUT', 'files' => true, 'class' => '', 'id' => 'form-addedit','enctype' => 'multipart/form-data']) }}
                 <div class="col-md-12">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                     <div class="form-group">
                         {{ Form::label('name', 'Gst Name *', ['class' => '']) }}
                         {{ Form::text('name', null, array('class' => 'form-control', 'placeholder' => 'Enter gst name')) }}
@@ -29,29 +29,19 @@
                         @endif
                     </div>                 
                     </div>
-                   
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <div class="form-group">
                           {{ Form::label('desc', 'Gst Description *', ['class' => '']) }}
                           {{ Form::text('desc', null, array('class' => 'form-control', 'placeholder' => 'Enter gst description')) }}
                       </div>                 
                     </div>
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                          {{ Form::label('desc', 'Gst Description *', ['class' => '']) }}
-                          {{ Form::text('desc', null, array('class' => 'form-control', 'placeholder' => 'Enter gst description')) }}
-                      </div>                 
-                    </div>
-
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-6">
                       <div class="form-group">
                           {{ Form::label('rate', 'Gst Rate *', ['class' => '']) }}
                           {{ Form::text('rate', null, array('class' => 'form-control', 'placeholder' => 'Enter gst rate')) }}
                       </div>                 
-                    </div>
-
-                    <div class="col-md-6">
+                    </div> -->
+                    <div class="col-md-4">
                       <div class="form-group">
                           {{ Form::label('status', 'Status', ['class' => '']) }}
                           {{ Form::select('status', ['1' => 'Active', '2' => 'Inactive'], 1, array('placeholder' => 'Select Status', 'class' => 'form-control select2')) }}

@@ -32,7 +32,7 @@ class GstController extends Controller
         $req=$request->all();
         $insert_data->name=$req['name'];
         $insert_data->desc=$req['desc'];
-        $insert_data->rate=$req['rate'];
+        // $insert_data->rate=$req['rate'];
         $insert_data->status=$req['status'];
         //echo '<pre>';print_r($insert_data);die;
         if ($insert_data->save()) {
@@ -58,7 +58,7 @@ class GstController extends Controller
         $req=$request->all();
         $data->name=$req['name'];
         $data->desc=$req['desc'];
-        $data->rate=$req['rate'];
+        // $data->rate=$req['rate'];
         $data->status=$req['status'];
         //echo '<pre>';print_r($req);die;
         if ($data->save()) {
@@ -71,7 +71,7 @@ class GstController extends Controller
     public function destroy($id)
     {
         $data = Gst::find($id);
-        if ($data->update(['deleted_at'=>date('Y-m-d H:i:s')])) {
+        if ($data->delete()) {
             return redirect()->route('gsts.index')->with('success', 'Successfully deleted.');
         }
     }
