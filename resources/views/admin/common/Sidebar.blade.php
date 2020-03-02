@@ -43,15 +43,15 @@
           </a>         
         </li>
         <li class="">
-          <a href="{{ route('items.index') }}">
+          <a href="{{ route('gsts.index') }}">
             <i class="fa fa-diamond"></i>
-            <span>Item List</span>
+            <span>Gst Type</span>
           </a>         
         </li>
         <li class="">
-          <a href="{{ route('gsts.index') }}">
+          <a href="{{ route('items.index') }}">
             <i class="fa fa-diamond"></i>
-            <span>Gst List</span>
+            <span>Item List</span>
           </a>         
         </li>
         <li class="">
