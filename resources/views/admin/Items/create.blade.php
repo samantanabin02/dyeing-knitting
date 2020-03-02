@@ -134,11 +134,36 @@
                 }
              });
 
+             $('body').on('keyup','.quantity', function() {
+                var quantity_data = $(this).attr("id");  
+                var quantity_array = quantity_data.split("_");
+                var quantity_id = quantity_array[1];
+                calculate_amount(quantity_id);
+             });
+
+             $('body').on('keyup','.rate', function() {
+                var quantity_data = $(this).attr("id");  
+                var quantity_array = quantity_data.split("_");
+                var quantity_id = quantity_array[1];
+                calculate_amount(quantity_id);
+             });
+
+             function calculate_amount(quantity_id){
+                var quantity = $('#quantity_'+quantity_id).val();
+                var rate = $('#rate_'+quantity_id).val();
+                if(quantity && rate){
+                var amount=parseInt(quantity)*parseInt(rate);
+                $('#amount_'+quantity_id).val(amount);
+                }else{
+                $('#amount_'+quantity_id).val('');
+                }
+             }
+
              $(function() {  
                 var i=0;
                 $("#quantuty_add").click(function(){
                   i++;
-                  var append_html='<div class="row" id="deletedv_'+i+'"><div class="col-md-2"><label>Quantity:</label><input type="text" name="quantity['+i+']" id="quantity_'+i+'" class="form-control" value="" placeholder="Enter Quantity"></div><div class="col-md-2"><label>Unit:</label><input type="text" name="unit['+i+']" id="unit_'+i+'" class="form-control" value="" placeholder="Enter Unit"></div><div class="col-md-2"><label>Rate:</label><input type="text" name="rate['+i+']" id="rate_'+i+'" class="form-control" value="" placeholder="Enter Rate"></div><div class="col-md-2"><label>Amount:</label><input type="text" name="amount['+i+']" id="amount_'+i+'" class="form-control" value="" placeholder="Enter Amount"></div><div class="col-md-2"><label style="display:block;">&nbsp;</label><input type="button" id="deletebtn_'+i+'" class="form-control btn btn-danger delete_quantity_button" value="Delete"></div></div></br>';
+                  var append_html='<div class="row" id="deletedv_'+i+'"><div class="col-md-2"><label>Quantity:</label><input type="text" name="quantity['+i+']" id="quantity_'+i+'" class="form-control quantity" value="" placeholder="Enter Quantity"></div><div class="col-md-2"><label>Unit:</label><input type="text" name="unit['+i+']" id="unit_'+i+'" class="form-control" value="" placeholder="Enter Unit"></div><div class="col-md-2"><label>Rate:</label><input type="text" name="rate['+i+']" id="rate_'+i+'" class="form-control rate" value="" placeholder="Enter Rate"></div><div class="col-md-2"><label>Amount:</label><input type="text" name="amount['+i+']" id="amount_'+i+'" class="form-control" value="" placeholder="Enter Amount"></div><div class="col-md-2"><label style="display:block;">&nbsp;</label><input type="button" id="deletebtn_'+i+'" class="form-control btn btn-danger delete_quantity_button" value="Delete"></div></div></br>';
                     $('#append_div').append(append_html);
                 });
 
