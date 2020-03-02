@@ -57,7 +57,7 @@
                 <th>Item Name</th>
                 <th>Unit</th>
                 <th>Alt Unit</th>
-                <th>Gst No</th>
+                <th>Gst Applicable</th>
                 <th>Gst Percentage</th>
                 <th>Supply Type</th>
                 <th>Action</th>
@@ -74,7 +74,7 @@
                       <td>{{ $data->item_name }}</td>
                       <td>{{ $data->units }}</td>
                       <td>{{ $data->alt_unit }}</td>
-                      <td>{{ $data->gst_no }}</td>
+                      <td>{{ ($data->gst_applicable)?'Yes':'No' }}</td>
                       <td>{{ $data->gst_percentage }}</td>
                       <td>{{ $data->supply_type }}</td>
                       <td>
