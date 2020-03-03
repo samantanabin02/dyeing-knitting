@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Manufacturing;
+use App\Purchase;
 use App\Models\ManufacturingQuantity;
 use App\Models\ManufacturingDQuantity;
 use App\Models\Item;
@@ -43,7 +44,8 @@ class ManufacturingController extends Controller
     {
         $items=Item::select('id','item_name')->pluck('item_name','id');
         $companies=Company::select('company_id','company_name')->pluck('company_name','company_id');
-        return view('admin.Manufacturings.create', compact('items','companies'));
+        $purchases=Purchase::select('purchase_id','invoice_challan_no')->pluck('invoice_challan_no','purchase_id');
+        return view('admin.Manufacturings.create', compact('items','companies','purchases'));
     }
     public function store(Request $request)
     {
@@ -53,6 +55,7 @@ class ManufacturingController extends Controller
         $insert_data->serial_no=$req['serial_no'];
         $insert_data->entry_date=$req['entry_date'];
         $insert_data->knitting_company=$req['knitting_company'];
+        $insert_data->challan_no=$req['challan_no'];
         $insert_data->tot_knit_quan=$req['tot_knit_quan'];
         $insert_data->tot_knit_amount=$req['tot_knit_amount'];
         $insert_data->dyeing_company=$req['dyeing_company'];
@@ -120,10 +123,12 @@ class ManufacturingController extends Controller
         $data = Manufacturing::find($id);
         $items=Item::select('id','item_name')->pluck('item_name','id');
         $companies=Company::select('company_id','company_name')->pluck('company_name','company_id');
+        $purchases=Purchase::select('purchase_id','invoice_challan_no')->pluck('invoice_challan_no','purchase_id');
         $quantity_details=ManufacturingQuantity::where('manufacturing_id',$id)->get();
         $dquantity_details=ManufacturingDQuantity::where('manufacturing_id',$id)->get();
-        return view('admin.Manufacturings.edit', compact('data','items','companies','quantity_details','dquantity_details'));
+        return view('admin.Manufacturings.edit', compact('data','items','companies','purchases','quantity_details','dquantity_details'));
     }
+    
     public function update(Request $request, $id)
     {
         $validator  = $this->validate($request,['entry_date'=>'required']);
@@ -132,6 +137,7 @@ class ManufacturingController extends Controller
         $data->serial_no=$req['serial_no'];
         $data->entry_date=$req['entry_date'];
         $data->knitting_company=$req['knitting_company'];
+        $data->challan_no=$req['challan_no'];
         $data->tot_knit_quan=$req['tot_knit_quan'];
         $data->tot_knit_amount=$req['tot_knit_amount'];
         $data->dyeing_company=$req['dyeing_company'];

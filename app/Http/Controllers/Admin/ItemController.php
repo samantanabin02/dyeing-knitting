@@ -53,7 +53,7 @@ class ItemController extends Controller
         $insert_data->units=$req['units'];
         $insert_data->alt_unit=$req['alt_unit'];
         $insert_data->gst_applicable=$req['gst_applicable'];
-        $insert_data->gst_no=$req['gst_no'];
+        //$insert_data->gst_no=$req['gst_no'];
         $insert_data->gst_percentage=$req['gst_percentage'];
         $insert_data->supply_type=$req['supply_type'];
         //echo '<pre>';print_r($insert_data);die;
@@ -107,7 +107,7 @@ class ItemController extends Controller
         $data->units=$req['units'];
         $data->alt_unit=$req['alt_unit'];
         $data->gst_applicable=$req['gst_applicable'];
-        $data->gst_no=$req['gst_no'];
+        //$data->gst_no=$req['gst_no'];
         $data->gst_percentage=$req['gst_percentage'];
         $data->supply_type=$req['supply_type'];
         //echo '<pre>';print_r($req);die;

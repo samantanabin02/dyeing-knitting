@@ -39,6 +39,13 @@
                       </div>
                     </div>
 
+                    <div class="col-md-6">
+                      <div class="form-group">
+                          {{ Form::label('challan_no', 'Challan No *', ['class' => '']) }}
+                          {{ Form::select('challan_no', $purchases, null , array( 'class' => 'form-control select2' , 'placeholder' => 'Select Challan No')) }}
+                      </div>
+                    </div>
+
                     <?php 
                       $item_options='<option value="">Select Item</option>';
                         if($items!='' && count($items)){
@@ -405,51 +412,40 @@
              }
             jQuery("#form-addedit").validate({
                 rules: {
-                    manufacturing_name: {
+                            serial_no: {
                         required: true
                     },
-                    manufacturing_type_id: {
+                    entry_date: {
+                        required: false
+                    },
+                    knitting_company: {
                         required: true
                     },
-                    units: {
-                        required: true
+                    challan_no: {
+                         required: true
                     },
-                    gst_applicable: {
-                        required: true
-                    },
-                    gst_no: {
-                        required: true
-                    },
-                    gst_percentage: {
-                        required: true
-                    },
-                    supply_type: {
+                    dyeing_company: {
                         required: true
                     }
                 },
                 messages: {
-                    manufacturing_name: {
-                        required: "Please enter manufacturing name."
+                    serial_no: {
+                        required: "Please enter serial no."
                     },
-                    manufacturing_type_id: {
-                        required: "Please select manufacturing type."
+                    entry_date: {
+                        required: "Please choose entry date."
                     },
-                    units: {
-                        required: "Please enter unit."
+                    knitting_company: {
+                        required: "Please select knitting company."
                     },
-                    gst_applicable: {
-                        required: "Please select gst applicable or not."
+                    challan_no: {
+                         required: "Please select challan no."
                     },
-                    gst_no: {
-                        required: "Please enter gst no."
-                    },
-                    gst_percentage: {
-                        required: "Please enter gst percentage."
-                    },
-                    supply_type: {
-                        required: "Please enter supply type."
+                    dyeing_company: {
+                        required: "Please select dyeing company."
                     }
                 }
+                
             });
         });
     </script>
