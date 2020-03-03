@@ -37,10 +37,10 @@ class PurchaseController extends Controller
         $insert_data->invoice_date                 = $req['invoice_date'];
         $insert_data->purchase_company_id          = $req['purchase_company_id'];
         $insert_data->material_transfer_company_id = $req['material_transfer_company_id'];
-        $insert_data->other_charges                = $req['other_charges'];
-        $insert_data->sgst_persentage              = $req['sgst_persentage'];
-        $insert_data->cgst_persentage              = $req['cgst_persentage'];
-        $insert_data->igst_persentage              = $req['igst_persentage'];
+        $insert_data->other_charges                = !empty($req['other_charges'])? $req['other_charges'] : 0;
+        $insert_data->sgst_persentage              = !empty($req['sgst_persentage'])? $req['sgst_persentage'] : 0;
+        $insert_data->cgst_persentage              = !empty($req['cgst_persentage'])? $req['cgst_persentage'] : 0;
+        $insert_data->igst_persentage              = !empty($req['igst_persentage'])? $req['igst_persentage'] : 0;
         if ($insert_data->save()) {
             if (isset($req['quantity']) && $req['quantity'] != '') {
                 $insert_id              = $insert_data->purchase_id;
@@ -91,10 +91,10 @@ class PurchaseController extends Controller
         $data->invoice_date                 = $req['invoice_date'];
         $data->purchase_company_id          = $req['purchase_company_id'];
         $data->material_transfer_company_id = $req['material_transfer_company_id'];
-        $data->other_charges                = $req['other_charges'];
-        $data->sgst_persentage              = $req['sgst_persentage'];
-        $data->cgst_persentage              = $req['cgst_persentage'];
-        $data->igst_persentage              = $req['igst_persentage'];
+        $data->other_charges                = !empty($req['other_charges'])? $req['other_charges'] : 0;
+        $insert_data->sgst_persentage              = !empty($req['sgst_persentage'])? $req['sgst_persentage'] : 0;
+        $insert_data->cgst_persentage              = !empty($req['cgst_persentage'])? $req['cgst_persentage'] : 0;
+        $insert_data->igst_persentage              = !empty($req['igst_persentage'])? $req['igst_persentage'] : 0;
         if ($data->save()) {
             if (isset($req['quantity']) && $req['quantity'] != '') {
                 $insert_id              = $id;
