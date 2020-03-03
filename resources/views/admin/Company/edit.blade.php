@@ -4,7 +4,6 @@
 @endsection
 @section('content')
 	{{ Html::style('resources/views/admin/assets/bower_components/select2/dist/css/select2.min.css') }}
-    
     <!-- <section class="content-header">
         <h1>
             User
@@ -16,7 +15,6 @@
             <li class="active">Edit</li>
         </ol>
     </section> -->
-    
     <section class="content">
       <div class="box box-default">
         <div class="box-header with-border">
@@ -28,7 +26,7 @@
         </div>
         <div class="box-body">
 			<div class="row">
-            {{ Form::model($data, ['url' => ['admin/company', $data->id], 'method' => 'PUT', 'files' => true, 'class' => '', 'id' => 'form-addedit','enctype' => 'multipart/form-data']) }}
+            {{ Form::model($data, ['url' => ['admin/company', $data->id], 'method' => 'POST', 'files' => true, 'class' => '', 'id' => 'form-addedit','enctype' => 'multipart/form-data']) }}
                                <div class="col-md-12">
                     <div class="col-md-6">
                     <div class="form-group">
