@@ -57,12 +57,11 @@
             <thead>
               <tr>
                 <th width="3%">{{ Form::checkbox('multi_check',null,null, array('id'=>'multi_check')) }}</th>
-                <th>Serial No</th>
+                <th>Lot No</th>
                 <th>Entry Date</th>
                 <th>Knitting Company</th>
                 <th>Dyeing Company</th>
-                <th>Wastage Quantity</th>
-                <th>Wastage Amount</th>
+                <th>Delivery Date</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -74,7 +73,7 @@
                       ?>
                     <tr>
                       <td>{{ Form::checkbox('single_check',$data->id,null, array('id'=>'single_check','class'=>'single_check')) }}</td>
-                      <td>{{ $data->serial_no }}</td>
+                      <td>{{ $data->lot_no }}</td>
                       <td>{{ $data->entry_date }}</td>
                       <td>
                       <?php 
@@ -90,8 +89,7 @@
                       }
                       ?>
                       </td>
-                      <td>{{ $data->wastage_quantity }}</td>
-                      <td>{{ $data->wastage_amount }}</td>
+                      <td>{{ $data->delivery_date }}</td>
                       <td>
                         <a style="margin-right: 10px; font-size: 16px;" href="{{ route('deliveries.edit',  $data->id) }}" title="Edit">
                            <i class="fa fa-edit"></i>

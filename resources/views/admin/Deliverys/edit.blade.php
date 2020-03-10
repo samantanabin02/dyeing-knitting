@@ -19,8 +19,8 @@
                      
                     <div class="col-md-6">
                         <div class="form-group">
-                            {{ Form::label('serial_no', 'Serial No *', ['class' => '']) }}
-                            {{ Form::text('serial_no', null, array('class' => 'form-control', 'placeholder' => 'Enter serial no')) }}
+                            {{ Form::label('lot_no', 'Lot No *', ['class' => '']) }}
+                            {{ Form::text('lot_no', null, array('class' => 'form-control', 'placeholder' => 'Enter serial no')) }}
                         </div>                 
                     </div>
 
@@ -235,6 +235,13 @@
                             {{ Form::text('wastage_amount', null, array('class' => 'form-control', 'placeholder' => 'Enter wastage amount')) }}
                         </div>                 
                     </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ Form::label('delivery_date', 'Delivery Date', ['class' => '']) }}
+                            {{ Form::text('delivery_date', null, array('class' => 'form-control', 'placeholder' => 'Choose delivery date')) }}
+                        </div>                 
+                    </div>
                    
                     
                     <div class="col-md-12" style="height:10px;">
@@ -253,10 +260,10 @@
     <script type="text/javascript">
         jQuery(document).ready(function(){
             
-            $('#entry_date').datepicker({
+            $('#entry_date,#delivery_date').datepicker({
               format: 'yyyy-mm-dd',
               autoclose: true
-            }); 
+             });  
 
             $('body').on('keyup','.quantity', function() {
                 var quantity_data = $(this).attr("id");  
@@ -410,43 +417,48 @@
                 $('#manufacturing_price').val('');    
                 }
              }
-            jQuery("#form-addedit").validate({
-                rules: {
-                            serial_no: {
-                        required: true
-                    },
-                    entry_date: {
-                        required: false
-                    },
-                    knitting_company: {
-                        required: true
-                    },
-                    challan_no: {
-                         required: true
-                    },
-                    dyeing_company: {
-                        required: true
-                    }
-                },
-                messages: {
-                    serial_no: {
-                        required: "Please enter serial no."
-                    },
-                    entry_date: {
-                        required: "Please choose entry date."
-                    },
-                    knitting_company: {
-                        required: "Please select knitting company."
-                    },
-                    challan_no: {
-                         required: "Please select challan no."
-                    },
-                    dyeing_company: {
-                        required: "Please select dyeing company."
-                    }
-                }
-                
-            });
+             jQuery("#form-addedit").validate({
+      				rules: {
+                        lot_no: {
+                            required: true
+                        },
+                        entry_date: {
+                            required: true
+                        },
+                        knitting_company: {
+                            required: true
+                        },
+                        challan_no: {
+                            required: true
+                        },
+                        dyeing_company: {
+                            required: true
+                        },
+                        delivery_date: {
+                            required: true
+                        }
+      				},
+      				messages: {
+                        lot_no: {
+                            required: "Please enter serial no."
+                        },
+                        entry_date: {
+                            required: "Please choose entry date."
+                        },
+                        knitting_company: {
+                            required: "Please select knitting company."
+                        },
+                        challan_no: {
+                            required: "Please select challan no."
+                        },
+                        dyeing_company: {
+                            required: "Please select dyeing company."
+                        },
+                        delivery_date: {
+                            required: "Please choose delivery date"
+                        }
+      				}
+      	    });
         });
     </script>
     <style type="text/css">
