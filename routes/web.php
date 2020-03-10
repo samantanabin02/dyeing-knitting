@@ -157,8 +157,7 @@ Route::prefix('admin')->group(function () {
             array('as' => 'itemtype-delete',
                 'uses'     => 'ItemTypeController@multi_destroy',
         ));
-
-
+        //+++++++++++++++++++++++++++++++++++++++++++++++++
         Route::resource('gsts', 'GstController');
         Route::get('gsts-index',
             array('as' => 'gsts-index',
@@ -176,8 +175,7 @@ Route::prefix('admin')->group(function () {
             array('as' => 'gsts-delete',
                 'uses'     => 'GstController@multi_destroy',
         ));
-
-
+        //+++++++++++++++++++++++++++++++++++++++++++++++++
         Route::resource('manufacturings', 'ManufacturingController');
         Route::get('manufacturings-index',
             array('as' => 'manufacturings-index',
@@ -195,8 +193,7 @@ Route::prefix('admin')->group(function () {
             array('as' => 'manufacturings-delete',
                 'uses'     => 'ManufacturingController@multi_destroy',
         ));
-
-
+        //+++++++++++++++++++++++++++++++++++++++++++++++++
         Route::resource('purchase', 'PurchaseController');
         Route::get('purchase-index',
             array('as' => 'purchase-index',
@@ -214,6 +211,23 @@ Route::prefix('admin')->group(function () {
             array('as' => 'purchase-delete',
                 'uses'     => 'PurchaseController@multi_destroy',
             ));
-
+        //+++++++++++++++++++++++++++++++++++++++++++++++++
+        Route::resource('deliveries', 'DeliveryController');
+        Route::get('deliveries-index',
+            array('as' => 'deliveries-index',
+                'uses'     => 'DeliveryController@index',
+            ));
+        Route::post('deliveries-index',
+            array('as' => 'deliveries-index',
+                'uses'     => 'DeliveryController@index',
+            ));
+        Route::post('deliveries',
+            array('as' => 'deliveries.store',
+                'uses'     => 'DeliveryController@store',
+            ));
+        Route::post('deliveries-delete',
+            array('as' => 'deliveries-delete',
+                'uses'     => 'DeliveryController@multi_destroy',
+        ));
     });
 });
