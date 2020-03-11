@@ -14,9 +14,9 @@
             <div class="col-md-2 mrgb">
             {{ Form::text('search_key', request()->input('search_key'), ['id' => 'search_key', 'class' => 'form-control', 'placeholder' => 'Enter search key']) }}
             </div>
-            <div class="col-md-2 mrgb">
+            <!-- <div class="col-md-2 mrgb">
             {{ Form::select('knitting_company', $companies , request()->input('knitting_company'), ['placeholder' => 'Select Knitting Company', 'id' => 'knitting_company', 'class' => 'form-control select2']) }}
-            </div>
+            </div> -->
             <div class="col-md-2 mrgb">
             {{ Form::select('dyeing_company', $companies , request()->input('dyeing_company'), ['placeholder' => 'Select Dyeing Company', 'id' => 'dyeing_company', 'class' => 'form-control select2']) }}
             </div>
@@ -59,7 +59,6 @@
                 <th width="3%">{{ Form::checkbox('multi_check',null,null, array('id'=>'multi_check')) }}</th>
                 <th>Lot No</th>
                 <th>Entry Date</th>
-                <th>Knitting Company</th>
                 <th>Dyeing Company</th>
                 <th>Delivery Date</th>
                 <th>Action</th>
@@ -75,13 +74,6 @@
                       <td>{{ Form::checkbox('single_check',$data->id,null, array('id'=>'single_check','class'=>'single_check')) }}</td>
                       <td>{{ $data->lot_no }}</td>
                       <td>{{ $data->entry_date }}</td>
-                      <td>
-                      <?php 
-                      if(isset($companies[$data->knitting_company])){
-                        echo $companies[$data->knitting_company]; 
-                      }
-                      ?>
-                      </td>
                       <td>
                       <?php 
                       if(isset($companies[$data->dyeing_company])){

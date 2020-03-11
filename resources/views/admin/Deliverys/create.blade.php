@@ -24,7 +24,7 @@
                    <div class="col-md-6">
                         <div class="form-group">
                             {{ Form::label('lot_no', 'Lot No *', ['class' => '']) }}
-                            {{ Form::text('lot_no', null, array('class' => 'form-control', 'placeholder' => 'Enter serial no')) }}
+                            {{ Form::text('lot_no', null, array('class' => 'form-control', 'placeholder' => 'Enter lot no')) }}
                         </div>                 
                     </div>
 
@@ -34,20 +34,21 @@
                             {{ Form::text('entry_date', null, array('class' => 'form-control', 'placeholder' => 'Choose entry date')) }}
                         </div>                 
                     </div>
-                    
+
                     <div class="col-md-6">
                       <div class="form-group">
-                          {{ Form::label('knitting_company', 'Knitting Company *', ['class' => '']) }}
-                          {{ Form::select('knitting_company', $companies, null , array( 'class' => 'form-control select2' , 'placeholder' => 'Select Knitting Company')) }}
+                          {{ Form::label('dyeing_company', 'Dyeing Company *', ['class' => '']) }}
+                          {{ Form::select('dyeing_company', $companies, null , array( 'class' => 'form-control select2' , 'placeholder' => 'Select Dyeing Company')) }}
                       </div>
                     </div>
 
                     <div class="col-md-6">
                       <div class="form-group">
-                          {{ Form::label('challan_no', 'Challan No *', ['class' => '']) }}
-                          {{ Form::select('challan_no', $purchases, null , array( 'class' => 'form-control select2' , 'placeholder' => 'Select Challan No')) }}
+                          {{ Form::label('serial_no', 'Serial No *', ['class' => '']) }}
+                          {{ Form::select('serial_no', $manufacturings, null , array( 'class' => 'form-control select2' , 'placeholder' => 'Select Serial No')) }}
                       </div>
                     </div>
+
 
                     <?php 
                       $item_options='<option value="">Select Item</option>';
@@ -67,73 +68,25 @@
 
                     <div class="col-md-12">
                         <div class="form-group">
-                              <input type="button" class="btn btn-info" id="item_add" value="Add Knitting Item">
+                              <input type="button" class="btn btn-info" id="item_add" value="Add Item">
                         </div>               
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            {{ Form::label('tot_knit_quan', 'Total Knitting Quantity', ['class' => '']) }}
-                            {{ Form::text('tot_knit_quan', 0, array('class' => 'form-control')) }}
+                            {{ Form::label('tot_gross_quantity', 'Total Gross Quantity', ['class' => '']) }}
+                            {{ Form::text('tot_gross_quantity', 0, array('class' => 'form-control')) }}
                         </div>                 
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            {{ Form::label('tot_knit_amount', 'Total Knitting Amount', ['class' => '']) }}
-                            {{ Form::text('tot_knit_amount', 0, array('class' => 'form-control')) }}
+                            {{ Form::label('tot_finish_quantity', 'Total Finish Amount', ['class' => '']) }}
+                            {{ Form::text('tot_finish_quantity', 0, array('class' => 'form-control')) }}
                         </div>                 
                     </div>
 
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                          {{ Form::label('dyeing_company', 'Dyeing Company *', ['class' => '']) }}
-                          {{ Form::select('dyeing_company', $companies, null , array( 'class' => 'form-control select2' , 'placeholder' => 'Select Dyeing Company')) }}
-                      </div>
-                    </div>
-
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <div id="dyeing_append_div">
-                             </div>
-                        </div>               
-                    </div>
-
-                    <div class="col-md-12">
-                        <div class="form-group">
-                              <input type="button" class="btn btn-info" id="dyeing_item_add" value="Add Dyeing Item">
-                        </div>               
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            {{ Form::label('tot_dyeing_quan', 'Total Dyeing Quantity', ['class' => '']) }}
-                            {{ Form::text('tot_dyeing_quan', 0, array('class' => 'form-control')) }}
-                        </div>                 
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            {{ Form::label('tot_dyeing_amount', 'Total Dyeing Amount', ['class' => '']) }}
-                            {{ Form::text('tot_dyeing_amount', 0, array('class' => 'form-control')) }}
-                        </div>                 
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            {{ Form::label('wastage_quantity', 'Wastage Quantity', ['class' => '']) }}
-                            {{ Form::text('wastage_quantity', null, array('class' => 'form-control', 'placeholder' => 'Enter wastage quantity')) }}
-                        </div>                 
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            {{ Form::label('wastage_amount', 'Wastage Amount', ['class' => '']) }}
-                            {{ Form::text('wastage_amount', null, array('class' => 'form-control', 'placeholder' => 'Enter wastage amount')) }}
-                        </div>                 
-                    </div>
-
+                  
                     <div class="col-md-6">
                         <div class="form-group">
                             {{ Form::label('delivery_date', 'Delivery Date', ['class' => '']) }}
@@ -157,113 +110,52 @@
 	<script type="text/javascript">
         jQuery(document).ready(function(){
 
-             $('#entry_date,#delivery_date').datepicker({
-              format: 'yyyy-mm-dd',
-              autoclose: true
-             });  
+               $('#entry_date,#delivery_date').datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true
+               });  
 
-             $('body').on('keyup','.quantity', function() {
-                var quantity_data = $(this).attr("id");  
-                var quantity_array = quantity_data.split("_");
-                var quantity_id = quantity_array[1];
-                calculate_amount(quantity_id);
-                total_quantity();
-             });
+               $('body').on('keyup','.grossquantity', function() {
+                let quantity_data = $(this).attr("id");  
+                let quantity_array = quantity_data.split("_");
+                let quantity_id = quantity_array[1];
+                total_gross_quantity();
+               });
 
-             $('body').on('keyup','.rate', function() {
-                var quantity_data = $(this).attr("id");  
-                var quantity_array = quantity_data.split("_");
-                var quantity_id = quantity_array[1];
-                calculate_amount(quantity_id);
-             });
-
-             function calculate_amount(quantity_id){
-                var quantity = $('#quantity_'+quantity_id).val();
-                var rate = $('#rate_'+quantity_id).val();
-                if(quantity && rate){
-                var amount=parseInt(quantity)*parseInt(rate);
-                $('#amount_'+quantity_id).val(amount);
-                }else{
-                $('#amount_'+quantity_id).val('');
-                }
-                total_amount();
-             }
-
-             $('body').on('keyup','.dquantity', function() {
-                var quantity_data = $(this).attr("id");  
-                var quantity_array = quantity_data.split("_");
-                var quantity_id = quantity_array[1];
-                calculate_damount(quantity_id);
-                total_dquantity();
-             });
-
-             $('body').on('keyup','.drate', function() {
-                var quantity_data = $(this).attr("id");  
-                var quantity_array = quantity_data.split("_");
-                var quantity_id = quantity_array[1];
-                calculate_damount(quantity_id);
-             });
-
-             function calculate_damount(quantity_id){
-                var quantity = $('#dquantity_'+quantity_id).val();
-                var rate = $('#drate_'+quantity_id).val();
-                if(quantity && rate){
-                var amount=parseInt(quantity)*parseInt(rate);
-                $('#damount_'+quantity_id).val(amount);
-                }else{
-                $('#damount_'+quantity_id).val('');
-                }
-                total_damount();
-             }
-
-             function total_quantity(){
-                var sum = 0;
-                $('.quantity').each(function(){
+               function total_gross_quantity(){
+                let sum = 0;
+                $('.grossquantity').each(function(){
                     if($(this).val()){
                     sum += parseFloat($(this).val());
                     }
                 });
-                $('#tot_knit_quan').val(sum);
-             }
+                $('#tot_gross_quantity').val(sum);
+               }
 
-             function total_amount(){
-                var sum = 0;
-                $('.amount').each(function(){
-                    if($(this).val()){
-                      sum += parseFloat($(this).val());
-                    }
-                });
-                $('#tot_knit_amount').val(sum);
-             }
+               $('body').on('keyup','.finishquantity', function() {
+                let quantity_data = $(this).attr("id");  
+                let quantity_array = quantity_data.split("_");
+                let quantity_id = quantity_array[1];
+                total_finish_quantity();
+               });
 
-             function total_dquantity(){
-                var sum = 0;
-                $('.dquantity').each(function(){
+               function total_finish_quantity(){
+                let sum = 0;
+                $('.finishquantity').each(function(){
                     if($(this).val()){
                     sum += parseFloat($(this).val());
                     }
                 });
-                $('#tot_dyeing_quan').val(sum);
-             }
+                $('#tot_finish_quantity').val(sum);
+               }
 
-             function total_damount(){
-                var sum = 0;
-                $('.damount').each(function(){
-                    if($(this).val()){
-                    sum += parseFloat($(this).val());
-                    }
-                });
-                $('#tot_dyeing_amount').val(sum);
-             }
-
-             $(function() {  
+              $(function() {  
                 var i=0;
-                var j=0;
                 var item_option='<?php echo $item_options; ?>';
                 //alert(item_option);
                 $('body').on('click','#item_add', function() {
                   i++;
-                  var append_html='<div class="row" id="deletedv_'+i+'"><div class="col-md-2"><label>Item:</label><select name="item['+i+']" id="item_'+i+'" class="form-control item">'+item_option+'</select></div><div class="col-md-2"><label>Quantity:</label><input type="text" name="quantity['+i+']" id="quantity_'+i+'" class="form-control quantity" value="" placeholder="Enter Quantity"></div><div class="col-md-2"><label>Unit:</label><input type="text" name="unit['+i+']" id="unit_'+i+'" class="form-control unit" value="" placeholder="Enter Unit"></div><div class="col-md-2"><label>Rate:</label><input type="text" name="rate['+i+']" id="rate_'+i+'" class="form-control rate" value="" placeholder="Enter Rate"></div><div class="col-md-2"><label>Amount:</label><input type="text" name="amount['+i+']" id="amount_'+i+'" class="form-control amount" value="" placeholder="Enter Amount"></div><div class="col-md-2"><label style="display:block;">&nbsp;</label><input type="button" id="deletebtn_'+i+'" class="form-control btn btn-danger delete_quantity_button" value="Delete"></div></div></br>';
+                  var append_html='<div class="row" id="deletedv_'+i+'"><div class="col-md-2"><label>Item:</label><select name="item['+i+']" id="item_'+i+'" class="form-control item">'+item_option+'</select></div><div class="col-md-2"><label>Color Code:</label><input type="text" name="colorcode['+i+']" id="colorcode_'+i+'" class="form-control colorcode" value="" placeholder="Enter Color Code"></div><div class="col-md-2"><label>Item Name:</label><input type="text" name="itemname['+i+']" id="itemname_'+i+'" class="form-control itemname" value="" placeholder="Enter Item Name"></div><div class="col-md-2"><label>Quantity One:</label><input type="text" name="quantityone['+i+']" id="quantityone_'+i+'" class="form-control quantityone" value="" placeholder="Enter Quantity One"></div><div class="col-md-2"><label>Quantity Two:</label><input type="text" name="quantitytwo['+i+']" id="quantitytwo_'+i+'" class="form-control quantitytwo" value="" placeholder="Enter Quantity Two"></div><div class="col-md-2"><label>Gross Quantity:</label><input type="text" name="grossquantity['+i+']" id="grossquantity_'+i+'" class="form-control grossquantity" value="" placeholder="Enter Gross Quantity"></div><div class="col-md-2"><label>Finish Quantity:</label><input type="text" name="finishquantity['+i+']" id="finishquantity_'+i+'" class="form-control finishquantity" value="" placeholder="Enter Finish Quantity"></div><div class="col-md-2"><label style="display:block;">&nbsp;</label><input type="button" id="deletebtn_'+i+'" class="form-control btn btn-danger delete_quantity_button" value="Delete"></div></div></br>';
                     $('#append_div').append(append_html);
                 });
 
@@ -273,27 +165,12 @@
                    var quantity_id = quantity_id_array[1];
                    //alert(quantity_id);
                    $("#deletedv_"+quantity_id).remove();
-                   total_quantity();
-                   total_amount();
-                });
-
-                 $('body').on('click','#dyeing_item_add', function() {
-                  j++;
-                  var dyeing_append_html='<div class="row" id="ddeletedv_'+j+'"><div class="col-md-2"><label>Item:</label><select name="ditem['+j+']" id="ditem_'+j+'" class="form-control ditem">'+item_option+'</select></div><div class="col-md-2"><label>Quantity:</label><input type="text" name="dquantity['+j+']" id="dquantity_'+j+'" class="form-control dquantity" value="" placeholder="Enter Quantity"></div><div class="col-md-2"><label>Unit:</label><input type="text" name="dunit['+j+']" id="dunit_'+j+'" class="form-control dunit" value="" placeholder="Enter Unit"></div><div class="col-md-2"><label>Rate:</label><input type="text" name="drate['+j+']" id="drate_'+j+'" class="form-control drate" value="" placeholder="Enter Rate"></div><div class="col-md-2"><label>Amount:</label><input type="text" name="damount['+j+']" id="damount_'+j+'" class="form-control damount" value="" placeholder="Enter Amount"></div><div class="col-md-2"><label style="display:block;">&nbsp;</label><input type="button" id="ddeletebtn_'+j+'" class="form-control btn btn-danger ddelete_quantity_button" value="Delete"></div></div></br>';
-                    $('#dyeing_append_div').append(dyeing_append_html);
-                });
-
-                $(document).on('click', '.ddelete_quantity_button', function(){
-                   var dquantity_id_data = $(this).attr("id");  
-                   var dquantity_id_array = dquantity_id_data.split("_");
-                   var dquantity_id = dquantity_id_array[1];
-                   //alert(quantity_id);
-                   $("#ddeletedv_"+dquantity_id).remove();
-                   total_dquantity();
-                   total_damount();
+                   total_gross_quantity();
+                   total_finish_quantity();
                 });
 
              });
+
 
       			 jQuery("#form-addedit").validate({
       				rules: {
@@ -303,14 +180,11 @@
                     entry_date: {
                         required: true
                     },
-                    knitting_company: {
-                        required: true
-                    },
-                    challan_no: {
-                         required: true
-                    },
                     dyeing_company: {
                         required: true
+                    },
+                    serial_no: {
+                         required: true
                     },
                     delivery_date: {
                         required: true
@@ -322,15 +196,12 @@
                     },
                     entry_date: {
                         required: "Please choose entry date."
-                    },
-                    knitting_company: {
-                        required: "Please select knitting company."
-                    },
-                    challan_no: {
-                         required: "Please select challan no."
-                    },
+                    },                    
                     dyeing_company: {
                         required: "Please select dyeing company."
+                    },
+                    serial_no: {
+                         required: "Please select serial no."
                     },
                     delivery_date: {
                         required: "Please choose delivery date"
