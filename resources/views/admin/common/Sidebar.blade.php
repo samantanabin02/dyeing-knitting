@@ -61,6 +61,12 @@
           </a>         
         </li>
         <li class="">
+          <a href="{{ route('sales.index') }}">
+            <i class="fa fa-diamond"></i>
+            <span>Sales List</span>
+          </a>         
+        </li>
+        <li class="">
           <a href="{{ route('manufacturings.index') }}">
             <i class="fa fa-diamond"></i>
             <span>Manufacturing List</span>
