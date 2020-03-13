@@ -229,5 +229,12 @@ Route::prefix('admin')->group(function () {
             array('as' => 'deliveries-delete',
                 'uses'     => 'DeliveryController@multi_destroy',
         ));
+
+        Route::post('deliveries/get-knitting-company',
+            array('as' => 'deliveries-get-knitting-company',
+                'uses'     => 'DeliveryController@get_knitting_company',
+        ));
+
+
     });
 });

@@ -63,13 +63,13 @@
         <li class="">
           <a href="{{ route('manufacturings.index') }}">
             <i class="fa fa-diamond"></i>
-            <span>Manufacturing List</span>
+            <span>Manufacturing Entry One</span>
           </a>         
         </li>
         <li class="">
           <a href="{{ route('deliveries.index') }}">
             <i class="fa fa-diamond"></i>
-            <span>Delivery List</span>
+            <span>Manufacturing Entry Two</span>
           </a>         
         </li>
         <!-- <li class="">

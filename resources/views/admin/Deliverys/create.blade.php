@@ -35,17 +35,24 @@
                         </div>                 
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <div class="form-group">
                           {{ Form::label('dyeing_company', 'Dyeing Company *', ['class' => '']) }}
                           {{ Form::select('dyeing_company', $companies, null , array( 'class' => 'form-control select2' , 'placeholder' => 'Select Dyeing Company')) }}
                       </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <div class="form-group">
                           {{ Form::label('serial_no', 'Serial No *', ['class' => '']) }}
                           {{ Form::select('serial_no', $manufacturings, null , array( 'class' => 'form-control select2' , 'placeholder' => 'Select Serial No')) }}
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="form-group">
+                          {{ Form::label('knitting_company', 'Knitting Company ', ['class' => '']) }}
+                          {{ Form::text('knitting_company', null, array('class' => 'form-control', 'placeholder' => '' , 'readonly'=>true)) }}
                       </div>
                     </div>
 
@@ -155,7 +162,7 @@
                 //alert(item_option);
                 $('body').on('click','#item_add', function() {
                   i++;
-                  var append_html='<div class="row" id="deletedv_'+i+'"><div class="col-md-2"><label>Item:</label><select name="item['+i+']" id="item_'+i+'" class="form-control item">'+item_option+'</select></div><div class="col-md-2"><label>Color Code:</label><input type="text" name="colorcode['+i+']" id="colorcode_'+i+'" class="form-control colorcode" value="" placeholder="Enter Color Code"></div><div class="col-md-2"><label>Item Name:</label><input type="text" name="itemname['+i+']" id="itemname_'+i+'" class="form-control itemname" value="" placeholder="Enter Item Name"></div><div class="col-md-2"><label>Quantity One:</label><input type="text" name="quantityone['+i+']" id="quantityone_'+i+'" class="form-control quantityone" value="" placeholder="Enter Quantity One"></div><div class="col-md-2"><label>Quantity Two:</label><input type="text" name="quantitytwo['+i+']" id="quantitytwo_'+i+'" class="form-control quantitytwo" value="" placeholder="Enter Quantity Two"></div><div class="col-md-2"><label>Gross Quantity:</label><input type="text" name="grossquantity['+i+']" id="grossquantity_'+i+'" class="form-control grossquantity" value="" placeholder="Enter Gross Quantity"></div><div class="col-md-2"><label>Finish Quantity:</label><input type="text" name="finishquantity['+i+']" id="finishquantity_'+i+'" class="form-control finishquantity" value="" placeholder="Enter Finish Quantity"></div><div class="col-md-2"><label style="display:block;">&nbsp;</label><input type="button" id="deletebtn_'+i+'" class="form-control btn btn-danger delete_quantity_button" value="Delete"></div></div></br>';
+                  var append_html='<div class="row" id="deletedv_'+i+'"><div class="col-md-2"><label>Item:</label><select name="item['+i+']" id="item_'+i+'" class="form-control item">'+item_option+'</select></div><div class="col-md-2"><label>Quantity One:</label><input type="text" name="quantityone['+i+']" id="quantityone_'+i+'" class="form-control quantityone" value="" placeholder="Enter Quantity One"></div><div class="col-md-2"><label>Quantity Two:</label><input type="text" name="quantitytwo['+i+']" id="quantitytwo_'+i+'" class="form-control quantitytwo" value="" placeholder="Enter Quantity Two"></div><div class="col-md-2"><label>Gross Quantity:</label><input type="text" name="grossquantity['+i+']" id="grossquantity_'+i+'" class="form-control grossquantity" value="" placeholder="Enter Gross Quantity"></div><div class="col-md-2"><label>Finish Quantity:</label><input type="text" name="finishquantity['+i+']" id="finishquantity_'+i+'" class="form-control finishquantity" value="" placeholder="Enter Finish Quantity"></div><div class="col-md-2"><label style="display:block;">&nbsp;</label><input type="button" id="deletebtn_'+i+'" class="form-control btn btn-danger delete_quantity_button" value="Delete"></div></div></br>';
                     $('#append_div').append(append_html);
                 });
 
@@ -210,6 +217,27 @@
               
       			});
     });
+    </script>
+    <script>
+        $(document).ready(function(){
+            $("#serial_no").change(function(){
+                var manufacturing_id=$(this).val();
+				var link  = "{{ route('deliveries-get-knitting-company') }}";
+				$.ajax({
+					url : link,
+					type : "POST",
+					data : {
+                        "_token": "{{ csrf_token() }}",
+					    "manufacturing_id" : manufacturing_id
+					},
+					success: function(data) {
+                        console.log(data);
+                        $('#knitting_company').val(data);
+                        
+					}
+				});
+            });
+       });    
     </script>
     <style type="text/css">
     .error{

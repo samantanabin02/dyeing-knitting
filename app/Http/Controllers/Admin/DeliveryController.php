@@ -56,27 +56,24 @@ class DeliveryController extends Controller
         $insert_data->entry_date=$req['entry_date'];
         $insert_data->dyeing_company=$req['dyeing_company'];
         $insert_data->serial_no=$req['serial_no'];
+        $insert_data->knitting_company=$req['knitting_company'];
         $insert_data->tot_gross_quantity=$req['tot_gross_quantity'];
         $insert_data->tot_finish_quantity=$req['tot_finish_quantity'];
         $insert_data->delivery_date=$req['delivery_date'];
         //echo '<pre>';print_r($insert_data);die;
         if ($insert_data->save()) {
 
-            if(isset($req['colorcode']) && $req['colorcode']!=''){
+            if(isset($req['item']) && $req['item']!=''){
                 $insert_id = $insert_data->id;   
                 $item=$req['item'];                
-                $colorcode=$req['colorcode'];
-                $itemname=$req['itemname'];
                 $quantityone=$req['quantityone'];
                 $quantitytwo=$req['quantitytwo'];
                 $grossquantity=$req['grossquantity'];
                 $finishquantity=$req['finishquantity'];
                 $quantity_details_array=array();
-                foreach($colorcode as $key=> $colorcode_row){
+                foreach($item as $key=> $item_row){
                     $quantity_details_array[$key]['delivery_id']=$insert_id;
                     $quantity_details_array[$key]['item_id']=$item[$key];
-                    $quantity_details_array[$key]['color_code']=$colorcode[$key];
-                    $quantity_details_array[$key]['item_name']=$itemname[$key];
                     $quantity_details_array[$key]['quantity_one']=$quantityone[$key];
                     $quantity_details_array[$key]['quantity_two']=$quantitytwo[$key];
                     $quantity_details_array[$key]['gross_quantity']=$grossquantity[$key];
@@ -87,8 +84,6 @@ class DeliveryController extends Controller
                    $quantity_data->create($quantity_details_row);
                 }
             }
-            
-
             return redirect()->back()->with('success', 'Delivery created successfully.');
         } else {
             return redirect()->back()->with('error', 'Some problem occurred.Please try again!');
@@ -118,27 +113,24 @@ class DeliveryController extends Controller
         $data->entry_date=$req['entry_date'];
         $data->dyeing_company=$req['dyeing_company'];
         $data->serial_no=$req['serial_no'];
+        $data->knitting_company=$req['knitting_company'];
         $data->tot_gross_quantity=$req['tot_gross_quantity'];
         $data->tot_finish_quantity=$req['tot_finish_quantity'];
         $data->delivery_date=$req['delivery_date'];
         //echo '<pre>';print_r($req);die;
         if ($data->save()) {
 
-            if(isset($req['colorcode']) && $req['colorcode']!=''){
+            if(isset($req['item']) && $req['item']!=''){
                 $insert_id = $id;   
                 $item=$req['item'];                
-                $colorcode=$req['colorcode'];
-                $itemname=$req['itemname'];
                 $quantityone=$req['quantityone'];
                 $quantitytwo=$req['quantitytwo'];
                 $grossquantity=$req['grossquantity'];
                 $finishquantity=$req['finishquantity'];
                 $quantity_details_array=array();
-                foreach($colorcode as $key=> $colorcode_row){
+                foreach($item as $key=> $item_row){
                     $quantity_details_array[$key]['delivery_id']=$insert_id;
                     $quantity_details_array[$key]['item_id']=$item[$key];
-                    $quantity_details_array[$key]['color_code']=$colorcode[$key];
-                    $quantity_details_array[$key]['item_name']=$itemname[$key];
                     $quantity_details_array[$key]['quantity_one']=$quantityone[$key];
                     $quantity_details_array[$key]['quantity_two']=$quantitytwo[$key];
                     $quantity_details_array[$key]['gross_quantity']=$grossquantity[$key];
@@ -180,9 +172,29 @@ class DeliveryController extends Controller
             return redirect()->route('deliveries.index')->with('error', 'Select record(s) form list for delete.');
         }
     }
+
+    public function get_knitting_company(Request $request)
+    {
+        $knitting_company_name='';
+        $req  = $request->all();
+        $manufacturing_id = $req['manufacturing_id'];
+        if($manufacturing_id){
+            $knitting_company_data=Manufacturing::select('knitting_company')->where('id',$manufacturing_id)->first();
+            if($knitting_company_data!=''){
+                $knitting_company_id=$knitting_company_data->knitting_company;
+                if($knitting_company_id){
+                    $knitting_company_name_data=Company::select('company_id','company_name')->where('company_id',$knitting_company_id)->first();
+                    if($knitting_company_name_data!=''){
+                        $knitting_company_name=$knitting_company_name_data->company_name;
+                    }
+                }
+            }
+        }
+        return $knitting_company_name;
+    }
+
     protected function validator(array $data)
     {
-
         return Validator::make(
             $data,
             [
