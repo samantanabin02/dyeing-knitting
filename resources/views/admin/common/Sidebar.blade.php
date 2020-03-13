@@ -61,12 +61,6 @@
           </a>         
         </li>
         <li class="">
-          <a href="{{ route('sales.index') }}">
-            <i class="fa fa-diamond"></i>
-            <span>Sales List</span>
-          </a>         
-        </li>
-        <li class="">
           <a href="{{ route('manufacturings.index') }}">
             <i class="fa fa-diamond"></i>
             <span>Manufacturing Entry One</span>
@@ -76,6 +70,12 @@
           <a href="{{ route('deliveries.index') }}">
             <i class="fa fa-diamond"></i>
             <span>Manufacturing Entry Two</span>
+          </a>         
+        </li>
+        <li class="">
+          <a href="{{ route('sales.index') }}">
+            <i class="fa fa-diamond"></i>
+            <span>Sales List</span>
           </a>         
         </li>
         <!-- <li class="">
