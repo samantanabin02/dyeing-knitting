@@ -156,7 +156,7 @@ Route::prefix('admin')->group(function () {
         Route::post('itemtype-delete',
             array('as' => 'itemtype-delete',
                 'uses'     => 'ItemTypeController@multi_destroy',
-        ));
+            ));
         //+++++++++++++++++++++++++++++++++++++++++++++++++
         Route::resource('gsts', 'GstController');
         Route::get('gsts-index',
@@ -174,7 +174,7 @@ Route::prefix('admin')->group(function () {
         Route::post('gsts-delete',
             array('as' => 'gsts-delete',
                 'uses'     => 'GstController@multi_destroy',
-        ));
+            ));
         //+++++++++++++++++++++++++++++++++++++++++++++++++
         Route::resource('manufacturings', 'ManufacturingController');
         Route::get('manufacturings-index',
@@ -192,7 +192,7 @@ Route::prefix('admin')->group(function () {
         Route::post('manufacturings-delete',
             array('as' => 'manufacturings-delete',
                 'uses'     => 'ManufacturingController@multi_destroy',
-        ));
+            ));
         //+++++++++++++++++++++++++++++++++++++++++++++++++
         Route::resource('purchase', 'PurchaseController');
         Route::get('purchase-index',
@@ -210,6 +210,24 @@ Route::prefix('admin')->group(function () {
         Route::post('purchase-delete',
             array('as' => 'purchase-delete',
                 'uses'     => 'PurchaseController@multi_destroy',
+            ));
+        //+++++++++++++++++++++++++++++++++++++++++++++++++
+        Route::resource('sales', 'SalesController');
+        Route::get('sales-index',
+            array('as' => 'sales-index',
+                'uses'     => 'SalesController@index',
+            ));
+        Route::post('sales-index',
+            array('as' => 'sales-index',
+                'uses'     => 'SalesController@index',
+            ));
+        Route::post('sales',
+            array('as' => 'sales.store',
+                'uses'     => 'SalesController@store',
+            ));
+        Route::post('sales-delete',
+            array('as' => 'sales-delete',
+                'uses'     => 'SalesController@multi_destroy',
             ));
         //+++++++++++++++++++++++++++++++++++++++++++++++++
         Route::resource('deliveries', 'DeliveryController');
@@ -234,7 +252,7 @@ Route::prefix('admin')->group(function () {
             array('as' => 'deliveries-get-knitting-company',
                 'uses'     => 'DeliveryController@get_knitting_company',
         ));
-
+        //+++++++++++++++++++++++++++++++++++++++++++++++++
 
     });
 });
