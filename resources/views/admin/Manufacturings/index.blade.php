@@ -33,8 +33,16 @@
           {{ Form::close() }} 
           <a href="#" data-toggle="modal" data-target="#multi_delete" id="multi_delete_btn" class="form-control btn btn-danger">Multiple Delete</a> 
         </div>
-        <div class="col-md-2 col-xs-6 mrgb" style="float:right;">
-          <a href="{{ route('manufacturings.create') }}" class="form-control btn btn-info">Create New</a>
+        <div class="col-md-1 col-xs-6 mrgb">
+          {{ Form::open(['route' => ['manufacturings.export'], 'method' => 'post', 'id' => 'export_form', 'class' => '']) }}
+          {{ Form::hidden('export_search_key',request()->input('search_key'), array('id'=>'export_search_key')) }}
+          {{ Form::hidden('export_knitting_company',request()->input('knitting_company'), array('id'=>'export_knitting_company')) }}
+          {{ Form::hidden('export_dyeing_company',request()->input('dyeing_company'), array('id'=>'export_dyeing_company')) }}
+          {{ Form::button('Export', ['type' => 'submit', 'class' => 'form-control btn btn-primary btn-block-xs', 'id' => 'export-submit-btn'] )  }}
+          {{ Form::close() }} 
+        </div>
+        <div class="col-md-1 col-xs-6 mrgb">
+          <a href="{{ route('manufacturings.create') }}" class="form-control btn btn-info" style="font-size: 12px !important;">Create New</a>
         </div>
       </div>
       @if (count($errors) > 0)

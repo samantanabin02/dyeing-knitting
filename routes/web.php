@@ -193,6 +193,10 @@ Route::prefix('admin')->group(function () {
             array('as' => 'manufacturings-delete',
                 'uses'     => 'ManufacturingController@multi_destroy',
             ));
+        Route::post('manufacturings-export',
+            array('as' => 'manufacturings.export',
+                'uses'     => 'ManufacturingController@export_data',
+            ));
         //+++++++++++++++++++++++++++++++++++++++++++++++++
         Route::resource('purchase', 'PurchaseController');
         Route::get('purchase-index',

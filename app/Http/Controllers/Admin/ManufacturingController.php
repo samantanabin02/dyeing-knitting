@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Exports\ManufacturingEntryOneExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Manufacturing;
 use App\Purchase;
 use App\Models\ManufacturingQuantity;
@@ -205,6 +207,7 @@ class ManufacturingController extends Controller
         }
 
     }
+
     public function destroy($id)
     {
         $data = Manufacturing::find($id);
@@ -212,6 +215,7 @@ class ManufacturingController extends Controller
             return redirect()->route('manufacturings.index')->with('success', 'Successfully deleted.');
         }
     }
+
     public function multi_destroy(Request $request)
     {
         $req           = $request->all();
@@ -227,6 +231,17 @@ class ManufacturingController extends Controller
             return redirect()->route('manufacturings.index')->with('error', 'Select record(s) form list for delete.');
         }
     }
+
+    public function export_data(Request $request)
+    {
+        $req  = $request->all();
+        $search_data=[];
+        $search_data['search_key']=$req['export_search_key'];
+        $search_data['knitting_company']=$req['export_knitting_company'];
+        $search_data['dyeing_company']=$req['export_dyeing_company'];
+        return Excel::download(new ManufacturingEntryOneExport($search_data), 'ManufacturingEntryOne.xlsx');
+    }
+    
     protected function validator(array $data)
     {
 
