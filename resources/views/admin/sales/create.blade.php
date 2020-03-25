@@ -69,7 +69,7 @@
                             <select class="form-control" id="lot_no_id_1" name="lot_no_id[1]" required="required">
                               <option value="">Select Lot</option>`;
                               <?php foreach($lot as $lot_item){ ?>
-                                <option value="<?php echo $item_type->id ?>"><?php echo strtoupper($lot_item->lot_no) ?></option>';
+                                <option value="<?php echo $lot_item->id ?>"><?php echo strtoupper($lot_item->lot_no) ?></option>';
                               <?php }?>
                             </select>
                           </div>
@@ -80,7 +80,7 @@
                             <select class="form-control" id="item_id_1" name="item_id[1]" required="required">
                               <option value="">Select Item</option>`;
                               <?php foreach($item as $item_type){ ?>
-                                <option value="<?php echo $lot_item->id; ?>"><?php echo strtoupper($item_type->item_name) ?></option>';
+                                <option value="<?php echo $item_type->id; ?>"><?php echo strtoupper($item_type->item_name) ?></option>';
                               <?php }?>
                             </select>
                           </div>

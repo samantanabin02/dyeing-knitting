@@ -63,7 +63,7 @@
                             <label>Item*</label>
                             <select class="form-control" id="item_id_1" name="item_id[1]" required="required">
                               <option value="">Select Item</option>`;
-                              <?php foreach($item as $item_type){ ?>
+                              <?php foreach ($item as $item_type) {?>
                                 <option value="<?php echo $item_type->id ?>"><?php echo strtoupper($item_type->item_name) ?></option>';
                               <?php }?>
                             </select>
@@ -74,7 +74,7 @@
                           <label>Unit*</label>
                           <select class="form-control" id="unit_id_1" name="unit_id[1]" required="required">
                               <option value="">Select Unit</option>;
-                               <?php foreach($unit as $unit_type){ ?>
+                               <?php foreach ($unit as $unit_type) {?>
                                <option value="<?php echo $unit_type->unit_type_id ?>"><?php echo strtoupper($unit_type->unit_type_name) ?></option>;
                               <?php }?>
                           </select>
@@ -95,13 +95,13 @@
                         <div class="col-md-2">
                         <div class="form-group">
                             <label>Amount*</label>
-                            <input required="required" class="form-control" id="amount_1" name="amount[1]" placeholder="Enter Amount" type="text" value=""/>
+                            <input required="required" class="form-control amtt" id="amount_1" name="amount[1]" placeholder="Enter Amount" type="text" value=""/>
                         </div>
                         </div>
                         <div class="col-md-1">
                           <input style="margin-top: 24px;" class="form-control btn btn-danger delete_quantity_button" type="button" value="No"/>
                         </div>
-                        </div>  
+                        </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
@@ -111,25 +111,31 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             {{ Form::label('Other Charges', 'Other Charges', ['class' => '']) }}
-                            {{ Form::text('other_charges', null, array('class' => 'form-control', 'placeholder' => 'Enter Other Charges')) }}
+                            {{ Form::text('other_charges', null, array('id' => 'other_charges', 'class' => 'form-control', 'placeholder' => 'Enter Other Charges')) }}
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             {{ Form::label('GST Type', 'SGST Rate', ['class' => '']) }}
-                            {{ Form::text('sgst_persentage', null, array('class' => 'form-control', 'placeholder' => 'Enter SGST Rate')) }}
+                            {{ Form::text('sgst_persentage', null, array('id' => 'sgst_persentage', 'class' => 'form-control', 'placeholder' => 'Enter SGST Rate')) }}
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             {{ Form::label('CGST Type', 'CGST Rate', ['class' => '']) }}
-                            {{ Form::text('cgst_persentage', null, array('class' => 'form-control', 'placeholder' => 'Enter CGST Rate')) }}
+                            {{ Form::text('cgst_persentage', null, array('id' => 'cgst_persentage', 'class' => 'form-control', 'placeholder' => 'Enter CGST Rate')) }}
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             {{ Form::label('CGST Type', 'IGST Rate', ['class' => '']) }}
-                            {{ Form::text('igst_persentage', null, array('class' => 'form-control', 'placeholder' => 'Enter IGST Rate')) }}
+                            {{ Form::text('igst_persentage', null, array('id' => 'igst_persentage', 'class' => 'form-control', 'placeholder' => 'Enter IGST Rate')) }}
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ Form::label('Total Amount', 'Total Amount', ['class' => '']) }}
+                            {{ Form::text('igst_persentage', null, array('id' => 'total_amount','class' => 'form-control', 'disabled' => 'disabled', 'placeholder' => '')) }}
                         </div>
                     </div>
                     <div class="col-md-12" style="height:10px;"></div>
@@ -156,7 +162,7 @@
             <label>Item:</label>
             <select class="form-control" id="item_id_`+i+`" name="item_id[`+i+`]">
               <option value="">Select Item</option>`;
-              <?php foreach($item as $item_type){ ?>
+              <?php foreach ($item as $item_type) {?>
                append_html += '<option value="<?php echo $item_type->id ?>"><?php echo strtoupper($item_type->item_name) ?></option>';
               <?php }?>
             append_html += `</select>
@@ -167,7 +173,7 @@
           <label>Unit:</label>
           <select class="form-control" id="unit_id`+i+`" name="unit_id[`+i+`]">
               <option value="">Select Unit</option>`;
-               <?php foreach($unit as $unit_type){ ?>
+               <?php foreach ($unit as $unit_type) {?>
                append_html += '<option value="<?php echo $unit_type->unit_type_id ?>"><?php echo strtoupper($unit_type->unit_type_name) ?></option>';
               <?php }?>
             append_html += `</select>
@@ -188,7 +194,7 @@
         <div class="col-md-2">
         <div class="form-group">
             <label>Amount:</label>
-            <input class="form-control" id="amount_`+i+`" name="amount[`+i+`]" placeholder="Enter Amount" type="text" value=""/>
+            <input class="form-control amtt" id="amount_`+i+`" name="amount[`+i+`]" placeholder="Enter Amount" type="text" value=""/>
         </div>
         </div>
         <div class="col-md-1">
@@ -210,18 +216,18 @@ $('#datepicker').datepicker({
 });
 jQuery("#form-addedit").validate({
     rules: {
-    invoice_challan_no: {
-    required: true
-    },
-    invoice_date: {
-    required: true
-    },
-    purchase_company_id: {
-    required: true
-    },
-    material_transfer_company_id: {
-    required: true
-    }
+      invoice_challan_no: {
+      required: true
+      },
+      invoice_date: {
+      required: true
+      },
+      purchase_company_id: {
+      required: true
+      },
+      material_transfer_company_id: {
+      required: true
+      }
     },
     messages: {
     invoice_challan_no: {
@@ -240,11 +246,41 @@ jQuery("#form-addedit").validate({
 });
 });
 function calculateAmount(id){
-  var qty = $("#quantity_" + id).val();
-  var rat = $("#rate_" + id).val();
-  var amount = (qty*rat);
-  console.log(qty);
-  $("#amount_" + id).val(amount);
+var qty = $("#quantity_" + id).val();
+var rat = $("#rate_" + id).val();
+var amount = (qty*rat);
+$("#amount_" + id).val(amount);
+getTotalValue();
+}
+$( "#other_charges" ).keyup(function() {
+getTotalValue();
+});
+$( "#sgst_persentage" ).keyup(function() {
+getTotalValue();
+});
+$( "#cgst_persentage" ).keyup(function() {
+getTotalValue();
+});
+$( "#igst_persentage" ).keyup(function() {
+getTotalValue();
+});
+function getTotalValue(){
+var total = 0;
+var main_total = 0;
+//Geting the Dynamic Field Value
+$( ".amtt" ).each(function( index ) {
+total += Number($( this ).val());
+});
+//Adding Other Charges
+total +=  Number($('#other_charges').val());
+console.log(total);
+//SGST/CGST/IGST
+sgst_persentage = (Number($('#sgst_persentage').val()) / total) * 100;
+cgst_persentage = (Number($('#cgst_persentage').val()) / total) * 100;
+igst_persentage = (Number($('#igst_persentage').val()) / total) * 100;
+main_total = (total + sgst_persentage + cgst_persentage + igst_persentage);
+//Display
+$('#total_amount').val(Math.round(main_total,2));
 }
 </script>
 <style type="text/css">
