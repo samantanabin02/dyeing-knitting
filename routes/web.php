@@ -256,6 +256,11 @@ Route::prefix('admin')->group(function () {
             array('as' => 'deliveries-get-knitting-company',
                 'uses'     => 'DeliveryController@get_knitting_company',
         ));
+
+        Route::post('deliveries-export',
+            array('as' => 'deliveries.export',
+                'uses'     => 'DeliveryController@export_data',
+            ));
         //+++++++++++++++++++++++++++++++++++++++++++++++++
 
     });

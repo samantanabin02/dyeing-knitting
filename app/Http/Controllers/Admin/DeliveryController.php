@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Exports\ManufacturingEntryTwoExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Delivery;
 use App\Purchase;
 use App\Models\Manufacturing;
@@ -191,6 +193,16 @@ class DeliveryController extends Controller
             }
         }
         return $knitting_company_name;
+    }
+
+    public function export_data(Request $request)
+    {
+        //echo phpinfo();die;
+        $req  = $request->all();
+        $search_data=[];
+        $search_data['search_key']=$req['export_search_key'];
+        $search_data['dyeing_company']=$req['export_dyeing_company'];
+        return Excel::download(new ManufacturingEntryTwoExport($search_data), 'ManufacturingEntryTwo.xlsx');
     }
 
     protected function validator(array $data)
