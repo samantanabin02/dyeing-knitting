@@ -197,7 +197,7 @@ class DeliveryController extends Controller
 
     public function export_data(Request $request)
     {
-        echo phpinfo();die;
+        //echo phpinfo();die;
         $req  = $request->all();
         $search_data=[];
         $search_data['search_key']=$req['export_search_key'];
