@@ -84,15 +84,15 @@
                     </div>
                     <div class="col-md-2">
                     <label>Quantity*:</label>
-                        <input type="text" name="quantity[<?php echo $quantity_details_row->id; ?>]" id="quantity_<?php echo $quantity_details_row->id; ?>" class="form-control" value="<?php echo $quantity_details_row->quantity; ?>" placeholder="Enter Quantity">
+                        <input type="text" onKeyPress="calculateAmount(<?php echo $quantity_details_row->id; ?>)" onKeyDown="calculateAmount(<?php echo $quantity_details_row->id; ?>)" onKeyUp="calculateAmount(<?php echo $quantity_details_row->id; ?>)" name="quantity[<?php echo $quantity_details_row->id; ?>]" id="quantity_<?php echo $quantity_details_row->id; ?>" class="form-control" value="<?php echo $quantity_details_row->quantity; ?>" placeholder="Enter Quantity">
                     </div>
                     <div class="col-md-2">
                     <label>Rate*:</label>
-                    <input type="text" name="rate[<?php echo $quantity_details_row->id; ?>]" id="rate_<?php echo $quantity_details_row->id; ?>" class="form-control" value="<?php echo $quantity_details_row->rate; ?>" placeholder="Enter Rate">
+                    <input type="text" onKeyPress="calculateAmount(<?php echo $quantity_details_row->id; ?>)" onKeyDown="calculateAmount(<?php echo $quantity_details_row->id; ?>)" onKeyUp="calculateAmount(<?php echo $quantity_details_row->id; ?>)" name="rate[<?php echo $quantity_details_row->id; ?>]" id="rate_<?php echo $quantity_details_row->id; ?>" class="form-control" value="<?php echo $quantity_details_row->rate; ?>" placeholder="Enter Rate">
                     </div>
                     <div class="col-md-2">
                     <label>Amount*:</label>
-                    <input type="text" name="amount[<?php echo $quantity_details_row->id; ?>]" id="amount_<?php echo $quantity_details_row->id; ?>" class="form-control" value="<?php echo $quantity_details_row->amount; ?>" placeholder="Enter Amount">
+                    <input type="text" name="amount[<?php echo $quantity_details_row->id; ?>]" id="amount_<?php echo $quantity_details_row->id; ?>" class="form-control amtt" value="<?php echo $quantity_details_row->amount; ?>" placeholder="Enter Amount">
                     </div>
                     <div class="col-md-1">
                     <label style="display:block;">&nbsp;</label>
@@ -114,25 +114,31 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             {{ Form::label('Other Charges', 'Other Charges', ['class' => '']) }}
-                            {{ Form::text('other_charges', null, array('class' => 'form-control', 'placeholder' => 'Enter Other Charges')) }}
+                            {{ Form::text('other_charges', null, array('id' => 'other_charges', 'class' => 'form-control', 'placeholder' => 'Enter Other Charges')) }}
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             {{ Form::label('GST Type', 'SGST Rate', ['class' => '']) }}
-                            {{ Form::text('sgst_persentage', null, array('class' => 'form-control', 'placeholder' => 'Enter SGST Rate')) }}
+                            {{ Form::text('sgst_persentage', null, array('id' => 'sgst_persentage','class' => 'form-control', 'placeholder' => 'Enter SGST Rate')) }}
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             {{ Form::label('CGST Type', 'CGST Rate', ['class' => '']) }}
-                            {{ Form::text('cgst_persentage', null, array('class' => 'form-control', 'placeholder' => 'Enter CGST Rate')) }}
+                            {{ Form::text('cgst_persentage', null, array('id' => 'cgst_persentage','class' => 'form-control', 'placeholder' => 'Enter CGST Rate')) }}
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             {{ Form::label('CGST Type', 'IGST Rate', ['class' => '']) }}
-                            {{ Form::text('igst_persentage', null, array('class' => 'form-control', 'placeholder' => 'Enter IGST Rate')) }}
+                            {{ Form::text('igst_persentage', null, array('id' => 'igst_persentage','class' => 'form-control', 'placeholder' => 'Enter IGST Rate')) }}
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ Form::label('Total Amount', 'Total Amount', ['class' => '']) }}
+                            {{ Form::text('total_amount_cal', null, array('id' => 'total_amount','class' => 'form-control', 'disabled' => 'disabled', 'placeholder' => '')) }}
                         </div>
                     </div>
                     <div class="col-md-12" style="height:10px;"></div>                 
@@ -149,6 +155,7 @@
    {{ Html::script('assets/admin/plugins/validate/jquery.validate.min.js') }} 
 <script type="text/javascript">
 jQuery(document).ready(function(){
+                getTotalValue();
     $(function() {
           var i=0;
           $("#quantuty_add").click(function(){
@@ -191,7 +198,7 @@ jQuery(document).ready(function(){
         <div class="col-md-2">
         <div class="form-group">
             <label>Amount:</label>
-            <input class="form-control" id="amount_`+i+`" name="amount[`+i+`]" placeholder="Enter Amount" type="text" value=""/>
+            <input class="form-control amtt" id="amount_`+i+`" name="amount[`+i+`]" placeholder="Enter Amount" type="text" value=""/>
         </div>
         </div>
         <div class="col-md-1">
@@ -243,6 +250,46 @@ jQuery(document).ready(function(){
             }
     });
 });
+function calculateAmount(id){
+  var qty = $("#quantity_" + id).val();
+  var rat = $("#rate_" + id).val();
+  var amount = (qty*rat);
+  $("#amount_" + id).val(amount);
+  getTotalValue();
+}
+
+
+$( "#other_charges" ).keyup(function() {
+  getTotalValue();
+});
+$( "#sgst_persentage" ).keyup(function() {
+  getTotalValue();
+});
+$( "#cgst_persentage" ).keyup(function() {
+  getTotalValue();
+});
+$( "#igst_persentage" ).keyup(function() {
+  getTotalValue();
+});
+
+function getTotalValue(){
+  var total = 0;
+  var main_total = 0;
+  //Geting the Dynamic Field Value
+  $( ".amtt" ).each(function( index ) {
+  total += Number($( this ).val());
+  });
+  //Adding Other Charges
+  total +=  Number($('#other_charges').val());
+  console.log(total);
+  //SGST/CGST/IGST
+  sgst_persentage = (Number($('#sgst_persentage').val()) / 100) * total;
+  cgst_persentage = (Number($('#cgst_persentage').val()) / 100) * total;
+  igst_persentage = (Number($('#igst_persentage').val()) / 100) * total;
+  main_total = (total + sgst_persentage + cgst_persentage + igst_persentage);
+  //Display
+  $('#total_amount').val(main_total);
+}
 </script>
     <style type="text/css">
     .error{

@@ -28,7 +28,7 @@ class SalesController extends Controller
         $companies = Company::select('company_id', 'company_name')->get();
         $unit      = UnitType::select('unit_type_name', 'unit_type_id')->get();
         $lot       = Delivery::select('lot_no', 'id')->get();
-        return view('admin.sales.create', compact('item', 'companies', 'unit','lot'));
+        return view('admin.sales.create', compact('item', 'companies', 'unit', 'lot'));
     }
     public function store(Request $request)
     {
@@ -86,12 +86,12 @@ class SalesController extends Controller
     public function edit($id)
     {
         $data             = Sales::find($id);
-        $item             = Item::select('id', 'item_name')->get();
+        $item_data        = Item::select('id', 'item_name')->get();
         $companies        = Company::select('company_id', 'company_name')->get();
         $quantity_details = SalesItemQuantity::where('sales_id', $id)->get();
         $unit             = UnitType::select('unit_type_name', 'unit_type_id')->get();
         $lot              = Delivery::select('lot_no', 'id')->get();
-        return view('admin.sales.edit', compact('data', 'quantity_details', 'item', 'companies', 'unit','lot'));
+        return view('admin.sales.edit', compact('data', 'quantity_details', 'item_data', 'companies', 'unit', 'lot'));
     }
     public function update(Request $request, $id)
     {

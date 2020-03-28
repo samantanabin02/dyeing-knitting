@@ -135,7 +135,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             {{ Form::label('Total Amount', 'Total Amount', ['class' => '']) }}
-                            {{ Form::text('igst_persentage', null, array('id' => 'total_amount','class' => 'form-control', 'disabled' => 'disabled', 'placeholder' => '')) }}
+                            {{ Form::text('total_amount_cal', null, array('id' => 'total_amount','class' => 'form-control', 'disabled' => 'disabled', 'placeholder' => '')) }}
                         </div>
                     </div>
                     <div class="col-md-12" style="height:10px;"></div>
@@ -194,7 +194,7 @@
         <div class="col-md-2">
         <div class="form-group">
             <label>Amount:</label>
-            <input class="form-control amtt" id="amount_`+i+`" name="amount[`+i+`]" placeholder="Enter Amount" type="text" value=""/>
+            <input  class="form-control amtt" id="amount_`+i+`" name="amount[`+i+`]" placeholder="Enter Amount" type="text" value=""/>
         </div>
         </div>
         <div class="col-md-1">
@@ -246,41 +246,43 @@ jQuery("#form-addedit").validate({
 });
 });
 function calculateAmount(id){
-var qty = $("#quantity_" + id).val();
-var rat = $("#rate_" + id).val();
-var amount = (qty*rat);
-$("#amount_" + id).val(amount);
-getTotalValue();
+  var qty = $("#quantity_" + id).val();
+  var rat = $("#rate_" + id).val();
+  var amount = (qty*rat);
+  $("#amount_" + id).val(amount);
+  getTotalValue();
 }
+
 $( "#other_charges" ).keyup(function() {
-getTotalValue();
+  getTotalValue();
 });
 $( "#sgst_persentage" ).keyup(function() {
-getTotalValue();
+  getTotalValue();
 });
 $( "#cgst_persentage" ).keyup(function() {
-getTotalValue();
+  getTotalValue();
 });
 $( "#igst_persentage" ).keyup(function() {
-getTotalValue();
+  getTotalValue();
 });
+
 function getTotalValue(){
-var total = 0;
-var main_total = 0;
-//Geting the Dynamic Field Value
-$( ".amtt" ).each(function( index ) {
-total += Number($( this ).val());
-});
-//Adding Other Charges
-total +=  Number($('#other_charges').val());
-console.log(total);
-//SGST/CGST/IGST
-sgst_persentage = (Number($('#sgst_persentage').val()) / total) * 100;
-cgst_persentage = (Number($('#cgst_persentage').val()) / total) * 100;
-igst_persentage = (Number($('#igst_persentage').val()) / total) * 100;
-main_total = (total + sgst_persentage + cgst_persentage + igst_persentage);
-//Display
-$('#total_amount').val(Math.round(main_total,2));
+  var total = 0;
+  var main_total = 0;
+  //Geting the Dynamic Field Value
+  $( ".amtt" ).each(function( index ) {
+  total += Number($( this ).val());
+  });
+  //Adding Other Charges
+  total +=  Number($('#other_charges').val());
+  console.log(total);
+  //SGST/CGST/IGST
+  sgst_persentage = (Number($('#sgst_persentage').val()) / 100) * total;
+  cgst_persentage = (Number($('#cgst_persentage').val()) / 100) * total;
+  igst_persentage = (Number($('#igst_persentage').val()) / 100) * total;
+  main_total = (total + sgst_persentage + cgst_persentage + igst_persentage);
+  //Display
+  $('#total_amount').val(main_total);
 }
 </script>
 <style type="text/css">

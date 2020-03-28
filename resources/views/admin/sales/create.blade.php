@@ -117,13 +117,13 @@
                         <div class="col-md-2">
                         <div class="form-group">
                         <label>Discount</label>
-                        <input class="form-control" id="disc_persentage_1" name="disc_persentage[1]" placeholder="Discount Persentage" type="text" value=""/>
+                        <input class="form-control" onKeyPress="calculateAmount(1)" onKeyDown="calculateAmount(1)" onKeyUp="calculateAmount(1)" id="disc_persentage_1" name="disc_persentage[1]" placeholder="Discount Persentage" type="text" value="0"/>
                         </div>
                         </div>
                         <div class="col-md-2">
                         <div class="form-group">
                             <label>Amount*</label>
-                            <input required="required" class="form-control" id="amount_1" name="amount[1]" placeholder="Enter Amount" type="text" value=""/>
+                            <input required="required" class="form-control amtt" id="amount_1" name="amount[1]" placeholder="Enter Amount" type="text" value=""/>
                         </div>
                         </div>
                         <div class="col-md-2">
@@ -139,25 +139,31 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             {{ Form::label('Other Charges', 'Other Charges', ['class' => '']) }}
-                            {{ Form::text('other_charges', null, array('class' => 'form-control', 'placeholder' => 'Enter Other Charges')) }}
+                            {{ Form::text('other_charges', null, array('id' => 'other_charges', 'class' => 'form-control', 'placeholder' => 'Enter Other Charges')) }}
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             {{ Form::label('GST Type', 'SGST Rate', ['class' => '']) }}
-                            {{ Form::text('sgst_persentage', null, array('class' => 'form-control', 'placeholder' => 'Enter SGST Rate')) }}
+                            {{ Form::text('sgst_persentage', null, array('id' => 'sgst_persentage','class' => 'form-control', 'placeholder' => 'Enter SGST Rate')) }}
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             {{ Form::label('CGST Type', 'CGST Rate', ['class' => '']) }}
-                            {{ Form::text('cgst_persentage', null, array('class' => 'form-control', 'placeholder' => 'Enter CGST Rate')) }}
+                            {{ Form::text('cgst_persentage', null, array('id' => 'cgst_persentage','class' => 'form-control', 'placeholder' => 'Enter CGST Rate')) }}
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             {{ Form::label('CGST Type', 'IGST Rate', ['class' => '']) }}
-                            {{ Form::text('igst_persentage', null, array('class' => 'form-control', 'placeholder' => 'Enter IGST Rate')) }}
+                            {{ Form::text('igst_persentage', null, array('id' => 'igst_persentage','class' => 'form-control', 'placeholder' => 'Enter IGST Rate')) }}
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ Form::label('Total Amount', 'Total Amount', ['class' => '']) }}
+                            {{ Form::text('total_amount_cal', null, array('id' => 'total_amount','class' => 'form-control', 'disabled' => 'disabled', 'placeholder' => '')) }}
                         </div>
                     </div>
                     <div class="col-md-12" style="height:10px;"></div>
@@ -239,14 +245,14 @@
         <div class="col-md-2">
         <div class="form-group">
             <label>Discount:</label>
-            <input class="form-control" id="disc_persentage_`+i+`" name="disc_persentage[`+i+`]" placeholder="Discount Persentage" type="text" value=""/>
+            <input class="form-control" onKeyPress="calculateAmount(`+i+`)" onKeyDown="calculateAmount(`+i+`)" onKeyUp="calculateAmount(`+i+`)" id="disc_persentage_`+i+`" name="disc_persentage[`+i+`]" placeholder="Discount Persentage" type="text" value="0"/>
         </div>
         </div>
 
         <div class="col-md-2">
         <div class="form-group">
             <label>Amount*</label>
-            <input required="required" class="form-control" id="amount_`+i+`" name="amount[`+i+`]" placeholder="Enter Amount" type="text" value=""/>
+            <input required="required" class="form-control amtt" id="amount_`+i+`" name="amount[`+i+`]" placeholder="Enter Amount" type="text" value=""/>
         </div>
         </div>
 
@@ -305,11 +311,53 @@ jQuery("#form-addedit").validate({
 });
 });
 function calculateAmount(id){
-  var qty = $("#quantity_" + id).val();
-  var rat = $("#rate_" + id).val();
-  var amount = (qty*rat);
-  console.log(qty);
-  $("#amount_" + id).val(amount);
+var qty = $("#quantity_" + id).val();
+var rat = $("#rate_" + id).val();
+var per = $("#disc_persentage_" + id).val(); 
+if(Number(per) > 0){
+var amount = (qty*rat);
+var percentenge = (Number(per) / 100) * amount;
+var final = (amount -percentenge);
+if(final > 0){
+$("#amount_" + id).val(final);
+}else{
+$("#amount_" + id).val(0);
+}
+}else{
+var amount = (qty*rat);
+$("#amount_" + id).val(amount);
+}
+getTotalValue();
+}
+$( "#other_charges" ).keyup(function() {
+getTotalValue();
+});
+$( "#sgst_persentage" ).keyup(function() {
+getTotalValue();
+});
+$( "#cgst_persentage" ).keyup(function() {
+getTotalValue();
+});
+$( "#igst_persentage" ).keyup(function() {
+getTotalValue();
+});
+function getTotalValue(){
+var total = 0;
+var main_total = 0;
+//Geting the Dynamic Field Value
+$( ".amtt" ).each(function( index ) {
+total += Number($( this ).val());
+});
+//Adding Other Charges
+total +=  Number($('#other_charges').val());
+console.log(total);
+//SGST/CGST/IGST
+sgst_persentage = (Number($('#sgst_persentage').val()) / 100) * total;
+cgst_persentage = (Number($('#cgst_persentage').val()) / 100) * total;
+igst_persentage = (Number($('#igst_persentage').val()) / 100) * total;
+main_total = (total + sgst_persentage + cgst_persentage + igst_persentage);
+//Display
+$('#total_amount').val(main_total);
 }
 </script>
 <style type="text/css">
