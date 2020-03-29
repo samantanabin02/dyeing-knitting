@@ -149,8 +149,8 @@ class ManufacturingEntryOneExport implements FromCollection, WithHeadings, Shoul
             '',
             ''
         ],[
-            'Challan No.',
-            'Challan Date',
+            'Invoice No.',
+            'Invoice Date',
             'Knitting Company',
             'Item Name',
             'Quantity',
