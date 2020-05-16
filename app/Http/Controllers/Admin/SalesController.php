@@ -1,7 +1,9 @@
 <?php
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\MainExport;
 use App\Exports\SalesExport;
+use App\Exports\SalesItemExport;
 use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\Delivery;
@@ -175,6 +177,10 @@ class SalesController extends Controller
         $req                       = $request->all();
         $search_data               = [];
         $search_data['search_key'] = $req['export_search_key'];
+        return Excel::download(new MainExport(['sale','saleItem'],$search_data), 'main.xlsx');
+    }
+    public function export_data_two($search_data)
+    {
         return Excel::download(new SalesExport($search_data), 'sales.xlsx');
     }
     protected function validator(array $data)
