@@ -27,6 +27,12 @@
           {{ Form::close() }} 
           <a href="#" data-toggle="modal" data-target="#multi_delete" id="multi_delete_btn" class="form-control btn btn-danger">Multiple Delete</a> 
         </div>
+        <div class="col-md-2 col-xs-6 mrgb">
+          {{ Form::open(['route' => ['sales.export'], 'method' => 'post', 'id' => 'export_form', 'class' => '']) }}
+          {{ Form::hidden('export_search_key',request()->input('search_key'), array('id'=>'export_search_key')) }}
+          {{ Form::button('Export', ['type' => 'submit', 'class' => 'form-control btn btn-primary btn-block-xs', 'id' => 'export-submit-btn'] )  }}
+          {{ Form::close() }} 
+        </div>
         <div class="col-md-2 col-xs-6 mrgb" style="float:right;">
           <a href="{{ route('sales.create') }}" class="form-control btn btn-info">Create New</a>
         </div>

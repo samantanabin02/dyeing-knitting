@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\SalesExport;
 use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\Delivery;
@@ -10,6 +11,7 @@ use App\SalesItemQuantity;
 use App\UnitType;
 use DB;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Validator;
 
 class SalesController extends Controller
@@ -166,6 +168,14 @@ class SalesController extends Controller
         } else {
             return redirect()->route('sales.index')->with('error', 'Select record(s) form list for delete.');
         }
+    }
+    public function export_data(Request $request)
+    {
+        //echo phpinfo();die;
+        $req                       = $request->all();
+        $search_data               = [];
+        $search_data['search_key'] = $req['export_search_key'];
+        return Excel::download(new SalesExport($search_data), 'sales.xlsx');
     }
     protected function validator(array $data)
     {

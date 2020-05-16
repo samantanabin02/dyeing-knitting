@@ -261,6 +261,10 @@ Route::prefix('admin')->group(function () {
             array('as' => 'deliveries.export',
                 'uses'     => 'DeliveryController@export_data',
             ));
+        Route::post('sales-export',
+            array('as' => 'sales.export',
+                'uses'     => 'SalesController@export_data',
+            ));
         //+++++++++++++++++++++++++++++++++++++++++++++++++
 
     });
