@@ -96,13 +96,14 @@ class ManufacturingEntryOneExport implements FromCollection, WithHeadings, Shoul
             }
 
             $exports_data[] = $export_data_row;
-
+            $tot_pq=0;
             $purchase_quantity_data = PurchaseItemQuantity::select('purchase_id as challan_no', 'purchase_id as challan_date', 'purchase_id as purchaser_name', 'item_id as pitem_name', 'quantity as pitem_quantity', 'unit_id as pitem_unit')->where('purchase_id', $purchase_data->purchase_id)->get();
-
             //echo '<pre>';print_r($purchase_quantity_data);die;
-
             if ($purchase_quantity_data != '') {
                 foreach ($purchase_quantity_data as $pitem_key => $purchase_quantity_row) {
+                    if($purchase_quantity_row->pitem_quantity!=''){
+                      $tot_pq=$tot_pq+$purchase_quantity_row->pitem_quantity;
+                    }
                     $purchase_quantity_data[$pitem_key]->challan_no       = '';
                     $purchase_quantity_data[$pitem_key]->challan_date     = '';
                     $purchase_quantity_data[$pitem_key]->purchaser_name = '';
@@ -174,7 +175,7 @@ class ManufacturingEntryOneExport implements FromCollection, WithHeadings, Shoul
                     $manufacturing_dquantity_data[$ditem_key]->ditem_name = '';
                     }
                     if($mdc==$manufacturing_dquantity_count){
-                    $manufacturing_dquantity_data[$ditem_key]->bal_quantity = $tot_mq-$tot_mdq; 
+                    $manufacturing_dquantity_data[$ditem_key]->bal_quantity = $tot_pq-$tot_mdq; 
                     }else{
                     $manufacturing_dquantity_data[$ditem_key]->bal_quantity = ''; 
                     }
