@@ -11,8 +11,14 @@
     <div class="col-xs-12 clearfix">
       <div class=" row form-group">
         {{ Form::open(['route' => 'purchase-index', 'method' => 'post', 'class' => '', 'id' => 'form-search']) }}
-            <div class="col-md-3 mrgb">
+            <div class="col-md-2 mrgb">
             {{ Form::text('search_key', request()->input('search_key'), ['id' => 'search_key', 'class' => 'form-control', 'placeholder' => 'Enter search key']) }}
+            </div>
+            <div class="col-md-2 mrgb">
+            {{ Form::select('purchase_company', $companies , request()->input('purchase_company'), ['placeholder' => 'Select Purchase Company', 'id' => 'purchase_company', 'class' => 'form-control select2']) }}
+            </div>
+            <div class="col-md-2 mrgb">
+            {{ Form::select('transfer_company', $companies , request()->input('transfer_company'), ['placeholder' => 'Select Transfer Company', 'id' => 'transfer_company', 'class' => 'form-control select2']) }}
             </div>
             <div class="col-md-1 col-xs-6 mrgb">
             {{ Form::button('Search', ['type' => 'submit', 'class' => 'form-control btn btn-primary btn-block-xs', 'id' => 'submit-btn'] )  }}
@@ -21,14 +27,23 @@
             <a href="{{ route('purchase.index') }}" id="cancel-btn" class="form-control btn btn-warning btn-block-xs">Reset</a>
             </div>
         {{ Form::close() }}
+
         <div class="col-md-2 col-xs-6 mrgb" >
           {{ Form::open(['route' => ['purchase-delete'], 'method' => 'post', 'id' => 'multi_delete_form', 'class' => '']) }}
           {{ Form::hidden('deletable_ids','', array('id'=>'deletable_ids')) }}
           {{ Form::close() }} 
           <a href="#" data-toggle="modal" data-target="#multi_delete" id="multi_delete_btn" class="form-control btn btn-danger">Multiple Delete</a> 
         </div>
-        <div class="col-md-2 col-xs-6 mrgb" style="float:right;">
-          <a href="{{ route('purchase.create') }}" class="form-control btn btn-info">Create New</a>
+        <div class="col-md-1 col-xs-6 mrgb">
+          {{ Form::open(['route' => ['purchase.export'], 'method' => 'post', 'id' => 'export_form', 'class' => '']) }}
+          {{ Form::hidden('export_search_key',request()->input('search_key'), array('id'=>'export_search_key')) }}
+          {{ Form::hidden('export_purchase_company',request()->input('purchase_company'), array('id'=>'export_purchase_company')) }}
+          {{ Form::hidden('export_transfer_company',request()->input('transfer_company'), array('id'=>'export_transfer_company')) }}
+          {{ Form::button('Export', ['type' => 'submit', 'class' => 'form-control btn btn-primary btn-block-xs', 'id' => 'export-submit-btn'] )  }}
+          {{ Form::close() }} 
+        </div>
+        <div class="col-md-1 col-xs-6 mrgb">
+          <a href="{{ route('purchase.create') }}" class="form-control btn btn-info" style="font-size: 12px !important;">Create New</a>
         </div>
       </div>
       @if (count($errors) > 0)

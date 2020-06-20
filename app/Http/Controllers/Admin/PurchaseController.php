@@ -2,6 +2,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Exports\PurchaseExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Company;
 use App\Models\Item;
 use App\Purchase;
@@ -16,11 +18,28 @@ class PurchaseController extends Controller
     public function index(Request $request)
     {
         $req    = $request->all();
-        $datums = Purchase::select('purchase.*', 'company.*')
+        $query = Purchase::select('purchase.*', 'company.*')
             ->join('company', 'company.company_id', '=', 'purchase.purchase_company_id')
-            ->where('purchase.deleted_at', 1)->orderBy('purchase.purchase_id', 'desc')->paginate(10);
-        return view('admin.purchased.index', ['datums' => $datums]);
+            ->where('purchase.deleted_at', 1);
+        if ($request->has('search_key') && $req['search_key']!='') {
+            $query->where(function ($query) use ($req) {
+                $query->where('invoice_challan_no', 'like', '%' . $req['search_key'] . '%');
+                $query->orWhere('invoice_date', 'like', '%' . $req['search_key'] . '%');
+                $query->orWhere('sgst_persentage', 'like', '%' . $req['search_key'] . '%');
+                $query->orWhere('cgst_persentage', 'like', '%' . $req['search_key'] . '%');
+            });
+        }
+        if ($request->has('purchase_company') && $req['purchase_company'] != null) {
+            $query->where('purchase.purchase_company_id', $req['purchase_company']);
+        }
+        if ($request->has('transfer_company') && $req['transfer_company'] != null) {
+            $query->where('purchase.material_transfer_company_id', $req['transfer_company']);
+        }
+        $datums = $query->orderBy('purchase.purchase_id', 'desc')->paginate(10);
+        $companies=Company::select('company_id','company_name')->pluck('company_name','company_id');
+        return view('admin.purchased.index', compact('datums','companies'));
     }
+
     public function create()
     {
         $item      = Item::select('id', 'item_name')->get();
@@ -148,6 +167,17 @@ class PurchaseController extends Controller
             return redirect()->route('purchase.index')->with('error', 'Select record(s) form list for delete.');
         }
     }
+
+    public function export_data(Request $request)
+    {
+        $req  = $request->all();
+        $search_data=[];
+        $search_data['search_key']=$req['export_search_key'];
+        $search_data['purchase_company']=$req['export_purchase_company'];
+        $search_data['transfer_company']=$req['export_transfer_company'];
+        return Excel::download(new PurchaseExport($search_data), 'Purchase.xlsx');
+    }
+
     protected function validator(array $data)
     {
         return Validator::make(

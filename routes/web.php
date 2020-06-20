@@ -215,6 +215,10 @@ Route::prefix('admin')->group(function () {
             array('as' => 'purchase-delete',
                 'uses'     => 'PurchaseController@multi_destroy',
             ));
+        Route::post('purchase-export',
+            array('as' => 'purchase.export',
+                'uses'     => 'PurchaseController@export_data',
+            ));
         //+++++++++++++++++++++++++++++++++++++++++++++++++
         Route::resource('sales', 'SalesController');
         Route::get('sales-index',
