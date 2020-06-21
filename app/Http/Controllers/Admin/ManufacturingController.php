@@ -211,7 +211,9 @@ class ManufacturingController extends Controller
     public function destroy($id)
     {
         $data = Manufacturing::find($id);
-        if ($data->update(['deleted_at'=>date('Y-m-d H:i:s')])) {
+        if ($data->delete()) {
+            DB::table('manufacturing_quantity')->where('manufacturing_id', $id)->delete();
+            DB::table('manufacturing_dquantity')->where('manufacturing_id', $id)->delete();
             return redirect()->route('manufacturings.index')->with('success', 'Successfully deleted.');
         }
     }
@@ -224,7 +226,11 @@ class ManufacturingController extends Controller
         $deletable_ids = explode(',', $deletable_ids);
         if (count($deletable_ids) > 0) {
             foreach ($deletable_ids as $deletable_id) {
-                $this->destroy($deletable_id);
+                $data = Manufacturing::find($deletable_id);
+                if ($data->delete()) {
+                  DB::table('manufacturing_quantity')->where('manufacturing_id', $deletable_id)->delete();
+                  DB::table('manufacturing_dquantity')->where('manufacturing_id', $deletable_id)->delete();
+                }
             }
             return redirect()->route('manufacturings.index')->with('success', 'Successfully deleted.');
         } else {

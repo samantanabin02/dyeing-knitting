@@ -1,23 +1,12 @@
 @extends('admin.layouts.AdminPanel')
 
 @section('title')
-	User Add
+	Company Add
 @endsection
 
 @section('content')
    {{ Html::style('resources/views/admin/assets/bower_components/select2/dist/css/select2.min.css') }}
    {{ Html::style('resources/views/admin/assets/bower_components/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }} 
-    <!--<section class="content-header">
-        <h1>
-            User
-            <small>Create</small>
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="{{ url('admin/home') }}"><i class="fa fa-dashboard"></i>Home</a></li>
-            <li><a href="{{ route('users.index') }}">User</a></li>
-            <li class="active">Add</li>
-        </ol>
-    </section> -->
     <section class="content">
       <div class="box box-default">
         <div class="box-header with-border">

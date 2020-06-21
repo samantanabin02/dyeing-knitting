@@ -27,7 +27,8 @@ class PurchaseExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
     public function collection()
     {
         $search_data = $this->search_data;
-        $query = Purchase::select('purchase_id', 'invoice_challan_no as invoice_no','invoice_date', 'purchase_company_id as purchaser_name', 'purchase_id as pitem_name', 'purchase_id as pitem_quantity', 'purchase_id as pitem_rate', 'purchase_id as pitem_amount','purchase_id as blank_space','material_transfer_company_id as transfer_company')
+        $query = Purchase::select('purchase_id', 'invoice_challan_no as invoice_no','invoice_date', 'purchase_company_id as purchaser_name', 'purchase_id as pitem_name', 'purchase_id as pitem_quantity', 'purchase_id as pitem_rate', 'purchase_id as pitem_amount','purchase_id as blank_space','material_transfer_company_id as transfer_company','manufacturings.tot_knit_quan','manufacturings.serial_no','manufacturings.tot_dyeing_quan')
+            ->leftjoin('manufacturings','manufacturings.challan_no','=','purchase.purchase_id')
             ->where('purchase.deleted_at', 1);
         if(isset($search_data['search_key']) && $search_data['search_key'] != '') {
             $query->where(function ($query) use ($search_data) {
@@ -74,10 +75,13 @@ class PurchaseExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
             }else{
               $export_data[$key]->transfer_company = '';
             }
-            $export_data[$key]->quantity = '';
-            $export_data[$key]->challan_no     = '';
-            $export_data[$key]->lquantity   = '';
-            $export_data[$key]->balance_quantity   = '';
+            $tot_knit_quan=$export_data_row->tot_knit_quan;
+            $tot_dyeing_quan=$export_data_row->tot_dyeing_quan;
+            $balance_quantity=0;
+            if (is_numeric($tot_knit_quan) && is_numeric($tot_dyeing_quan)) {
+            $balance_quantity=$tot_knit_quan-$tot_dyeing_quan;
+            }
+            $export_data[$key]->balance_quantity = $balance_quantity;
             $exports_data[] = $export_data_row;
             $purchase_quantity_data = PurchaseItemQuantity::select('purchase_id as invoice_no', 'purchase_id as invoice_date', 'purchase_id as purchaser_name', 'item_id as pitem_name', 'quantity as pitem_quantity', 'rate as pitem_rate', 'amount as pitem_amount')->where('purchase_id', $purchase_id)->get();
             //echo '<pre>';print_r($purchase_quantity_data);die;

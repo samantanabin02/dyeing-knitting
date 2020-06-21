@@ -104,10 +104,10 @@
                         <a style="margin-right: 10px; font-size: 16px;" href="{{ route('manufacturings.edit',  $data->id) }}" title="Edit">
                            <i class="fa fa-edit"></i>
                         </a>
-                        <a style="font-size: 16px;" href="#myModal" data-toggle="modal"  title="Delete">
+                        <a style="font-size: 16px;" href="#myModal" data-toggle="modal"  title="Delete" data-id="{{ $data->id }}" class="single_delete">
                           <i class="fa fa-trash"> </i>
                         </a>
-                        {{ Form::open(['route' => ['manufacturings.destroy', $data->id], 'class' => 'form-horizontal', 'id' => "delete-form" ]) }}
+                        {{ Form::open(['route' => ['manufacturings.destroy', $data->id], 'class' => 'form-horizontal', 'id' => "delete-form-".$data->id ]) }}
                         {{ Form::hidden('_method', 'DELETE') }}
                         {{ Form::close() }}
                       </td>
@@ -115,6 +115,9 @@
                   <?php }}?>
                 </tbody>
               </table>
+              <div style="float:right;">
+                {!! $datums->links() !!}
+              </div>
             </div>
           </div>
         </div>
@@ -124,10 +127,11 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
+          <input type="hidden" id="element_id" value="">
           <p>
           Are you sure to delete this manufacturing?
           <button type="button" style="float:right; margin-left:10px;"class="btn btn-default" data-dismiss="modal">No</button>
-          <button type="button"  style="float:right;" onclick="event.preventDefault();document.getElementById('delete-form').submit();" class="btn btn-default" data-dismiss="modal">Yes</button>
+          <button type="button"  style="float:right;" id="single_delete_button" class="btn btn-default" data-dismiss="modal">Yes</button>
           </p>
         </div>
       </div>
@@ -155,7 +159,6 @@
     }
   </style>
   <script type="text/javascript">
-    var allVals = [];
     jQuery(document).ready(function(){
       jQuery('#multi_check').click(function(){
         if (jQuery("#multi_check").is(':checked')) {
@@ -169,6 +172,7 @@
         }
       });
       jQuery('#multi_delete_btn').click(function(){
+        var allVals = [];
         jQuery("input:checkbox[name=single_check]:checked").each(function(){
           allVals.push(jQuery(this).val());
         });
@@ -181,6 +185,17 @@
             jQuery('#mltdltp').show();
           }
       });
+
+      jQuery('.single_delete').click(function(){
+        var element_id=$(this).data("id");
+        $('#element_id').val(element_id);
+      });
+
+      jQuery('#single_delete_button').click(function(){
+        var element_id=$('#element_id').val();
+        $('#delete-form-'+element_id).submit();
+      });
+      
     });
 </script>
   @endsection

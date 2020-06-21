@@ -1,6 +1,6 @@
 @extends('admin.layouts.AdminPanel')
 @section('title')
-  User Show
+  Company Show
 @endsection
 @section('content')
 <section class="content-header">
@@ -92,6 +92,9 @@
                   <?php }}?>
                 </tbody>
               </table>
+              <div style="float:right;">
+                {!! $datums->links() !!}
+              </div>
             </div>
           </div>
         </div>
@@ -102,7 +105,7 @@
       <div class="modal-content">
         <div class="modal-body">
           <p>
-          Are you sure to delete this user?
+          Are you sure to delete this company?
           <button type="button" style="float:right; margin-left:10px;"class="btn btn-default" data-dismiss="modal">No</button>
           <button type="button"  style="float:right;" onclick="event.preventDefault();document.getElementById('delete-form').submit();" class="btn btn-default" data-dismiss="modal">Yes</button>
           </p>
@@ -115,10 +118,10 @@
       <div class="modal-content">
         <div class="modal-body">
           <p id="mltdltchkp">
-          Please select any user to delete.<button type="button" style="float:right;"class="btn btn-default" data-dismiss="modal">Ok</button>
+          Please select any company to delete.<button type="button" style="float:right;"class="btn btn-default" data-dismiss="modal">Ok</button>
           </p>
           <p id="mltdltp">
-          Are you sure to delete these user?
+          Are you sure to delete these company?
           <button type="button" style="float:right; margin-left:10px;"class="btn btn-default" data-dismiss="modal">No</button>
           <button type="button"  style="float:right;" onclick="event.preventDefault();document.getElementById('multi_delete_form').submit();" class="btn btn-default" data-dismiss="modal">Yes</button>
           </p>

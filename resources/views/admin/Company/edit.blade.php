@@ -1,20 +1,9 @@
 @extends('admin.layouts.AdminPanel')
 @section('title')
-	User Edit
+	Company Edit
 @endsection
 @section('content')
 	{{ Html::style('resources/views/admin/assets/bower_components/select2/dist/css/select2.min.css') }}
-    <!-- <section class="content-header">
-        <h1>
-            User
-            <small>Edit</small>
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="{{ url('admin/dashboard') }}"><i class="fa fa-dashboard"></i>Home</a></li>
-            <li><a href="{{ route('users.index') }}">User</a></li>
-            <li class="active">Edit</li>
-        </ol>
-    </section> -->
     <section class="content">
       <div class="box box-default">
         <div class="box-header with-border">
@@ -26,10 +15,11 @@
         </div>
         <div class="box-body">
 			<div class="row">
-            {{ Form::model($data, ['url' => ['admin/company', $data->id], 'method' => 'POST', 'files' => true, 'class' => '', 'id' => 'form-addedit','enctype' => 'multipart/form-data']) }}
-                               <div class="col-md-12">
+            {{ Form::model($data, ['url' => ['admin/company/update'], 'method' => 'PUT', 'files' => true, 'class' => '', 'id' => 'form-addedit','enctype' => 'multipart/form-data']) }}
+                <div class="col-md-12">
                     <div class="col-md-6">
                     <div class="form-group">
+                        <input type="hidden" name="company_id" value="{{$data->company_id}}">
                         {{ Form::label('Company Name', 'Company Name *', ['class' => '']) }}
                         {{ Form::text('company_name', null, array('class' => 'form-control', 'placeholder' => 'Enter Company Name')) }}
                         @if ($errors->has('name'))

@@ -133,6 +133,10 @@ Route::prefix('admin')->group(function () {
             array('as' => 'company-index',
                 'uses'     => 'CompanyController@index',
             ));
+        Route::post('company/update',
+            array('as' => 'company.update',
+                'uses'     => 'CompanyController@update',
+            ));
         Route::post('company-delete',
             array('as' => 'company-delete',
                 'uses'     => 'CompanyController@multi_destroy',

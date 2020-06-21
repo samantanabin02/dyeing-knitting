@@ -101,6 +101,9 @@
                   <?php }}?>
                 </tbody>
               </table>
+              <div style="float:right;">
+                {!! $datums->links() !!}
+              </div>
             </div>
           </div>
         </div>

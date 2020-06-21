@@ -68,7 +68,8 @@
                 <th width="3%">{{ Form::checkbox('multi_check',null,null, array('id'=>'multi_check')) }}</th>
                 <th>Invoice Challan No</th>
                 <th>Invoice Date</th>
-                <th>Company Name</th>
+                <th>Purchase Company</th>
+                <th>Transfer Company</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -82,15 +83,16 @@
                       <td>{{ Form::checkbox('single_check',$data->purchase_id,null, array('id'=>'single_check','class'=>'single_check')) }}</td>
                       <td>{{ $data->invoice_challan_no }}</td>
                       <td>{{ $data->invoice_date }}</td>
-                      <td>{{ $data->company_name }}</td>
+                      <td>{{ (isset($companies[$data->purchase_company_id]))?$companies[$data->purchase_company_id]:'' }}</td>
+                      <td>{{ (isset($companies[$data->material_transfer_company_id]))?$companies[$data->material_transfer_company_id]:'' }}</td>
                       <td>
                       <a style="margin-right: 10px; font-size: 16px;" href="{{ route('purchase.edit',  $data->purchase_id) }}" title="Edit">
                            <i class="fa fa-edit"></i>
                       </a>
-                      <a style="font-size: 16px;" href="#myModal" data-toggle="modal"  title="Delete">
+                      <a style="font-size: 16px;" href="#myModal" data-toggle="modal"  title="Delete" data-id="{{ $data->purchase_id }}" class="single_delete">
                         <i class="fa fa-trash"> </i>
                       </a>
-                      {{ Form::open(['route' => ['purchase.destroy', $data->purchase_id], 'class' => 'form-horizontal', 'id' => "delete-form" ]) }}
+                      {{ Form::open(['route' => ['purchase.destroy', $data->purchase_id], 'class' => 'form-horizontal', 'id' => "delete-form-".$data->purchase_id ]) }}
                       {{ Form::hidden('_method', 'DELETE') }}
                       {{ Form::close() }}
                       </td>
@@ -98,6 +100,9 @@
                   <?php }}?>
                 </tbody>
               </table>
+              <div style="float:right;">
+                {!! $datums->links() !!}
+              </div>
             </div>
           </div>
         </div>
@@ -107,10 +112,11 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
+          <input type="hidden" id="element_id" value="">
           <p>
-          Are you sure to delete this item?
+          Are you sure to delete this purchase item?
           <button type="button" style="float:right; margin-left:10px;"class="btn btn-default" data-dismiss="modal">No</button>
-          <button type="button"  style="float:right;" onclick="event.preventDefault();document.getElementById('delete-form').submit();" class="btn btn-default" data-dismiss="modal">Yes</button>
+          <button type="button"  style="float:right;" id="single_delete_button" class="btn btn-default" data-dismiss="modal">Yes</button>
           </p>
         </div>
       </div>
@@ -121,10 +127,10 @@
       <div class="modal-content">
         <div class="modal-body">
           <p id="mltdltchkp">
-          Please select any item to delete.<button type="button" style="float:right;"class="btn btn-default" data-dismiss="modal">Ok</button>
+          Please select any purchase item to delete.<button type="button" style="float:right;"class="btn btn-default" data-dismiss="modal">Ok</button>
           </p>
           <p id="mltdltp">
-          Are you sure to delete these item?
+          Are you sure to delete these purchase item?
           <button type="button" style="float:right; margin-left:10px;"class="btn btn-default" data-dismiss="modal">No</button>
           <button type="button"  style="float:right;" onclick="event.preventDefault();document.getElementById('multi_delete_form').submit();" class="btn btn-default" data-dismiss="modal">Yes</button>
           </p>
@@ -138,7 +144,7 @@
     }
   </style>
   <script type="text/javascript">
-    var allVals = [];
+    
     jQuery(document).ready(function(){
       jQuery('#multi_check').click(function(){
         if (jQuery("#multi_check").is(':checked')) {
@@ -152,6 +158,7 @@
         }
       });
       jQuery('#multi_delete_btn').click(function(){
+        var allVals = [];
         jQuery("input:checkbox[name=single_check]:checked").each(function(){
           allVals.push(jQuery(this).val());
         });
@@ -164,6 +171,17 @@
             jQuery('#mltdltp').show();
           }
       });
+      
+      jQuery('.single_delete').click(function(){
+        var element_id=$(this).data("id");
+        $('#element_id').val(element_id);
+      });
+
+      jQuery('#single_delete_button').click(function(){
+        var element_id=$('#element_id').val();
+        $('#delete-form-'+element_id).submit();
+      });
+
     });
 </script>
   @endsection

@@ -72,8 +72,9 @@ class CompanyController extends Controller
         return view('admin.Company.edit', ['data' => $data]);
     }
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+        $id=$request->company_id;
         $validator              = $this->validator($request->all())->validate();
         $data                   = Company::find($id);
         $data->company_name     = $request->company_name;

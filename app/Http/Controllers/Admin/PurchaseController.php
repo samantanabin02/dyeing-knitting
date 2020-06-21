@@ -18,8 +18,7 @@ class PurchaseController extends Controller
     public function index(Request $request)
     {
         $req    = $request->all();
-        $query = Purchase::select('purchase.*', 'company.*')
-            ->join('company', 'company.company_id', '=', 'purchase.purchase_company_id')
+        $query = Purchase::select('purchase.*')
             ->where('purchase.deleted_at', 1);
         if ($request->has('search_key') && $req['search_key']!='') {
             $query->where(function ($query) use ($req) {
@@ -160,7 +159,10 @@ class PurchaseController extends Controller
         $deletable_ids = explode(',', $deletable_ids);
         if (count($deletable_ids) > 0) {
             foreach ($deletable_ids as $deletable_id) {
-                $this->destroy($deletable_id);
+                $data = Purchase::find($deletable_id);
+                if ($data->delete()) {
+                  DB::table('purchase_item_quantity')->where('purchase_id', $deletable_id)->delete();
+                }
             }
             return redirect()->route('purchase.index')->with('success', 'Successfully deleted.');
         } else {
